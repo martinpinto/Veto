@@ -1,0 +1,28 @@
+{
+  "name": "es_template",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.10.2",
+    "cookie-parser": "~1.3.3",
+    "debug": "~2.1.1",
+    "express": "~4.11.1",
+    "hjs": "~0.0.6",
+    "morgan": "~1.5.1",
+    "serve-favicon": "~2.2.0",
+    "elasticsearch": "x.x.x",
+    "mongoose": "x.x.x",
+    "sugar": "x.x.x",
+    "acquire": "git://github.com/njpatel/acquire.git",
+    "assert": "x.x.x",
+    "config": "x.x.x",
+    "mocha": "x.x.x"
+  },
+  "engines": {
+    "node": "x.x.x",
+    "npm": "x.x.x"
+  }
+}

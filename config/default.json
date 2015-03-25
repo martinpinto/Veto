@@ -1,0 +1,21 @@
+{
+  "engine": {
+    "dbConfig": {
+      "mongodb": {
+        "url": "mongodb://wedding_user:333mpb77@localhost:27017/weddingSite",
+        "user": "wedding_user",
+        "pass": "333mpb77",
+        "host": "localhost",
+        "port": "27017",
+        "index": "weddingSite"
+      },
+      "elasticsearch": {
+        "host": "127.0.0.1",
+        "port": 9200,
+        "log": "trace",
+        "index": "elastictwitter",
+        "type": "tweets"
+      }
+    }
+  }
+}
