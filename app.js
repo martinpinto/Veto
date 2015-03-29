@@ -7,20 +7,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./private/routes/index');
-var users = require('./private/routes/users');
 
-// activate mongodb and its routes
-//var dbroutes = require('./private/routes/mongodb/dbroutes');
 // activate elasticsearch and its routes
-var twitter = require('./private/routes/elasticsearch/twitter');
+var api = require('./private/routes/elasticsearch/api');
 
 var app = express();
 
 // set the routes in express
 app.use('/', routes);
-app.use('/users', users);
-//app.use('/mongo', dbroutes); // mongodb routes
-app.use('/elasticsearch', twitter); // elasticsearch routes
+app.use('/v1', api); // elasticsearch routes
 
 // view engine setup
 app.set('views', path.join(__dirname, 'private/views'));
