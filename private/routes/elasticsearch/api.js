@@ -3,21 +3,53 @@ var router = express.Router();
 var elastic = require('../../../config/elasticsearch');
 var config = require('config');
 
-// no need to write down get('/v1/", ...) already defined in app.js
+var elasticSearchIndex = config.get('engine.dbConfig.elasticsearch.index');
+var elasticSearchType = config.get('engine.dbConfig.elasticsearch.type');
+
+/** requests validator */
+router.use(function (req, res, next) {
+  var method = '';
+  switch(method) {
+      
+    case 'authors':
+      
+      break;
+      
+    case 'quotes':
+      
+      break;
+         
+    case 'subjects':
+      
+      break;
+  }
+});
+
+/** 
+ *  Test route 
+ *  sends HTTP status 200 to show server is working OK. 
+ *  @return an HTTP status 200
+ */
 router.get('/', function (req, res) {
     console.log(req.query.name);
     console.log(req.query);
     res.send(200);
 });
 
-var elasticSearchIndex = config.get('engine.dbConfig.elasticsearch.index');
-var elasticSearchType = config.get('engine.dbConfig.elasticsearch.type');
-
+/**
+ * Fetches all authors
+ * @param
+ * @param
+ * @param
+ */
 router.get('/authors/', function (req, res) {
   
 });
 
-/** fetches an existing author by id */
+/** 
+ *  Fetches an existing author by ID 
+ *  @param id the ID of the author of the quote
+ */
 router.get('/authors/:id', function (req, res, next) {
   console.log(elastic);
     elastic.client.get({
@@ -38,7 +70,20 @@ router.get('/authors/:id', function (req, res, next) {
     });
 });
 
-/** insers a new author */
+/**
+ *  Updates an existing author
+ *  @param id the ID of the author
+ */
+router.put('/authors/:id', function (req, res) {
+  
+});
+
+/** 
+ *  Inserts a new author 
+ *  @param
+ *  @param
+ *  @param
+ */
 router.post('/authors/', function (req, res, next) {
     console.log(req);
     console.log(res);
@@ -58,9 +103,100 @@ router.post('/authors/', function (req, res, next) {
     });
 });
 
-// searches for an existing tweet
-router.get('/search_tweet/:search_string', function (req, res, next) {
-    next();
+/**
+ *  Deletes an existing author
+ *  @param id the ID of the author
+ */
+router.delete('/authors/:id', function (req, res) {
+  
+});
+
+/**
+ * Fetches all quotes
+ * @param
+ * @param
+ * @param
+ */
+router.get('/quotes/', function (req, res) {
+  
+});
+
+/** 
+ *  Fetches an existing quote by ID 
+ *  @param id the ID of the quote
+ */
+router.get('/quotes/:id', function (req, res) {
+  
+});
+
+/**
+ *  Updates an existing quote
+ *  @param id the ID of the quote
+ */
+router.put('/subjects/:id', function (req, res) {
+  
+});
+
+/** 
+ *  Inserts a new quote 
+ *  @param
+ *  @param
+ *  @param
+ */
+router.post('/quotes/', function (req, res) {
+  
+});
+
+/**
+ *  Deletes an existing quote
+ *  @param id the ID of the quote
+ */
+router.delete('/quotes/:id', function (req, res) {
+  
+});
+
+/**
+ * Fetches all subjects
+ * @param
+ * @param
+ * @param
+ */
+router.get('/subjects/', function (req, res) {
+  
+});
+
+/** 
+ *  Fetches an existing suubject by ID 
+ *  @param id the ID of the subject of the quote
+ */
+router.get('/subjects/:id', function (req, res) {
+  
+});
+
+/**
+ *  Updates an existing subject
+ *  @param id the ID of the subject
+ */
+router.put('/subjects/:id', function (req, res) {
+  
+});
+
+/** 
+ *  Inserts a new subject 
+ *  @param
+ *  @param
+ *  @param
+ */
+router.post('/subjects/', function (req, res) {
+  
+});
+
+/**
+ *  Deletes an existing subject
+ *  @param id the ID of the subject
+ */
+router.delete('/subjects/:id', function (req, res) {
+  
 });
 
 module.exports = router;
