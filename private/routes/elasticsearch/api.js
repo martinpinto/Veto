@@ -7,23 +7,23 @@ var elasticSearchIndex = config.get('engine.dbConfig.elasticsearch.index');
 var elasticSearchType = config.get('engine.dbConfig.elasticsearch.type');
 
 /** requests validator */
-router.use(function (req, res, next) {
-  var method = '';
-  switch(method) {
-      
-    case 'authors':
-      
-      break;
-      
-    case 'quotes':
-      
-      break;
-         
-    case 'subjects':
-      
-      break;
-  }
-});
+//router.use(function (req, res, next) {
+//  var method = '';
+//  switch(method) {
+//      
+//    case 'authors':
+//      
+//      break;
+//      
+//    case 'quotes':
+//      
+//      break;
+//         
+//    case 'subjects':
+//      
+//      break;
+//  }
+//});
 
 /** 
  *  Test route 
@@ -43,7 +43,21 @@ router.get('/', function (req, res) {
  * @param
  */
 router.get('/authors/', function (req, res) {
-  
+//  elastic.client.get({
+//        index: elasticSearchIndex,
+//        type: elasticSearchType
+//    }, function (error, response) {
+//        console.log(response);
+//        if (response.found) {
+//            console.log('message: ' + response._source.tweet.message + 
+//                        '; user: ' + response._source.tweet.user + 
+//                        '; post_date: ' + response._source.tweet.post_date);
+//            res.send(response._source.tweet);
+//        } else {
+//            res.send('Could not find any tweets');
+//        }
+    res.render("authors");
+    
 });
 
 /** 
@@ -59,7 +73,7 @@ router.get('/authors/:id', function (req, res, next) {
     }, function (error, response) {
         console.log(response);
         if (response.found) {
-            console.log('Tweet --> id: ' + response._id + 
+            console.log('id: ' + response._id + 
                         '; message: ' + response._source.tweet.message + 
                         '; user: ' + response._source.tweet.user + 
                         '; post_date: ' + response._source.tweet.post_date);

@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
+var config = require('config');
 
 var routes = require('./private/routes/index');
 
@@ -14,9 +15,11 @@ var api = require('./private/routes/elasticsearch/api');
 
 var app = express();
 
+var currentAPIVersion = config.get('engine.currentAPIVersion');
+
 // set the routes in express
 app.use('/', routes);
-app.use('/v1', api); // elasticsearch routes
+app.use('/api' + (currentAPIVersion ? "/v" + currentAPIVersion : ""), api); // elasticsearch routes
 
 // view engine setup
 app.set('views', path.join(__dirname, 'private/views'));

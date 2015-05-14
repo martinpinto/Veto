@@ -1,20 +1,21 @@
 {
   "engine": {
+    "currentAPIVersion": 1,
     "dbConfig": {
       "mongodb": {
-        "url": "mongodb://wedding_user:333mpb77@localhost:27017/weddingSite",
-        "user": "wedding_user",
+        "url": "mongodb://elastic_user:333mpb77@localhost:27017/poliquo",
+        "user": "elastic_user",
         "pass": "333mpb77",
         "host": "localhost",
         "port": "27017",
-        "index": "weddingSite"
+        "index": "poliquo"
       },
       "elasticsearch": {
         "host": "127.0.0.1",
         "port": 9200,
         "log": "trace",
-        "index": "elastictwitter",
-        "type": "tweets"
+        "index": "elastic",
+        "type": "poliquo"
       }
     }
   }
