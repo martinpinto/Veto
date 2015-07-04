@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PoliQuo Political Plattform</title>
+  <title>Veto Political Platform</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.4/cosmo/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -54,20 +54,20 @@
   <div class="jumbotron">
     <h1>Welcome to {{ title }}</h1>
     <div class="row">
-      PoliQuo is a political platform for politician and non-politician to post their opinions online
+      Veto is a political platform for politician and non-politician to post their opinions online
     </div>
   </div>
   
   <div class="container main">
     <div class="row">
       <div class="col-md-9 col-lg-9">
-        <h2>What is PoliQuo?</h2> 
-        In den demokratischen Systemen der westlichen Staaten haben sich über die Zeit zwei primäre Probleme offenbart: Zum einen ein fehlendes Interesse an den durch Politiker repräsentierten Meinungen. Zum anderen herrscht eine mangelnde Demonstration von Zustimmung oder Ablehnung durch die Gesellschaft und ein großer Unmut mit der eigenen Meinung nicht gehört oder vorverurteilt zu werden. Häufig sind es nur die Ideen, die von Populisten jeglicher Couleur und „denen, die am lautesten schreien“ hervorgebracht werden, diejenigen die wahrgenommen werden.
-        <h2>Why PoliQuo?</h2>
-        Wir zielen darauf ab eine einfach aufgebaute, repräsentative und transparente Quelle für politische Meinungen darzustellen. Die Plattform soll dazu dienen Meinungen zu veröffentlichen, sich eine Meinung zu bilden und andere Meinungen zu bewerten sowohl zu Wahlkampfzeiten, als auch auf fortlaufender Basis. PoliQuo soll eine führende Plattform für diese Zwecke sein und damit auch ein Werkzeug zur Meinungsauswertung darstellen. 
-        <h2>How does PoliQuo work?</h2>
-        Das Konzept von PoliQuo beruht darauf direkte Zitate ausschließlich von Politikern zu bewerten. Dies soll den Meinungsbildungsprozess revolutionieren. Statt von den Interpretationen der Medien abhängig zu sein, können Bürger im direkten Austausch mit dem Politiker dessen Meinung beurteilen.
-Auf PoliQuo können Benutzer Zitate von Politikern mit maximal 200 Zeichen eingeben: Entweder die Politiker selbst, oder durch Fremde mit Quellenangabe zitiert. Im Nachgang werden diese Zitate dann von Benutzern auf einer Skala hinsichtlich der Zustimmung und der Glaubwürdigkeit bewertet. PoliQuo stellt somit ein Meinungsbild der Gesellschaft dar.
+        <h2>What is Veto?</h2> 
+        In democratic systems, the Western countries have over time revealed two primary problems: On the one hand a lack of interest in the opinions represented by politicians. Secondly, there is a lack of demonstration of approval or disapproval by the population and a great discontent with one's own opinion is not heard or prejudiced to be. Often it is only the ideas that are spawned by populists of all stripes and "those who shout the loudest," those who are perceived.
+        <h2>Why Veto?</h2>
+        We aim to present a simply constructed, representative and transparent source of political opinions. The platform will serve to publish opinions to form an opinion and evaluate different opinions both for election campaigns, as well as on an ongoing basis. Veto is to be a leading platform for this purpose and therefore also constitute a tool for opinion analysis.
+        <h2>How does Veto work?</h2>
+        The concept of <i>Veto</i> based on evaluating only direct quotations from politicians. This will revolutionize the opinion-forming process. Instead of being dependend of the interpretations of the media, citizens can judge its opinion in direct exchange with the politicians.<br>
+On veto user can post quotes from politicians with a maximum of 200 characters: Either the politicians themselves, or cited by foreign source is acknowledged. These quotes are then rated on a scale of users with regard to the approval and credibility. Veto thus represents an opinion of the general population.
 
       </div>
     </div>

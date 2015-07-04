@@ -17,10 +17,6 @@ var app = express();
 
 var currentAPIVersion = config.get('engine.currentAPIVersion');
 
-// set the routes in express
-app.use('/', routes);
-app.use('/api' + (currentAPIVersion ? "/v" + currentAPIVersion : ""), api); // elasticsearch routes
-
 // view engine setup
 app.set('views', path.join(__dirname, 'private/views'));
 app.set('view engine', 'hjs');
@@ -40,6 +36,10 @@ app.use(cookieParser());
 
 // make a public folder for express available
 app.use(express.static(path.join(__dirname, 'public')));
+
+// set the routes in express
+app.use('/', routes);
+app.use('/api' + (currentAPIVersion ? "/v" + currentAPIVersion : ""), api); // elasticsearch routes
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

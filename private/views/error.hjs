@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.4/cosmo/bootstrap.min.css">
 
-<div class="jumbotron">Something unexpected happened!</div>
+<div class="jumbotron"><h1>Something unexpected happened!</h1></div>
 <h1>{{ message }}</h1>
 <h2>{{ error.status }}</h2>
 <pre>{{ error.stack }}</pre>

@@ -5,11 +5,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PoliQuo Political Plattform</title>
+  <title>Veto Political Platform</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.4/cosmo/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="../stylesheets/style.css">
 </head>
 
 <body class="all-content">
@@ -23,15 +23,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">PoliQuo</a>
+        <a class="navbar-brand" href="/">Veto</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a>
+          <li><a href="/">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li><a href="/quotes">Quotes</a>
+          <li class="active"><a href="/quotes">Quotes</a>
           </li>
           <li><a href="/authors">Authors</a>
           </li>
@@ -52,21 +52,26 @@
     <!-- /.container-fluid -->
   </nav>
   <div class="container main">
-    <div class="row">
+    <div class="row form-inline">
       <div class="col-md-9 col-lg-9">
-        <form class="form-inline" role="form">
+        <form class="form-inline" role="form" action="/api/v1/quotes" method="post">
           <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email">
+            <label for="message">Message:</label>
+            <input type="text" class="form-control" id="message" name="message">
           </div>
           <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd">
+            <label for="subject">Subject:</label>
+            <input type="text" class="form-control" id="subject" name="subject">
           </div>
-          <div class="checkbox">
-            <label><input type="checkbox"> Remember me</label>
+          <div class="form-group">
+            <label for="hashtags">Hashtags:</label>
+            <input type="text" class="form-control" id="hashtags" name="hashtags">
           </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+          <div class="form-group">
+            <label for="source">Source:</label>
+            <input type="text" class="form-control" id="source" name="source">
+          </div>
+          <input type="submit" class="btn btn-default"></input>
         </form>
       </div>
     </div>
@@ -76,7 +81,7 @@
     <div class="footer" id="footer">
       <div class="container">
         <div class="row">
-          <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
             <h3> Lorem Ipsum </h3>
             <ul>
               <li> <a href="#"> Lorem Ipsum </a> </li>
@@ -85,7 +90,7 @@
               <li> <a href="#"> Lorem Ipsum </a> </li>
             </ul>
           </div>
-          <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
             <h3> Lorem Ipsum </h3>
             <ul>
               <li> <a href="#"> Lorem Ipsum </a> </li>
@@ -94,7 +99,7 @@
               <li> <a href="#"> Lorem Ipsum </a> </li>
             </ul>
           </div>
-          <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
             <h3> Lorem Ipsum </h3>
             <ul>
               <li> <a href="#"> Lorem Ipsum </a> </li>
@@ -103,7 +108,7 @@
               <li> <a href="#"> Lorem Ipsum </a> </li>
             </ul>
           </div>
-          <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
             <h3> Lorem Ipsum </h3>
             <ul>
               <li> <a href="#"> Lorem Ipsum </a> </li>
@@ -112,7 +117,7 @@
               <li> <a href="#"> Lorem Ipsum </a> </li>
             </ul>
           </div>
-          <div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
             <h3> Lorem Ipsum </h3>
             <ul>
               <li>
@@ -149,7 +154,7 @@
 
     <div class="footer-bottom">
       <div class="container">
-        <p class="pull-left"> Copyright © PoliQuo 2015. All right reserved. </p>
+        <p class="pull-left"> Copyright © Veto 2015. All right reserved. </p>
         <div class="pull-right">
           <ul class="nav nav-pills payments">
             <li><i class="fa fa-cc-visa"></i>
@@ -166,8 +171,8 @@
     </div>
     <!--/.footer-bottom-->
 
-    <script src="javascripts/jquery-1.11.2.min.js"></script>
-    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="../javascripts/jquery-1.11.2.min.js"></script>
+    <script src="../javascripts/bootstrap.min.js"></script>
 </body>
 
 </html>

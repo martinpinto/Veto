@@ -3,17 +3,34 @@ body {
 }
 
 .all-content {
-  background-color: #FFFF77;
+  /*background-color: #FFFF77;*/
 }
 
 a {
   color: #00B7FF;
 }
 
+.btn {  
+  background-color: #FFFFCC;
+  color: black;
+}
+
+.navbar {
+  background-color: #5A107D;
+}
+
+.navbar-header {
+  background-color: #5A107D;
+}
+
+a.navbar-brand {
+  background-image: url(../images/veto-logo-sample.png) 
+}
+
 .jumbotron {
   margin-top: -20px;
   text-align: center;
-  background-color: #991000;
+  background-color: #CCCCCC;
   color: #FFFFFF;
 }
 

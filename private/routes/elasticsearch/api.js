@@ -126,13 +126,51 @@ router.delete('/authors/:id', function (req, res) {
 });
 
 /**
+ * Searches quotes
+ * @param
+ * @param
+ * @param
+ */
+router.get('/quotes/search', function (req, res) {
+  elastic.client.search({
+    index: elasticSearchIndex,
+    q: req.params.q
+  }, function (error, response) {
+    console.log(response);
+    if (response) {
+      console.log('quote: ' + response._source);
+    } else {
+      console.log('Could not find any quotes');
+    }
+  });
+  res.render('quotes');
+});
+
+/**
  * Fetches all quotes
  * @param
  * @param
  * @param
  */
-router.get('/quotes/', function (req, res) {
-  
+router.get('/quotes', function (req, res) {
+  var quotes;
+  elastic.client.search({
+    index: elasticSearchIndex,
+    q: '*:*',
+    size: 1000
+  }, function (error, response) {
+    console.log(response);
+    if (response) {
+      console.log('hits: ' + response.hits.hits);
+      quotes = response.hits.hits;
+    } else {
+      console.log('Could not find any quotes');
+      quotes = 'Could not find any quotes';
+    }
+  });
+  res.render('quotes', {
+    quotes: quotes
+  });
 });
 
 /** 
@@ -140,15 +178,27 @@ router.get('/quotes/', function (req, res) {
  *  @param id the ID of the quote
  */
 router.get('/quotes/:id', function (req, res) {
-  
+  elastic.client.get({
+    index: elasticSearchIndex,
+    type: elasticSearchType,
+    id: req.params.id
+  }, function (error, response) {
+    console.log(response);
+    if (response) {
+      console.log('quote: ' + response._source);
+    } else {
+      console.log('Could not find any quotes');
+    }
+  });
+  res.render('quotes');
 });
 
 /**
  *  Updates an existing quote
  *  @param id the ID of the quote
  */
-router.put('/subjects/:id', function (req, res) {
-  
+router.put('/quotes/:id', function (req, res) {
+  console.log(req.params.id);
 });
 
 /** 
@@ -157,8 +207,35 @@ router.put('/subjects/:id', function (req, res) {
  *  @param
  *  @param
  */
-router.post('/quotes/', function (req, res) {
+router.post('/quotes', function (req, res) {  
+  var message, subject, hashtags, source;
+  if (req.body) {
+    message = req.body.message;
+    subject = req.body.subject;
+    hashtags = req.body.hashtags;
+    source = req.body.source;
+    console.log(req.body.message);
+  }
   
+  elastic.client.index({
+    index: elasticSearchIndex,
+    type: elasticSearchType,
+    body: {
+        "quote": {
+            "message": message,
+            "subject": subject,
+            "hashtags": hashtags,
+            "source": source
+        }
+    }}, function (error, response) {
+        console.log(response);
+        res.send(req.query.message);
+  });
+  currentAPIVersion = config.get('engine.currentAPIVersion');
+  if (currentAPIVersion)
+    res.redirect('/api/v' + currentAPIVersion + '/quotes');
+  else
+    res.redirect('/api/quotes');
 });
 
 /**

@@ -5,7 +5,7 @@ var config = require('config');
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', {
-    title: "Poliquo"
+    title: "Veto"
   });
 });
 
@@ -20,8 +20,12 @@ router.get('/authors', function (req, res, next) {
 
 /* GET quotes main page. */
 router.get('/quotes', function (req, res, next) {
-  res.render('quotes', {
-  });
+  currentAPIVersion = config.get('engine.currentAPIVersion');
+  console.log(currentAPIVersion);
+  if (currentAPIVersion)
+    res.redirect('/api/v' + currentAPIVersion + '/quotes');
+  else
+    res.redirect('/api/quotes');
 });
 
 /* GET quote submit page. */
