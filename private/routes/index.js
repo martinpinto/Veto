@@ -5,32 +5,24 @@ var config = require('config');
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', {
-    title: "Veto"
+    title: config.get("engine.name")
   });
 });
 
 /* GET authors main page. */
 router.get('/authors', function (req, res, next) {
-  currentAPIVersion = config.get('engine.currentAPIVersion');
-  if (currentAPIVersion)
-    res.redirect('/api/v' + currentAPIVersion + '/authors');
-  else
-    res.redirect('/api/authors');
+  //currentAPIVersion = config.get('engine.currentAPIVersion');
+  res.render('authors');
 });
 
 /* GET quotes main page. */
 router.get('/quotes', function (req, res, next) {
-  currentAPIVersion = config.get('engine.currentAPIVersion');
-  console.log(currentAPIVersion);
-  if (currentAPIVersion)
-    res.redirect('/api/v' + currentAPIVersion + '/quotes');
-  else
-    res.redirect('/api/quotes');
+  res.render('quotes');
 });
 
 /* GET quote submit page. */
-router.get('/submit', function (req, res, next) {
-  res.render('submit', {
+router.get('/quotes/submit', function (req, res, next) {
+  res.render('submitQuotes', {
   });
 });
 

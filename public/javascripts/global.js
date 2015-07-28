@@ -13,9 +13,22 @@ function populateQuotesTable() {
 
     // Empty content string
     var tableContent = '';
-
-    // jQuery AJAX call for JSON
-    $.getJSON('/api/v1/quotes', function( data ) {
+  
+  var data = {
+      size: 5 // get 5 results
+      q: 'type:quote' // query on the title field for 'jones'
+    };
+    $.ajax({
+      url: '/api/v1/quotes',
+      dataType: 'jsonp',
+      success: function(data) {
+        alert('Total results found: ' + data.hits.total)
+      }
+    });
+  alert(data);
+  // jQuery AJAX call for JSON
+    $.ajax('/api/v1/quotes', function( data ) { // TODO: automate api call version
+        alert(data);
 
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
