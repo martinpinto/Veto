@@ -1,3 +1,6 @@
+/*
+ * This router handler handles all calls to the API.
+ */
 var express = require('express');
 var router = express.Router();
 var elastic = require('../../../config/elasticsearch');
@@ -22,6 +25,8 @@ router.get('/', function (req, res) {
     res.send(200);
 });
 
+///////////////////////////////// AUTHORS /////////////////////////////////
+
 /**
  * Fetches all authors
  * @param
@@ -29,21 +34,18 @@ router.get('/', function (req, res) {
  * @param
  */
 router.get('/authors/', function (req, res) {
-//  elastic.client.get({
-//        index: esIndex,
-//        type: esTypeAuthors
-//    }, function (error, response) {
-//        console.log(response);
-//        if (response.found) {
-//            console.log('message: ' + response._source.tweet.message + 
-//                        '; user: ' + response._source.tweet.user + 
-//                        '; post_date: ' + response._source.tweet.post_date);
-//            res.send(response._source.tweet);
-//        } else {
-//            res.send('Could not find any tweets');
-//        }
-    res.render("authors");
-    
+  elastic.client.search({
+    index: esIndex,
+    type: esTypeAuthors,
+    q: 'type:author',
+    size: 1000
+  }, function (error, response) {
+    if (response) {
+      res.json(response.hits.hits);
+    } else {
+      res.send('Could not find any authors!');
+    }
+  });
 });
 
 /** 
@@ -51,19 +53,18 @@ router.get('/authors/', function (req, res) {
  *  @param id the ID of the author of the quote
  */
 router.get('/authors/:id', function (req, res, next) {
-  console.log(elastic);
-    elastic.client.get({
-        index: esIndex,
-        type: esTypeAuthors,
-        id: req.params.id
-    }, function (error, response) {
-        console.log(response);
-        if (response.found) {
-            
-        } else {
-            res.send('Could not find any tweets with id: ' + req.params.id);
-        }
-    });
+  elastic.client.get({
+    index: esIndex,
+    type: esTypeAuthors,
+    id: req.params.id
+  }, function (error, response) {
+    console.log(response);
+    if (response) {
+      res.json(response._source);
+    } else {
+      res.send('Could not find any quotes!');
+    }
+  });
 });
 
 /**
@@ -107,6 +108,8 @@ router.delete('/authors/:id', function (req, res) {
   
 });
 
+///////////////////////////////// QUOTES /////////////////////////////////
+
 /**
  * Searches quotes
  * @param
@@ -122,7 +125,7 @@ router.get('/quotes/search', function (req, res) {
     if (response) {
       console.log('quote: ' + response._source);
     } else {
-      console.log('Could not find any quotes');
+      console.log('Could not find any quotes!');
     }
   });
   res.render('quotes');
@@ -142,10 +145,12 @@ router.get('/quotes', function (req, res) {
     size: 1000
   }, function (error, response) {
     if (response) {
-      res.json(response.hits.hits);
+      //res.json(response.hits.hits);
+      var data = response.hits
     } else {
       res.send('Could not find any quotes');
     }
+    res.json(data);
   });
 });
 
@@ -161,12 +166,11 @@ router.get('/quotes/:id', function (req, res) {
   }, function (error, response) {
     console.log(response);
     if (response) {
-      console.log('quote: ' + response._source);
+      res.json(response._source);
     } else {
-      console.log('Could not find any quotes');
+      res.send('Could not find any quotes!');
     }
   });
-  res.render('quotes');
 });
 
 /**
@@ -224,47 +228,71 @@ router.delete('/quotes/:id', function (req, res) {
   
 });
 
+///////////////////////////////// TOPICS /////////////////////////////////
+
 /**
- * Fetches all subjects
+ * Fetches all topics
  * @param
  * @param
  * @param
  */
-router.get('/subjects/', function (req, res) {
+router.get('/topics/', function (req, res) {
+  elastic.client.search({
+    index: esIndex,
+    type: esTypeTopics,
+    q: 'type:topic',
+    size: 1000
+  }, function (error, response) {
+    if (response) {
+      res.json(response.hits.hits);
+    } else {
+      res.send('Could not find any topics!');
+    }
+  });
+});
+
+/** 
+ *  Fetches an existing topic by ID 
+ *  @param id the ID of the topic of the quote
+ */
+router.get('/topics/:id', function (req, res) {
+  elastic.client.get({
+    index: esIndex,
+    type: esTypeTopics,
+    id: req.params.id
+  }, function (error, response) {
+    console.log(response);
+    if (response) {
+      res.json(response._source);
+    } else {
+      res.send('Could not find any quotes!');
+    }
+  });
+});
+
+/**
+ *  Updates an existing topic
+ *  @param id the ID of the topic
+ */
+router.put('/topics/:id', function (req, res) {
   
 });
 
 /** 
- *  Fetches an existing suubject by ID 
- *  @param id the ID of the subject of the quote
+ *  Inserts a new topic 
+ *  @param
+ *  @param
+ *  @param
  */
-router.get('/subjects/:id', function (req, res) {
+router.post('/topics/', function (req, res) {
   
 });
 
 /**
- *  Updates an existing subject
- *  @param id the ID of the subject
+ *  Deletes an existing topic
+ *  @param id the ID of the topic
  */
-router.put('/subjects/:id', function (req, res) {
-  
-});
-
-/** 
- *  Inserts a new subject 
- *  @param
- *  @param
- *  @param
- */
-router.post('/subjects/', function (req, res) {
-  
-});
-
-/**
- *  Deletes an existing subject
- *  @param id the ID of the subject
- */
-router.delete('/subjects/:id', function (req, res) {
+router.delete('/topics/:id', function (req, res) {
   
 });
 

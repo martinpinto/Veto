@@ -35,6 +35,8 @@
           </li>
           <li class="active"><a href="/authors">Authors</a>
           </li>
+          <li><a href="/topics">Topics</a>
+          </li>
         </ul>
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group">
@@ -149,8 +151,7 @@ Auf Veto können Benutzer Zitate von Politikern mit maximal 200 Zeichen eingeben
 
     {{> footer }}
   
-    <script src="javascripts/jquery-1.11.2.min.js"></script>
-    <script src="javascripts/bootstrap.min.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script></body>
 
 </html>

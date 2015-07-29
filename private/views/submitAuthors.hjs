@@ -35,6 +35,8 @@
           </li>
           <li><a href="/authors">Authors</a>
           </li>
+          <li><a href="/topics">Topics</a>
+          </li>
         </ul>
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group">
@@ -56,20 +58,28 @@
       <div class="col-md-9 col-lg-9">
         <form class="form-inline" role="form" action="/api/v1/quotes" method="post">
           <div class="form-group">
-            <label for="message">Message:</label>
-            <input type="text" class="form-control" id="message" name="message">
+            <label for="firstname">First name:</label>
+            <input type="text" class="form-control" id="firstname" name="firstname">
           </div>
           <div class="form-group">
-            <label for="subject">Subject:</label>
-            <input type="text" class="form-control" id="subject" name="subject">
+            <label for="lastname">Last name:</label>
+            <input type="text" class="form-control" id="lastname" name="lastname">
           </div>
           <div class="form-group">
-            <label for="hashtags">Hashtags:</label>
-            <input type="text" class="form-control" id="hashtags" name="hashtags">
+            <label for="party">Political Party:</label>
+            <input type="text" class="form-control" id="party" name="party">
           </div>
           <div class="form-group">
-            <label for="source">Source:</label>
-            <input type="text" class="form-control" id="source" name="source">
+            <label for="username">User name:</label>
+            <input type="text" class="form-control" id="username" name="username">
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password">
           </div>
           <input type="submit" class="btn btn-default"></input>
         </form>
@@ -171,8 +181,7 @@
     </div>
     <!--/.footer-bottom-->
 
-    <script src="../javascripts/jquery-1.11.2.min.js"></script>
-    <script src="../javascripts/bootstrap.min.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script></body>
 
 </html>

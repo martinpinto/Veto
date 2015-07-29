@@ -4,3 +4,4 @@
 *.mo
 node_modules
 .idea
+.settings
