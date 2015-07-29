@@ -1,32 +1,29 @@
 // DOM Ready =============================================================
-$(document).ready(function() {
-
-    // Populate the quotes table on initial page load
-    populateQuotesTable();
-
-});
 
 // Functions =============================================================
 
 // Fill table with data
-function populateQuotesTable() {
+$(document).ready(function () {
+  $("button").click(function () {
+    $.getJSON("http://localhost:3000/api/v1/quotes?callback=?", {
+      jsonp: "jsonp"
+    }, function (data) {
+      var items = [];
 
-    // Empty content string
-    //var tableContent = '';
- 
-$(document).ready(function(){
-		$("button").click(function(){
-			$.getJSON("/api/v1/quotes", function(data){
-				alert("Data: " + data);
-			}).error(function(data) {
-				alert("responseJSON: " + data.responseJSON + " status: " + data.status + " statusText: " + data.statusText);
-				console.log("responseJSON: " + data.responseJSON + " status: " + data.status + " statusText: " + data.statusText);
-			});
-			alert("Test");
-		});
+      $.each(data, function (key, val) {
+        //iterate through the returned data and build a list
+        console.log("Key: " + key);
+        console.log("Value: " + val);
+        items.push(key);
+      });
+
+    }).error(function (data) {
+      alert("responseJSON: " + data.responseJSON + " status: " + data.status + " statusText: " + data.statusText);
+      console.log("responseJSON: " + data.responseJSON + " status: " + data.status + " statusText: " + data.statusText);
+    });
+  });
 });
-  
-  // jQuery AJAX call for JSON
+// jQuery AJAX call for JSON
 //    $.ajax('/api/v1/quotes', function( data ) { // TODO: automate api call version
 //        alert(data);
 //

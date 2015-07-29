@@ -41,7 +41,7 @@ router.get('/authors/', function (req, res) {
     size: 1000
   }, function (error, response) {
     if (response) {
-      res.json(response.hits.hits);
+      res.jsonp(response.hits.hits);
     } else {
       res.send('Could not find any authors!');
     }
@@ -150,7 +150,7 @@ router.get('/quotes', function (req, res) {
     } else {
       res.send('Could not find any quotes');
     }
-    res.json(data);
+    res.jsonp(data);
   });
 });
 
