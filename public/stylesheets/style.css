@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'WeblySleek UI', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .all-content {
@@ -13,6 +14,27 @@ a {
 .btn {  
   background-color: #CD88AF;
   color: white;
+  border-radius: 35px;
+  border: #CD88AF;
+  padding: 5px 10px;
+}
+
+.btn-default {
+  outline: none;
+}
+
+.btn-xlarge {
+  padding: 10px 24px;
+  font-size: 22px;
+  line-height: normal;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  margin-top: 25px;
+}
+
+.btn-xlarge:hover {
+  background-color: #000000;
 }
 
 .navbar {
@@ -35,11 +57,57 @@ a {
   text-align: center;
   background-color: #CCCCCC;
   color: #FFFFFF;
+  font-size: 150%;
+  min-height: 380px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.jumbotron-img {
+  background-image: url(../images/Bonn_Bundestag_Plenarsaal_edit.jpg);
+  background-position: left;
 }
 
 .main {
   margin-top: 5pc;
   margin-bottom: 50px;  
+}
+
+.intro {
+  text-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px;
+}
+
+input[type=text] {
+  height: 31px;
+  border-radius:15px;
+  box-shadow:none;
+  color:#878787;
+  display:inline-block;
+  font-size:15px;
+  outline:none;
+  padding:3px 40px 2px 10px;
+  width:100%;
+  vertical-align: middle
+}
+
+.user-profile-picture {
+  background-image: url(../images/user.jpg);  
+}
+
+.user-profile {
+  background-size:32px 32px;
+  border-radius:50%;
+  display:block;
+  height:32px;
+  width:32px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+/* headers */
+h2 {
+  color: #CD88AF;
+  font-weight: 400;
 }
 
 /* footer css */
