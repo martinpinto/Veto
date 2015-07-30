@@ -58,11 +58,13 @@
     </div>
     <!-- /.container-fluid -->
   </nav>
- 
+
   <div class="container main">
     <div class="row">
       <div class="col-md-9 col-lg-9">
-        <button>Test Functionality</button>
+        <button id="test-fn">Test Functionality</button>
+        <table id="quotesList">
+        </table>
         <a class="btn btn-default" href="/quotes/submit">Submit a new quote</a>
       </div>
     </div>

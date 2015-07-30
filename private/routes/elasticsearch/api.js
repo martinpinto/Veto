@@ -14,9 +14,9 @@ var esTypeAuthors = esTypes[1]; // authors elasticsearch type
 var esTypeTopics = esTypes[2]; // topics elasticsearch type
 
 
-/** 
- *  Test route 
- *  sends HTTP status 200 to show server is working OK. 
+/**
+ *  Test route
+ *  sends HTTP status 200 to show server is working OK.
  *  @return an HTTP status 200
  */
 router.get('/', function (req, res) {
@@ -48,8 +48,8 @@ router.get('/authors/', function (req, res) {
   });
 });
 
-/** 
- *  Fetches an existing author by ID 
+/**
+ *  Fetches an existing author by ID
  *  @param id the ID of the author of the quote
  */
 router.get('/authors/:id', function (req, res, next) {
@@ -72,11 +72,11 @@ router.get('/authors/:id', function (req, res, next) {
  *  @param id the ID of the author
  */
 router.put('/authors/:id', function (req, res) {
-  
+
 });
 
-/** 
- *  Inserts a new author 
+/**
+ *  Inserts a new author
  *  @param
  *  @param
  *  @param
@@ -105,7 +105,7 @@ router.post('/authors/', function (req, res, next) {
  *  @param id the ID of the author
  */
 router.delete('/authors/:id', function (req, res) {
-  
+
 });
 
 ///////////////////////////////// QUOTES /////////////////////////////////
@@ -146,7 +146,7 @@ router.get('/quotes', function (req, res) {
   }, function (error, response) {
     if (response) {
       //res.json(response.hits.hits);
-      var data = response.hits
+      var data = response.hits.hits;
     } else {
       res.send('Could not find any quotes');
     }
@@ -154,8 +154,8 @@ router.get('/quotes', function (req, res) {
   });
 });
 
-/** 
- *  Fetches an existing quote by ID 
+/**
+ *  Fetches an existing quote by ID
  *  @param id the ID of the quote
  */
 router.get('/quotes/:id', function (req, res) {
@@ -181,13 +181,13 @@ router.put('/quotes/:id', function (req, res) {
   console.log(req.params.id);
 });
 
-/** 
- *  Inserts a new quote 
+/**
+ *  Inserts a new quote
  *  @param
  *  @param
  *  @param
  */
-router.post('/quotes', function (req, res) {  
+router.post('/quotes', function (req, res) {
   var message, topic, hashtags, source, author, type;
   if (req.body) {
     message = req.body.message;
@@ -225,7 +225,7 @@ router.post('/quotes', function (req, res) {
  *  @param id the ID of the quote
  */
 router.delete('/quotes/:id', function (req, res) {
-  
+
 });
 
 ///////////////////////////////// TOPICS /////////////////////////////////
@@ -251,8 +251,8 @@ router.get('/topics/', function (req, res) {
   });
 });
 
-/** 
- *  Fetches an existing topic by ID 
+/**
+ *  Fetches an existing topic by ID
  *  @param id the ID of the topic of the quote
  */
 router.get('/topics/:id', function (req, res) {
@@ -275,17 +275,17 @@ router.get('/topics/:id', function (req, res) {
  *  @param id the ID of the topic
  */
 router.put('/topics/:id', function (req, res) {
-  
+
 });
 
-/** 
- *  Inserts a new topic 
+/**
+ *  Inserts a new topic
  *  @param
  *  @param
  *  @param
  */
 router.post('/topics/', function (req, res) {
-  
+
 });
 
 /**
@@ -293,7 +293,7 @@ router.post('/topics/', function (req, res) {
  *  @param id the ID of the topic
  */
 router.delete('/topics/:id', function (req, res) {
-  
+
 });
 
 module.exports = router;
