@@ -8,7 +8,7 @@
   <title>Veto Political Platform</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.4/cosmo/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 
@@ -67,12 +67,12 @@
       <a class="btn btn-xlarge" href="/quotes">Get Started</a>
     </div>
   </div>
-  
+
   <div class="container main" style="margin-top: -5px">
     <div class="row">
       <div class="col-md-12 col-lg-12">
         <div class="col-md-4" style="border-right: 1px solid #ccc;">
-          <h2>What is Veto?</h2> 
+          <h2>What is Veto?</h2>
           In democratic systems, the Western countries have over time revealed two primary problems: On the one hand a lack of interest in the opinions represented by politicians. Secondly, there is a lack of demonstration of approval or disapproval by the population and a great discontent with one's own opinion is not heard or prejudiced to be. Often it is only the ideas that are spawned by populists of all stripes and "those who shout the loudest," those who are perceived.
         </div>
         <div class="col-md-4" style="border-right: 1px solid #ccc;">
