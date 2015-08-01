@@ -23,7 +23,6 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><img alt="{{ title }}" src="images/veto-logo.png" height="40px"></img></a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -38,6 +37,8 @@
           <li><a href="/topics">Topics</a>
           </li>
         </ul>
+        <a class="navbar-brand" href="/"><img alt="{{ title }}" src="images/veto-logo.png" height="45px"></img></a>
+
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group">
             <div class="input-group" style="margin-top: 7px;">
@@ -59,7 +60,7 @@
     <!-- /.container-fluid -->
   </nav>
   <div class="jumbotron jumbotron-img intro">
-    <h1>Welcome to <img alt="{{ title }}" src="images/veto-logo.png" height="110px"></img></h1>
+    <h1>Welcome to <img alt="{{ title }}" src="images/veto-logo2.png" height="110px"></img></h1>
     <div class="row">
       {{ title }} is a political platform for politician and non-politician to post their opinions online
     </div>
