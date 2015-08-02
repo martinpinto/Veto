@@ -4,14 +4,14 @@ body {
 }
 
 .all-content {
-  /*background-color: #FFFF77;*/
+  background-color: #F7F7F7;
 }
 
 a {
   color: #00B7FF;
 }
 
-.btn {  
+.btn {
   background-color: #CD88AF;
   color: white;
   border-radius: 35px;
@@ -52,6 +52,12 @@ a {
   margin-top: -10px;
 }
 
+.logo {
+  position: absolute;
+  left: 50%;
+  margin-left: -12px;
+}
+
 .jumbotron {
   margin-top: 45px;
   text-align: center;
@@ -70,7 +76,7 @@ a {
 
 .main {
   margin-top: 5pc;
-  margin-bottom: 50px;  
+  margin-bottom: 50px;
 }
 
 .intro {
@@ -91,7 +97,7 @@ input[type=text] {
 }
 
 .user-profile-picture {
-  background-image: url(../images/user.jpg);  
+  background-image: url(../images/user.jpg);
 }
 
 .user-profile {
@@ -102,6 +108,10 @@ input[type=text] {
   width:32px;
   margin-top: 10px;
   margin-right: 10px;
+}
+
+.box-shadow {
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.24);
 }
 
 /* headers */
@@ -198,6 +208,7 @@ h2 {
   padding: 0;
   width: 100%;
   color: #fff;
+  margin-top: 5px;
 }
 
 .newsletter-box {
@@ -267,4 +278,12 @@ h2 {
 
 .payments {
   font-size: 1.5em;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+  border-bottom: 3px solid #CD88AF;
+}
+
+.navbar-default .navbar-nav>li>a {
+  text-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px;
 }

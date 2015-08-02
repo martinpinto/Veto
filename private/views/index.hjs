@@ -37,7 +37,7 @@
           <li><a href="/topics">Topics</a>
           </li>
         </ul>
-        <a class="navbar-brand" href="/"><img alt="{{ title }}" src="images/veto-logo.png" height="45px"></img></a>
+        <a class="navbar-brand" href="/"><img alt="{{ title }}" class="logo" src="images/veto-logo.png" height="45px"></img></a>
 
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group">
@@ -50,7 +50,7 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Change language</a>
+          <li><a href="#">language</a>
           </li>
         </ul>
         <span class="user-profile user-profile-picture navbar-right" />
