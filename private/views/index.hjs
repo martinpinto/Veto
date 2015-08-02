@@ -49,10 +49,9 @@
             </div>
           </div>
         </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">language</a>
-          </li>
-        </ul>
+        <div class="nav navbar-nav navbar-right">
+          <a href="#"><img alt="{{ title }}" style="margin: 10px;" src="images/language.png" height="30px"></img></a>
+        </div>
         <span class="user-profile user-profile-picture navbar-right" />
       </div>
       <!-- /.navbar-collapse -->

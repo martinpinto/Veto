@@ -23,21 +23,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><img alt="{{ title }}" src="images/veto-logo.png" height="40px"></img></a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="/">Home <span class="sr-only">(current)</span></a>
+          <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li><a href="/quotes">Quotes</a>
           </li>
-          <li class="active"><a href="/authors">Authors</a>
+          <li><a href="/authors">Authors</a>
           </li>
           <li><a href="/topics">Topics</a>
           </li>
         </ul>
+        <a class="navbar-brand" href="/"><img alt="{{ title }}" class="logo" src="../images/veto-logo.png" height="45px"></img></a>
+
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group">
             <div class="input-group" style="margin-top: 7px;">
@@ -48,10 +49,10 @@
             </div>
           </div>
         </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Change language</a>
-          </li>
-        </ul>
+        <div class="nav navbar-nav navbar-right">
+          <a href="#"><img alt="{{ title }}" style="margin: 10px;" src="../images/language.png" height="30px"></img></a>
+        </div>
+        <span class="user-profile user-profile-picture navbar-right" />
       </div>
       <!-- /.navbar-collapse -->
     </div>
