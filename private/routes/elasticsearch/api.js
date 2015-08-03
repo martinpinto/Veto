@@ -215,9 +215,8 @@ router.post('/quotes', function (req, res) {
         console.log(response);
         res.send(req.query.message);
   });
-  res.redirect('/quotes');//, {
-  //  response: "Quote successfully added!"
-  //});
+  var responseMessage = "Quote successfully added!";
+  res.redirect('/quotes?message=' + responseMessage);
 });
 
 /**

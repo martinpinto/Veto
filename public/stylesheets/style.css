@@ -287,3 +287,30 @@ h2 {
 .navbar-default .navbar-nav>li>a {
   text-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px;
 }
+
+/* quotes */
+.quote {
+  background-color: white;
+  width: 80%;
+  height: 200px;
+  padding: 15px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.quote-header {
+  height: 20%;
+}
+
+.quote-subheader {
+  margin-top: 5px;
+  height: 10%;
+}
+
+.quote-content {
+  height: 60%;
+}
+
+.quote-decision {
+  height: 10%;
+}

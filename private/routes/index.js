@@ -25,7 +25,12 @@ router.get('/authors/submit', function (req, res, next) {
 
 /* GET quotes main page. */
 router.get('/quotes', function (req, res, next) {
-  res.render('quotes');
+  if (req.query != null && req.query.message != null) {
+    console.log(req.query.message);
+    res.render('quotes', { message: req.query.message });
+  } else {
+    res.render('quotes');
+  }
 });
 
 /* GET quote submit page. */
