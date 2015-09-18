@@ -14,7 +14,7 @@
 
 <body class="all-content">
   <nav class="navbar navbar-default navbar-fixed-top">
-    <div id="header"></div>
+    <div id="header" active="Quotes"></div>
   </nav>
 
   <p class="bg-success">{{ message }}</p>

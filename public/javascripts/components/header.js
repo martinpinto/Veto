@@ -15,16 +15,54 @@
           </div>
           {/* Collect the nav links, forms, and other content for toggling */}
           <div id="bs-example-navbar-collapse-1" className="collapse navbar-collapse">
-            <ul className="nav navbar-nav">
-              <li><a href="/">Home <span className="sr-only">(current)</span></a>
-              </li>
-              <li><a href="/quotes">Quotes</a>
-              </li>
-              <li className="active"><a href="/authors">Authors</a>
-              </li>
-              <li><a href="/topics">Topics</a>
-              </li>
-            </ul>
+            {this.props.active=="Home" && (
+              <ul className="nav navbar-nav">
+                <li className="active"><a href="/">Home <span className="sr-only">(current)</span></a>
+                </li>
+                <li><a href="/quotes">Quotes</a>
+                </li>
+                <li><a href="/authors">Authors</a>
+                </li>
+                <li><a href="/topics">Topics</a>
+                </li>
+              </ul>
+            )}
+            {this.props.active=="Quotes" && (
+              <ul className="nav navbar-nav">
+                <li><a href="/">Home</a>
+                </li>
+                <li className="active"><a href="/quotes">Quotes <span className="sr-only">(current)</span></a>
+                </li>
+                <li><a href="/authors">Authors</a>
+                </li>
+                <li><a href="/topics">Topics</a>
+                </li>
+              </ul>
+            )}
+            {this.props.active=="Authors" && (
+              <ul className="nav navbar-nav">
+                <li><a href="/">Home <span className="sr-only">(current)</span></a>
+                </li>
+                <li><a href="/quotes">Quotes</a>
+                </li>
+                <li className="active"><a href="/authors">Authors <span className="sr-only">(current)</span></a>
+                </li>
+                <li><a href="/topics">Topics</a>
+                </li>
+              </ul>
+            )}
+            {this.props.active=="Topics" && (
+              <ul className="nav navbar-nav">
+                <li><a href="/">Home <span className="sr-only">(current)</span></a>
+                </li>
+                <li><a href="/quotes">Quotes</a>
+                </li>
+                <li><a href="/authors">Authors</a>
+                </li>
+                <li className="active"><a href="/topics">Topics <span className="sr-only">(current)</span></a>
+                </li>
+              </ul>
+            )}
             <a href="/" className="navbar-brand"><img height="45px" src="../images/veto-logo.png" className="logo" alt="{{ title }}" /></a>
             <form role="search" className="navbar-form navbar-right">
               <div className="form-group">
@@ -50,5 +88,5 @@
   });
 
   React.render(
-    <Header />, document.getElementById('header')
+    <Header active={document.getElementById('header').getAttribute('active')}/>, document.getElementById('header')
   );
