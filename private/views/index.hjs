@@ -9,84 +9,15 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.4/cosmo/bootstrap.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="../../stylesheets/style.css">
 </head>
 
 <body class="all-content">
   <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li><a href="/quotes">Quotes</a>
-          </li>
-          <li><a href="/authors">Authors</a>
-          </li>
-          <li><a href="/topics">Topics</a>
-          </li>
-        </ul>
-        <a class="navbar-brand" href="/"><img alt="{{ title }}" class="logo" src="images/veto-logo.png" height="45px"></img></a>
-
-        <form class="navbar-form navbar-right" role="search">
-          <div class="form-group">
-            <div class="input-group" style="margin-top: 7px;">
-              <input type="text" class="form-control" placeholder="Search for...">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button">GO</button>
-              </span>
-            </div>
-          </div>
-        </form>
-        <div class="nav navbar-nav navbar-right">
-          <a href="#"><img alt="{{ title }}" style="margin: 10px;" src="images/language.png" height="30px"></img></a>
-        </div>
-        <span class="user-profile user-profile-picture navbar-right" />
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
+    <div id="header"  active="Home"></div>
   </nav>
-  <div class="jumbotron jumbotron-img intro">
-    <h1>Welcome to <img alt="{{ title }}" src="images/veto-logo2.png" height="110px"></img></h1>
-    <div class="row">
-      {{ title }} is a political platform for politician and non-politician to post their opinions online
-    </div>
-    <div class="row">
-      <a class="btn btn-xlarge" href="/quotes">Get Started</a>
-    </div>
-  </div>
 
-  <div class="container main" style="margin-top: -5px">
-    <div class="row">
-      <div class="col-md-12 col-lg-12">
-        <div class="col-md-4" style="border-right: 1px solid #ccc;">
-          <h2>What is Veto?</h2>
-          In democratic systems, the Western countries have over time revealed two primary problems: On the one hand a lack of interest in the opinions represented by politicians. Secondly, there is a lack of demonstration of approval or disapproval by the population and a great discontent with one's own opinion is not heard or prejudiced to be. Often it is only the ideas that are spawned by populists of all stripes and "those who shout the loudest," those who are perceived.
-        </div>
-        <div class="col-md-4" style="border-right: 1px solid #ccc;">
-          <h2>Why Veto?</h2>
-          We aim to present a simply constructed, representative and transparent source of political opinions. The platform will serve to publish opinions to form an opinion and evaluate different opinions both for election campaigns, as well as on an ongoing basis. Veto is to be a leading platform for this purpose and therefore also constitute a tool for opinion analysis.
-        </div>
-        <div class="col-md-4">
-          <h2>How does Veto work?</h2>
-          The concept of <i>Veto</i> based on evaluating only direct quotations from politicians. This will revolutionize the opinion-forming process. Instead of being dependend of the interpretations of the media, citizens can judge its opinion in direct exchange with the politicians.<br>
-  On veto user can post quotes from politicians with a maximum of 200 characters: Either the politicians themselves, or cited by foreign source is acknowledged. These quotes are then rated on a scale of users with regard to the approval and credibility. Veto thus represents an opinion of the general population.
-        </div>
-      </div>
-    </div>
-  </div>
+
 
     <div id="footer"></div>
     <div id="footer-bottom"></div>
@@ -97,6 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="/javascripts/components/footer.js" type="text/jsx"></script>
+    <script src="/javascripts/components/header.js" type="text/jsx"></script>
 
   </body>
 </html>
