@@ -1,0 +1,22 @@
+# General configuration for the application
+[app]
+name = "veto-server"
+version = "0.0.1"
+environment = "development" # "development" or "production"
+
+[server]
+    [api]
+    version = 1
+    root =  "/api"
+    host = "localhost"
+    port =  3001
+    routes = ["quotes", "authors", "topics"]
+
+    [database]
+    # Database configuration
+        [database.mongodb]
+        baseurl = "localhost"
+        protocol = "http://"
+        host = "127.0.0.1"
+        port = "27017"
+        database = "veto"
