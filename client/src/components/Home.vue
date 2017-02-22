@@ -3,7 +3,7 @@
 <template>
     <div>
 
-      <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div v-if="typeof quotes !== 'undefined'" v-for="quote in quotes" class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">Welcome</h2>
         </div>
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" v-on:click="getQuote()">Get a Quote</button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" v-on:click="getQuotes()">Get Quotes</button>
     </div>
 
     <style>
@@ -45,14 +45,15 @@
   export default {
     data() {
       return {
-        quote: ''
+        quotes: undefined
       }
     },
     methods: {
-      getQuote() {
+      getQuotes() {
         this.$http
-          .get('http://localhost:3001/api/random-quote', (data) => {
-            this.quote = data;
+          .get('http://localhost:3001/api/quotes', (data) => {
+            this.quotes = data;
+            console.log(data);
           })
           .error((err) => console.log(err))
       }
