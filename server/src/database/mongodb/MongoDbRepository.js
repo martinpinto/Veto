@@ -3,8 +3,8 @@ import config from "../../config/config";
 export default class ModelRepository {
 
     constructor() {
-        var MongoClient = require('mongodb').MongoClient
-        , assert = require('assert');
+        var Promise = require('bluebird');
+        var MongoClient = Promise.promisifyAll(require('mongodb').MongoClient);
 
         this.db = {
             open: () => {
@@ -61,8 +61,8 @@ export default class ModelRepository {
             database = db;
             return db.collection(model._name)
         })
-        .then((users) => {
-            return users.insert(model)
+        .then((modelsCollection) => {
+            return modelsCollection.insert(model)
         })
         .then((result) => {
             console.log(result);
@@ -126,18 +126,37 @@ export default class ModelRepository {
     /**
      * Find all model instances that match filter specification.
      *
-     * @param: [filter]	Object
-     *   Optional Filter JSON object; see below.
-     * @param: callback	Function
-     *   Callback function called with (err, returned-instances) arguments. Required.
-     *   Callback returns:
-     *    err	Error
-     *     Error object; see Error object.
-     *    models	Array
+     * @param: model	Object
+     *   Optional Filter JSON object;
+     * @param: filter	Object
      *     Model instances matching the filter, or null if none found.
      */
-    find(filter, callback) {
+    find(model, filter) {
+        let database = null;
 
+        return this.db.open()
+            .then((db) => {
+                database = db;
+                return db.collection(model._name);
+            })
+            .then((modelsCollection) => {
+                return new Promise((resolve, reject) => {
+                    modelsCollection.find(filter).toArray((err, docs) => {
+                        if (err) {
+                            reject(err);
+                        }
+                        if (docs) {
+                            console.log("db");
+                            console.log(docs);
+                            resolve(docs);
+                        }
+                        database.close();
+                    });
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+            })
     };
 
     /**

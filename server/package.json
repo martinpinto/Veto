@@ -14,6 +14,7 @@
     "test": "karma start --single-run --path--"
   },
   "dependencies": {
+    "bluebird": "^3.4.7",
     "body-parser": "~1.10.2",
     "compression": "^1.4.3",
     "concat-stream": "^1.5.1",
@@ -45,6 +46,7 @@
     "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.7",
     "mocha": "x.x.x",
+    "morgan": "^1.8.1",
     "rimraf": "^2.5.2",
     "uglify-js": "^2.4.8"
   }

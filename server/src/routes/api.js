@@ -12,7 +12,7 @@ import config from '../config/config';
 
 var express = require('express');
 var router = express.Router();
-const db = new ModelService(new MongoDbRepository());
+const db = new MongoDbRepository();
 
 /**
  *  Config Parameters
@@ -33,23 +33,12 @@ router.get('/', (req, res) => {
 ///////////////////////////////// QUOTES /////////////////////////////////
 
 router.get('/' + quotesRoute, (req, res) => {
-    if (req.body) {
-        message = req.body.message;
-        topic = req.body.topic;
-        hashtags = req.body.hashtags;
-        source = req.body.source;
-        author = req.body.author;
-        type = 'quote';
-        console.log(req.body.message);
-    }
-    db.find({ _type: new Project()._type }, (err, projects) => {
-        res.header('Access-Control-Allow-Origin', '*');
-        if (!err) {
-            console.log(projects);
-            res.status(200).json(projects);
-        } else {
-            res.status(500).send('An error has occurred!');
-        }
+    res.header('Access-Control-Allow-Origin', '*');
+
+    db.find(new Quote(), {}).then((quotes) => {
+        console.log("api");
+        console.log(quotes);
+        res.status(200).json(quotes);
     });
 });
 
@@ -62,21 +51,6 @@ router.post('/' + quotesRoute, (req, res) => {
 
         res.status(200).json({});
     }
-    /*
-    if (typeof req.body !== 'undefined') {
-        let project = new Project(req.body);
-        db.create(project, (err, newProject) => {
-            res.header('Access-Control-Allow-Origin', '*');
-            if (!err) {
-                console.log(newProject);
-                res.status(200).json(newProject);
-            } else {
-            }
-        });
-    } else {
-        res.status(200).json({});
-    }
-    */
 });
 
 router.patch('/' + quotesRoute, (req, res) => {

@@ -2,13 +2,14 @@
 /***************
  * Configuration
  ***************/
-const express = require('express'), 
+const express = require('express'),
     path = require('path'),
     favicon = require('serve-favicon'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     compression = require('compression'),
-    config = require('./config/config');
+    config = require('./config/config'),
+    morgan = require('morgan');
 
 let app = express(); // create the express app
 app.set('startTime', new Date());
@@ -22,7 +23,7 @@ app.use(bodyParser.json()); // parse application/json
 // parse application/vnd.api+json as json
 app.use(bodyParser.json({
     type: 'application/vnd.api+json'
-})); 
+}));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -30,6 +31,8 @@ app.set('view engine', 'ejs');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(morgan('dev'));                                         // log every request to the console
 
 // activate database and its routes
 var api = require('./routes/api');
@@ -53,7 +56,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
-        message: err.message, 
+        message: err.message,
         error: err,
         stacktrace: err.stack
     });
@@ -62,7 +65,7 @@ app.use(function(err, req, res, next) {
 // activate CORS for server
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 
+    res.header('Access-Control-Allow-Headers',
                'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
