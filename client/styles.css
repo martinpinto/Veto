@@ -48,6 +48,11 @@ a img{
   font-weight: 500;
 }
 
+/**** Overrides ****/
+.mdl-layout__header-row {
+  background-color: #582A72;
+}
+
 /**** Mobile layout ****/
 @media (max-width: 900px) {
 

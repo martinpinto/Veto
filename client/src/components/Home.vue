@@ -3,7 +3,7 @@
 <template>
     <div>
 
-      <div v-if="typeof quotes !== 'undefined'" v-for="quote in quotes" class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div v-if="typeof quotes !== 'undefined'" v-for="quote in quotes" class="veto-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">Welcome</h2>
         </div>
@@ -27,15 +27,19 @@
     </div>
 
     <style>
-      .demo-card-wide.mdl-card {
-        width: 512px;
+      .veto-card-wide {
+        border-radius: 5px;
+        margin-bottom: 10px;
+        margin-top: 10px;
       }
-      .demo-card-wide > .mdl-card__title {
-        color: #fff;
+      .mdl-card {
+        width: 768px;
+      }
+      .mdl-card__title {
         height: 176px;
         background: url('../assets/demos/welcome_card.jpg') center / cover;
       }
-      .demo-card-wide > .mdl-card__menu {
+      .mdl-card__menu {
         color: #fff;
       }
   </style>
