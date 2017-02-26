@@ -2,14 +2,12 @@
 
 <template>
     <div>
-
-      <div v-if="typeof quotes !== 'undefined'" v-for="quote in quotes" class="veto-card-wide mdl-card mdl-shadow--2dp">
+      <div v-for="quote in quotes" class="veto-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">Welcome</h2>
+          <h2 class="mdl-card__title-text">{{ quote.title }}</h2>
         </div>
         <div class="mdl-card__supporting-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Mauris sagittis pellentesque lacus eleifend lacinia...
+          {{ quote.description }}
         </div>
         <div class="mdl-card__actions mdl-card--border">
           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -20,6 +18,10 @@
           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
             <i class="material-icons">share</i>
           </button>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
       </div>
 
@@ -33,11 +35,14 @@
         margin-top: 10px;
       }
       .mdl-card {
-        width: 768px;
+        width: 100%;
       }
       .mdl-card__title {
-        height: 176px;
+        height: 50px;
         background: url('../assets/demos/welcome_card.jpg') center / cover;
+      }
+      .mdl-card__supporting-text {
+        height: 100px;
       }
       .mdl-card__menu {
         color: #fff;

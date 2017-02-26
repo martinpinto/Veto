@@ -49,8 +49,32 @@ a img{
 }
 
 /**** Overrides ****/
+.mdl-layout__header {
+  position: fixed;
+  background: -webkit-linear-gradient(135deg,rgb(88, 42, 114) 30%, #7A3F99 65%);
+  background: linear-gradient(135deg,rgb(88, 42, 114) 30%, #7A3F99 65%);
+}
+
 .mdl-layout__header-row {
-  background-color: #582A72;
+  padding: 0;
+}
+
+.mdl-grid {
+  padding-top: 70px;
+}
+
+.mdl-layout__header-row .mdl-navigation__link {
+  height: 94%;
+  padding: 0;
+  border-bottom: 3px solid #fff;
+}
+
+.mdl-textfield__input {
+  border-bottom: 1px solid white;
+}
+
+.material-icons {
+  margin-right: 3px;
 }
 
 /**** Mobile layout ****/
