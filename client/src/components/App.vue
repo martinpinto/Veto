@@ -25,14 +25,13 @@
         <!-- Navigation -->
         <div>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href=""><i class="material-icons">forum</i>Zitiere</a>
+          <a id="show-dialog" class="mdl-navigation__link" href="#" v-on:click="openDialog()"><i class="material-icons">forum</i>Zitiere</a>
           <a class="mdl-navigation__link" v-if="user.authenticated" v-link="'login'" @click="logout()">Logout</a>
         </nav>
         </div>
       </div>
     </header>
     </div>
-
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--2-col">Left Column</div>
 
@@ -54,7 +53,20 @@ export default {
   },
   methods: {
     logout() {
-    }
+    }, 
+    openDialog() {
+        var dialog = document.querySelector('dialog');
+        var showDialogButton = document.querySelector('#show-dialog');
+        if (! dialog.showModal) {
+          dialogPolyfill.registerDialog(dialog);
+        }
+        showDialogButton.addEventListener('click', function() {
+          dialog.showModal();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+          dialog.close();
+        });
+      }
   }
 }
 </script>
