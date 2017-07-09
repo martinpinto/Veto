@@ -8,7 +8,9 @@
         </div>
         <div>
           <div class="veto-description-controls">
-            Test
+            Vote:
+            <i class="material-icons ">thumb_up</i>
+            <i class="material-icons">thumb_down</i>
           </div>
           <div class="mdl-card__supporting-text">
             {{ quote.description }}
@@ -36,7 +38,6 @@
     <style>
       .veto-card-wide {
         border-radius: 5px;
-        margin-bottom: 10px;
         margin-top: 50px;
       }
       .mdl-card {
@@ -48,6 +49,7 @@
       }
       .mdl-card__supporting-text {
         height: 100px;
+        width: 80%;
         float: right;
       }
       .mdl-card__menu {
