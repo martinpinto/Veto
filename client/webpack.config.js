@@ -15,7 +15,12 @@ module.exports = {
       // process *.js files using babel-loader
       // the exclude pattern is important so that we don't
       // apply babel transform to all the dependencies!
-      { test: /\.js$/, loader: 'babel', exclude: /node_modules/ }
+      { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
+      { test: /\.(jpg|png)$/, loader: 'file-loader',
+        options: {
+          name: '[path][name].[hash].[ext]',
+        }
+      }
     ]
   },
   // configure babel-loader.

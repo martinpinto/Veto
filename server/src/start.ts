@@ -4,17 +4,17 @@
  * Module dependencies.
  */
 
-var app = require('./app');
-var debug = require('debug')('project_template:server');
-var http = require('http');
-var config = require('./config/config');
+const app = require('./app');
+const debug = require('debug')('project_template:server');
+const http = require('http');
+const config = require('./config/config');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || config.api.port || '3000');
-var ip = process.env.OPENSHIFT_NODEJS_IP || config.api.host || "127.0.0.1";
+const port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || config.api.port || '3000');
+const ip = process.env.OPENSHIFT_NODEJS_IP || config.api.host || "127.0.0.1";
 
 app.set('port', port);
 app.set('domain', ip);

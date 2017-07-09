@@ -1,36 +1,22 @@
 import config from "../../config/config";
 import ModelService from "../ModelServiceInterface";
+import mysql from "promise-mysql";
 
-export default class ModelRepository extends ModelService {
+export default class ModelRepository {//extends ModelService {
 
     constructor() {
-        super();
-        
-        var Promise = require('bluebird');
-        var MongoClient = Promise.promisifyAll(require('mongodb').MongoClient);
+        //super();
 
-        this.db = {
-            open: () => {
-                // Connection URL
-                let url = config.getFullUrl();
-                return new Promise((resolve, reject) => {
-                    // Use connect method to connect to the Server
-                    MongoClient.connect(url, (err, db) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(db);
-                        }
-                    });
-                });
-            },
-            close: (db) => {
-                //Close connection
-                if(db){
-                    db.close();
-                }
-            }
-        }
+        /*
+        mysql.createConnection({
+            host     : config.database.mysql.baseurl,
+            user     : config.database.mysql.user,
+            password : config.database.mysql.password,
+            database : config.database.mysql.database
+        }).then(connection => {
+            this.database = connection;
+        });
+        */
     }
 
     /**
@@ -59,21 +45,7 @@ export default class ModelRepository extends ModelService {
      */
     create(model) {
         let database = null;
-        this.db.open()
-        .then((db) => {
-            database = db;
-            return db.collection(model._name);
-        })
-        .then((modelsCollection) => {
-            return modelsCollection.insert(model);
-        })
-        .then((result) => {
-            console.log(result);
-            database.close();
-        })
-        .catch((err) => {
-            console.error(err);
-        });
+        
     };
 
     /**
@@ -91,21 +63,7 @@ export default class ModelRepository extends ModelService {
      */
     destroyAll(where, model) {
         let database = null;
-        this.db.open()
-        .then((db) => {
-            database = db;
-            return db.collection(model._name);
-        })
-        .then((modelsCollection) => {
-            return modelsCollection.deleteMany(where, null);
-        })
-        .then((result) => {
-            console.log(result);
-            database.close();
-        })
-        .catch((err) => {
-            console.error(err);
-        });
+       
     };
 
     /**
@@ -121,21 +79,7 @@ export default class ModelRepository extends ModelService {
      */
     destroyById(id, callback) {
         let database = null;
-        this.db.open()
-        .then((db) => {
-            database = db;
-            return db.collection(model._name);
-        })
-        .then((modelsCollection) => {
-            return modelsCollection.deleteOne(where);
-        })
-        .then((result) => {
-            console.log(result);
-            database.close();
-        })
-        .catch((err) => {
-            console.error(err);
-        });
+        
     };
 
     /**
@@ -164,31 +108,16 @@ export default class ModelRepository extends ModelService {
      *     Model instances matching the filter, or null if none found.
      */
     find(model, filter) {
-        let database = null;
-
-        return this.db.open()
-            .then((db) => {
-                database = db;
-                return db.collection(model._name);
-            })
-            .then((modelsCollection) => {
-                return new Promise((resolve, reject) => {
-                    modelsCollection.find(filter).toArray((err, docs) => {
-                        if (err) {
-                            reject(err);
-                        }
-                        if (docs) {
-                            console.log("db");
-                            console.log(docs);
-                            resolve(docs);
-                        }
-                        database.close();
-                    });
-                });
-            })
-            .catch((err) => {
-                console.error(err);
-            })
+        return mysql.createConnection({
+            host     : config.database.mysql.baseurl,
+            user     : config.database.mysql.user,
+            password : config.database.mysql.password,
+            database : config.database.mysql.database
+        }).then(connection => {
+            return connection.query('SELECT * FROM ' + model._name + 's AS QUOTES').then(rows => {
+                return rows;
+            });
+        });
     };
 
     /**

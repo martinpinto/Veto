@@ -4,7 +4,7 @@
 /**
  * This rounter handler manages all routes incoming from the web browser to the API.
  */
-import ModelService from '../database/ModelService';
+import QuotesService from "../database/QuotesService";
 import MongoDbRepository from '../database/mongodb/MongoDbRepository';
 import { Quote } from '../models/Quote';
 
@@ -13,6 +13,7 @@ import config from '../config/config';
 var express = require('express');
 var router = express.Router();
 const db = new MongoDbRepository();
+const quotesService = new QuotesService();
 
 /**
  *  Config Parameters
@@ -32,16 +33,20 @@ router.get('/', (req, res) => {
 
 ///////////////////////////////// QUOTES /////////////////////////////////
 
+/**
+ * Get all quotes
+ */
 router.get('/' + quotesRoute, (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
-
-    db.find(new Quote(), {}).then((quotes) => {
-        console.log("api");
+    quotesService.getQuotes().then(quotes => {
         console.log(quotes);
         res.status(200).json(quotes);
     });
 });
 
+/**
+ * Add new quote
+ */
 router.post('/' + quotesRoute, (req, res) => {
     if (typeof req.body !== "undefined") {
         res.header('Access-Control-Allow-Origin', '*');
@@ -51,6 +56,14 @@ router.post('/' + quotesRoute, (req, res) => {
 
         res.status(200).json({});
     }
+});
+
+/**
+ * Vote for a quote
+ */
+router.post('/' + quotesRoute + '/voting', (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.status(200).json({});
 });
 
 router.patch('/' + quotesRoute, (req, res) => {

@@ -9,7 +9,8 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     compression = require('compression'),
     config = require('./config/config'),
-    morgan = require('morgan');
+    morgan = require('morgan'),
+    winston = require('winston');
 
 let app = express(); // create the express app
 app.set('startTime', new Date());
@@ -32,7 +33,18 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(morgan('dev'));                                         // log every request to the console
+app.use(morgan('dev')); // log every request to the console
+const tsFormat = () => (new Date()).toLocaleTimeString();
+const logger = new (winston.Logger)({
+  transports: [
+    // colorize the output to the console
+    new (winston.transports.Console)({
+      timestamp: tsFormat,
+      colorize: true,
+    })
+  ]
+});
+app.set('logger', logger);
 
 // activate database and its routes
 var api = require('./routes/api');
