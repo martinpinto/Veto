@@ -59,10 +59,10 @@ export default class ModelRepository {
         this.db.open()
         .then((db) => {
             database = db;
-            return db.collection(model._name)
+            return db.collection(model._name);
         })
         .then((modelsCollection) => {
-            return modelsCollection.insert(model)
+            return modelsCollection.insert(model);
         })
         .then((result) => {
             console.log(result);
@@ -70,7 +70,6 @@ export default class ModelRepository {
         })
         .catch((err) => {
             console.error(err);
-            res.status(500).send('An error has occurred!');
         });
     };
 
@@ -87,8 +86,23 @@ export default class ModelRepository {
      *    info	Number
      *     Number of instances (rows, documents) destroyed.
      */
-    destroyAll(where, callback) {
-
+    destroyAll(where, model) {
+        let database = null;
+        this.db.open()
+        .then((db) => {
+            database = db;
+            return db.collection(model._name);
+        })
+        .then((modelsCollection) => {
+            return modelsCollection.deleteMany(where, null);
+        })
+        .then((result) => {
+            console.log(result);
+            database.close();
+        })
+        .catch((err) => {
+            console.error(err);
+        });
     };
 
     /**
@@ -103,7 +117,22 @@ export default class ModelRepository {
      *    Error object; see Error object.
      */
     destroyById(id, callback) {
-
+        let database = null;
+        this.db.open()
+        .then((db) => {
+            database = db;
+            return db.collection(model._name);
+        })
+        .then((modelsCollection) => {
+            return modelsCollection.deleteOne(where);
+        })
+        .then((result) => {
+            console.log(result);
+            database.close();
+        })
+        .catch((err) => {
+            console.error(err);
+        });
     };
 
     /**

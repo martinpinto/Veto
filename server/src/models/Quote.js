@@ -7,6 +7,7 @@ export class Quote extends Model {
         if (typeof quote !== 'undefined') {
             this.title = quote.title;
             this.author = quote.author;
+            this.description = quote.description;
             this.type = quote.type;
             this.status = quote.status;
             this.topic = quote.topic;

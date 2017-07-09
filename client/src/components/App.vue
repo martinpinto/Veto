@@ -6,7 +6,7 @@
       <div class="mdl-layout__header-row">
         <div>
         <!-- Title -->
-        <span class="mdl-layout-title">Title</span>
+        <a class="mdl-layout-title" v-link="'home'"><img id="veto-logo" src="../assets/images/veto-logo.png" /></a>
         </div>
         <!-- Add spacer, to align navigation to the right -->
         <div>
@@ -25,7 +25,7 @@
         <!-- Navigation -->
         <div>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href=""><i class="material-icons">forum</i>Zitiere</a>
+          <a class="mdl-navigation__link" @click="quote()" id="show-dialog"><i class="material-icons">forum</i>Zitiere</a>
           <a class="mdl-navigation__link" v-if="user.authenticated" v-link="'login'" @click="logout()">Logout</a>
         </nav>
         </div>
@@ -43,6 +43,18 @@
       <div class="mdl-cell mdl-cell--2-col">Right Column</div>
     </div>
 
+    <dialog class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Allow data collection?</h4>
+      <div class="mdl-dialog__content">
+        <p>
+          Allowing us to collect data will let us get you the information you want faster.
+        </p>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button">Agree</button>
+        <button type="button" class="mdl-button close">Disagree</button>
+      </div>
+    </dialog>
 </template>
 
 <script>
@@ -54,6 +66,19 @@ export default {
   },
   methods: {
     logout() {
+    },
+    quote() {
+      var dialog = document.querySelector('dialog');
+      var showDialogButton = document.querySelector('#show-dialog');
+      if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+      }
+      showDialogButton.addEventListener('click', function() {
+        dialog.showModal();
+      });
+      dialog.querySelector('.close').addEventListener('click', function() {
+        dialog.close();
+      });
     }
   }
 }

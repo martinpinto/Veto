@@ -48,15 +48,29 @@ a img{
   font-weight: 500;
 }
 
+/**** Veto Styles ****/
+#veto-logo {
+  position: absolute !important;
+  width: 35px;
+  left: 50%;
+  margin-top: -17px;
+}
+
 /**** Overrides ****/
 .mdl-layout__header {
   position: fixed;
   background: -webkit-linear-gradient(135deg,rgb(88, 42, 114) 30%, #7A3F99 65%);
   background: linear-gradient(135deg,rgb(88, 42, 114) 30%, #7A3F99 65%);
+  min-height: 50px;
+}
+
+.mdl-layout-title {
+  position: inherit;
 }
 
 .mdl-layout__header-row {
   padding: 0;
+  height: 60px;
 }
 
 .mdl-grid {
@@ -64,7 +78,7 @@ a img{
 }
 
 .mdl-layout__header-row .mdl-navigation__link {
-  height: 94%;
+  height: 88%;
   padding: 0;
   border-bottom: 3px solid #fff;
 }

@@ -6,8 +6,13 @@
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">{{ quote.title }}</h2>
         </div>
-        <div class="mdl-card__supporting-text">
-          {{ quote.description }}
+        <div>
+          <div class="veto-description-controls">
+            Test
+          </div>
+          <div class="mdl-card__supporting-text">
+            {{ quote.description }}
+          </div>
         </div>
         <div class="mdl-card__actions mdl-card--border">
           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -32,20 +37,25 @@
       .veto-card-wide {
         border-radius: 5px;
         margin-bottom: 10px;
-        margin-top: 10px;
+        margin-top: 50px;
       }
       .mdl-card {
         width: 100%;
       }
       .mdl-card__title {
-        height: 50px;
+        height: 70px;
         background: url('../assets/demos/welcome_card.jpg') center / cover;
       }
       .mdl-card__supporting-text {
         height: 100px;
+        float: right;
       }
       .mdl-card__menu {
         color: #fff;
+      }
+      .veto-description-controls {
+        width: 20%;
+        float: left;
       }
   </style>
 </template>

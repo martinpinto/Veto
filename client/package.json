@@ -1,9 +1,10 @@
 {
-  "name": "veto",
-  "version": "0.0.1",
+  "name": "Veto",
+  "version": "0.0.2",
   "description": "A political platform",
   "main": "src/index.js",
   "scripts": {
+    "start": "webpack-dev-server --inline --hot",
     "dev": "webpack-dev-server --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +24,8 @@
     "babel-preset-es2015": "^6.1.2",
     "babel-runtime": "^6.23.0",
     "css-loader": "^0.21.0",
+    "file-loader": "^0.10.1",
+    "image-loader": "0.0.1",
     "style-loader": "^0.13.0",
     "vue-hot-reload-api": "^1.2.1",
     "vue-html-loader": "^1.0.0",
