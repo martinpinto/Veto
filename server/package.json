@@ -1,6 +1,6 @@
 {
-  "name": "veto",
-  "description": "A minimal stack configuration with ExpressJS.",
+  "name": "Veto",
+  "description": "A political plattform.",
   "authors": [
     "Martin Pinto-Bazurco"
   ],
@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./build/start",
-    "build": "./node_modules/.bin/babel src -d build && gulp",
-    "serve": "npm run build && node ./build/start",
+    "prestart": "./node_modules/.bin/babel src -d build && gulp",
+    "dev": "nodemon --exec ./node_modules/.bin/babel-node src/start.js && gulp",
     "clean": "./node_modules/.bin/rimraf node_modules",
     "test": "karma start --single-run --path--"
   },
@@ -24,6 +24,7 @@
     "express": "~4.11.1",
     "html": "^1.0.0",
     "process": "^0.11.8",
+    "promise-mysql": "^3.0.1",
     "serve-favicon": "~2.2.0",
     "sugar": "x.x.x",
     "toml": "^2.3.0",
@@ -47,6 +48,7 @@
     "karma-jasmine": "^0.3.7",
     "mocha": "x.x.x",
     "morgan": "^1.8.1",
+    "nodemon": "^1.11.0",
     "rimraf": "^2.5.2",
     "uglify-js": "^2.4.8"
   }

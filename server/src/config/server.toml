@@ -1,7 +1,7 @@
 # General configuration for the application
 [app]
 name = "veto-server"
-version = "0.0.1"
+version = "0.0.2"
 environment = "development" # "development" or "production"
 
 [server]
@@ -20,3 +20,12 @@ environment = "development" # "development" or "production"
         host = "127.0.0.1"
         port = "27017"
         database = "veto"
+
+        [database.mysql]
+        baseurl = "localhost"
+        protocol = "http://"
+        host = "127.0.0.1"
+        port = "3306"
+        database = "Veto"
+        password = "mP$1909+-"
+        user = "root"
