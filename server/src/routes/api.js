@@ -4,7 +4,7 @@
 /**
  * This rounter handler manages all routes incoming from the web browser to the API.
  */
-import ModelService from '../database/ModelService';
+import QuotesService from "../database/QuotesService";
 import MongoDbRepository from '../database/mongodb/MongoDbRepository';
 import { Quote } from '../models/Quote';
 
@@ -13,6 +13,7 @@ import config from '../config/config';
 var express = require('express');
 var router = express.Router();
 const db = new MongoDbRepository();
+const quotesService = new QuotesService();
 
 /**
  *  Config Parameters
@@ -34,12 +35,23 @@ router.get('/', (req, res) => {
 
 router.get('/' + quotesRoute, (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
+    quotesService.getQuotes().then(rows => {
+        console.log(rows); // RowDataPacket[]
+    });
 
+
+    /*
+    quotesService.getQuotes().then((quotes) => {
+        res.status(200).json(quotes);
+    });
+    */
+    /*
     db.find(new Quote(), {}).then((quotes) => {
         console.log("api");
         console.log(quotes);
         res.status(200).json(quotes);
     });
+    */
 });
 
 router.post('/' + quotesRoute, (req, res) => {

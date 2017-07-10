@@ -10,25 +10,24 @@
           <div class="veto-description-controls">
             Vote:
             <i class="material-icons ">thumb_up</i>
+            Number of likes
             <i class="material-icons">thumb_down</i>
           </div>
           <div class="mdl-card__supporting-text">
             {{ quote.description }}
           </div>
+          <div>Category</div>
         </div>
         <div class="mdl-card__actions mdl-card--border">
           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             Get Started
           </a>
+                    Save, Comments
         </div>
         <div class="mdl-card__menu">
           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
             <i class="material-icons">share</i>
           </button>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
         </div>
       </div>
 
