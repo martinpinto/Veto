@@ -10,10 +10,13 @@ export default class QuotesService {
     }
 
     getQuotes() {
-        return this.db.find(new Quote(), {});//.then((quotes) => {
-        //    console.log(quotes);
-        //    return quotes;
-        //});
+        return this.db.find(new Quote(), {}).then(rowset => {
+            let quotes = [];
+            for (let i = 0; i < rowset.length; i++) {
+                quotes.push(new Quote(rowset[i]));
+            }
+            return quotes;
+        });
     }
 
     createQuote(title, author, description, source, category, topic, type, hashtags, party) {
