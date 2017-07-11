@@ -35,23 +35,10 @@ router.get('/', (req, res) => {
 
 router.get('/' + quotesRoute, (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
-    quotesService.getQuotes().then(rows => {
-        console.log(rows); // RowDataPacket[]
-    });
-
-
-    /*
-    quotesService.getQuotes().then((quotes) => {
-        res.status(200).json(quotes);
-    });
-    */
-    /*
-    db.find(new Quote(), {}).then((quotes) => {
-        console.log("api");
+    quotesService.getQuotes().then(quotes => {
         console.log(quotes);
         res.status(200).json(quotes);
     });
-    */
 });
 
 router.post('/' + quotesRoute, (req, res) => {
