@@ -9,9 +9,9 @@
         <div>
           <div class="veto-description-controls">
             Vote:
-            <i class="material-icons ">thumb_up</i>
-            Number of likes
-            <i class="material-icons">thumb_down</i>
+            <a href="#" v-on:click="upvote()"><i class="material-icons ">thumb_up</i></a>
+            {{ quote.votes }}
+            <a href="#" v-on:click="downvote()"><i class="material-icons">thumb_down</i></a>
           </div>
           <div class="mdl-card__supporting-text">
             {{ quote.description }}
@@ -22,7 +22,7 @@
           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             Get Started
           </a>
-                    Save, Comments
+            Save, Comments
         </div>
         <div class="mdl-card__menu">
           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -63,6 +63,9 @@
 
 <script>
   export default {
+    created() {
+      this.getQuotes();
+    },
     data() {
       return {
         quotes: undefined
@@ -73,9 +76,16 @@
         this.$http
           .get('http://localhost:3001/api/quotes', (data) => {
             this.quotes = data;
-            console.log(data);
           })
           .error((err) => console.log(err))
+      },
+      upvote() {
+        this.$http
+          .post('http://localhost:3001/api/quotes/voting/1', () => {
+          })
+      },
+      downvote() {
+
       }
     }
   }
