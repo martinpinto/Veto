@@ -33,6 +33,9 @@ router.get('/', (req, res) => {
 
 ///////////////////////////////// QUOTES /////////////////////////////////
 
+/**
+ * Get all quotes
+ */
 router.get('/' + quotesRoute, (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     quotesService.getQuotes().then(quotes => {
@@ -41,6 +44,9 @@ router.get('/' + quotesRoute, (req, res) => {
     });
 });
 
+/**
+ * Add new quote
+ */
 router.post('/' + quotesRoute, (req, res) => {
     if (typeof req.body !== "undefined") {
         res.header('Access-Control-Allow-Origin', '*');
@@ -50,6 +56,14 @@ router.post('/' + quotesRoute, (req, res) => {
 
         res.status(200).json({});
     }
+});
+
+/**
+ * Vote for a quote
+ */
+router.post('/' + quotesRoute + '/voting', (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.status(200).json({});
 });
 
 router.patch('/' + quotesRoute, (req, res) => {
