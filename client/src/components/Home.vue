@@ -12,7 +12,6 @@
             <a href="#" v-on:click="upvote()"><i class="material-icons ">thumb_up</i></a>
             {{ quote.votes }}
             <a href="#" v-on:click="downvote()"><i class="material-icons">thumb_down</i></a>
-
           </div>
           <div class="mdl-card__supporting-text">
             {{ quote.description }}
