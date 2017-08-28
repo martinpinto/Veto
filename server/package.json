@@ -11,7 +11,8 @@
     "prestart": "./node_modules/.bin/babel src -d build && gulp",
     "dev": "nodemon --exec ./node_modules/.bin/babel-node src/start.js && gulp",
     "clean": "./node_modules/.bin/rimraf node_modules",
-    "test": "karma start --single-run --path--"
+    "test": "karma start --single-run --path--",
+    "compile": "./node_modules/.bin/tsc"
   },
   "dependencies": {
     "bluebird": "^3.4.7",
@@ -37,6 +38,8 @@
     "npm": "x.x.x"
   },
   "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.0.25",
     "assert": "x.x.x",
     "babel-cli": "^6.16.0",
     "babel-polyfill": "^6.16.0",
@@ -51,6 +54,7 @@
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
     "rimraf": "^2.5.2",
+    "typescript": "^2.4.2",
     "uglify-js": "^2.4.8"
   }
 }
