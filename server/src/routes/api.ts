@@ -116,6 +116,6 @@ export class ApiRouter {
 ///////////////////////////////// TOPICS /////////////////////////////////
 
 const apiRouter = new ApiRouter();
-//apiRouter.init();
+apiRouter.init();
 
 export default apiRouter.router;

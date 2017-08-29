@@ -59,13 +59,6 @@ class App {
         });
         this.express.set('logger', logger);
         
-        // catch 404 and forward to error handler
-        this.express.use(function(req, res, next) {
-            var err: any = new Error('Not Found');
-            err.status = 404;
-            next(err);
-        });
-        
         // proper development error handling
         this.express.use(function(err, req, res, next) {
             res.status(err.status || 500);
@@ -97,21 +90,13 @@ class App {
         let router = express.Router();
         // placeholder route handler
         router.get('/', (req, res, next) => {
-            res.json({
-            message: 'Hello World!'
+            res.header('Access-Control-Allow-Origin', 'localhost');
+            res.json({ 
+                "started": this.express.get('startTime') 
             });
         });
         this.express.use('/', router);
-        this.express.use('/api/v1', ApiRouter);
-
-        //this.app.use(router);
-        
-        //this.app.use(this.config.api.root, api);
-
-        //this.app.get('/', function (req, res) {
-        //    res.header('Access-Control-Allow-Origin', 'localhost');
-        //    res.status(200).json({ "started": this.app.get('startTime') });
-        //s});
+        this.express.use(this.config.api.root, ApiRouter);
     }
 }    
 
