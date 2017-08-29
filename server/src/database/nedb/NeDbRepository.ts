@@ -1,4 +1,4 @@
-import ModelService from '../ModelService';
+import ModelService from '../ModelServiceInterface';
 import Model from '../../models/Model';
 
 var DataStore = require('NeDb');
@@ -20,6 +20,7 @@ var DataStore = require('NeDb');
  * $regex: checks whether a string is matched by the regular expression. Contrary to MongoDB, the use of $options with $regex is not supported, because it doesn't give you more power than regex flags. Basic queries are more readable so only use the $regex operator when you need to use another operator with it.
  */
 export default class ModelRepository {
+    private db;
 
     constructor() {
         this.db = new DataStore({ filename: './build/database/nedb/storage.db', autoload: true });
@@ -89,7 +90,7 @@ export default class ModelRepository {
      */
     destroyAll(where, callback) {
         if (typeof where !== 'undefined' && where !== {}) {
-            db.remove(where, { multi: true}, (err, numRemoved) => {
+            this.db.remove(where, { multi: true}, (err, numRemoved) => {
                 callback(err, numRemoved);
             });
         }
@@ -110,7 +111,7 @@ export default class ModelRepository {
      */
     destroyById(id, callback) {
         if (typeof id !== 'undefined') {
-            db.remove({ _id: id }, {}, (err, numRemoved) => {
+            this.db.remove({ _id: id }, {}, (err, numRemoved) => {
                 callback(err, numRemoved);
             });
         }
@@ -229,7 +230,7 @@ export default class ModelRepository {
      *     Number of instances (rows, documents) updated.
      */
     updateAll(where, data, callback) {
-        db.update({}, {}, { multi: true }, (err, numReplaced) => {
+        this.db.update({}, {}, { multi: true }, (err, numReplaced) => {
 
         });
     };

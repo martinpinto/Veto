@@ -1,4 +1,5 @@
 export default class ModelService {
+    private repository;
 
     constructor(repository) {
         this.repository = repository;

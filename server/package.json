@@ -7,12 +7,11 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "start": "node ./build/start",
-    "prestart": "./node_modules/.bin/babel src -d build && gulp",
+    "start": "npm run compile && node ./dist/start",
     "dev": "nodemon --exec ./node_modules/.bin/babel-node src/start.js && gulp",
-    "clean": "./node_modules/.bin/rimraf node_modules",
+    "clean": "rimraf node_modules",
     "test": "karma start --single-run --path--",
-    "compile": "./node_modules/.bin/tsc"
+    "compile": "./node_modules/.bin/tsc && gulp"
   },
   "dependencies": {
     "bluebird": "^3.4.7",
@@ -22,7 +21,7 @@
     "cookie-parser": "~1.3.3",
     "debug": "~2.1.1",
     "ejs": "^2.5.2",
-    "express": "~4.11.1",
+    "express": "4.14.0",
     "html": "^1.0.0",
     "mongo": "^0.1.0",
     "process": "^0.11.8",
@@ -38,7 +37,9 @@
     "npm": "x.x.x"
   },
   "devDependencies": {
+    "@types/body-parser": "0.0.33",
     "@types/mocha": "^2.2.42",
+    "@types/morgan": "^1.7.32",
     "@types/node": "^8.0.25",
     "assert": "x.x.x",
     "babel-cli": "^6.16.0",

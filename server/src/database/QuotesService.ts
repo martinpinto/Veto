@@ -3,6 +3,8 @@ import MySqlRepository from '../database/mysql/MySqlRepository'
 import { Quote } from '../models/Quote';
 
 export default class QuotesService {
+    private mongodb: MongoDbRepository;
+    private db: MySqlRepository;
 
     constructor() {
         this.mongodb = new MongoDbRepository();
@@ -10,7 +12,7 @@ export default class QuotesService {
     }
 
     getQuotes() {
-        return this.db.find(new Quote(), {}).then(rowset => {
+        return this.db.find(new Quote(null), {}).then(rowset => {
             let quotes = [];
             for (let i = 0; i < rowset.length; i++) {
                 quotes.push(new Quote(rowset[i]));

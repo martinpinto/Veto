@@ -1,9 +1,23 @@
 import Model from './Model';
 
 export class Quote extends Model {
-    constructor(quote) {
-        super();
+    public title: string;
+    public author: string;
+    public description: string;
+    public type: string;
+    public status: string;
+    public topic: string;
+    public hashtags: string[];
+    public votes: number;
+    public dateCreated: Date;
+    public dateQuote: Date;
+    public source: string;
+    public party: string;
+    
+    constructor(quote: Quote) {
+        super(quote);
         this._name = "Quote";
+        
         if (typeof quote !== 'undefined') {
             this.title = quote.title;
             this.author = quote.author;
