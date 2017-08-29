@@ -40,11 +40,8 @@ export class ApiRouter {
      *  @return an HTTP status 200
      */
     public getTest(req: Request, res: Response, next: NextFunction) {
-        this.router.get('/', (req, res) => {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.status(200).json({ "started": this.router.get('startTime') });
-        });
-
+        res.header('Access-Control-Allow-Origin', '*');
+        res.status(200).json({ "started": "Api is up and running..." });
     }
     
     ///////////////////////////////// QUOTES /////////////////////////////////
