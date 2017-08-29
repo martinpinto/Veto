@@ -50,13 +50,11 @@ export class ApiRouter {
      * Get all quotes
      */
     public getAllQuotes(req: Request, res: Response, next: NextFunction) {
-        this.router.get(`/${this.quotesRoute}`, (req, res) => {
-            res.header('Access-Control-Allow-Origin', '*');
-            
-            this.quotesService.getQuotes().then(quotes => {
-                console.log(quotes);
-                res.status(200).json(quotes);
-            });
+        res.header('Access-Control-Allow-Origin', '*');
+        
+        this.quotesService.getQuotes().then(quotes => {
+            console.log(quotes);
+            res.status(200).json(quotes);
         });
     }
     
@@ -64,46 +62,41 @@ export class ApiRouter {
      * Add new quote
      */
     public postNewQuote(req: Request, res: Response, next: NextFunction) {
-        this.router.post(`/${this.quotesRoute}`, (req, res) => {
-            if (typeof req.body !== "undefined") {
-                res.header('Access-Control-Allow-Origin', '*');
-                let quote = new Quote(req.body);
-        
-                this.db.create(quote);
-        
-                res.status(200).json({});
-            }
-        });
+        if (typeof req.body !== "undefined") {
+            res.header('Access-Control-Allow-Origin', '*');
+            let quote = new Quote(req.body);
+    
+            this.db.create(quote);
+    
+            res.status(200).json({});
+        }
     }
     
     /**
      * Vote for a quote
      */
     public postNewVote(req: Request, res: Response, next: NextFunction) {
-        this.router.post(`/${this.quotesRoute}/voting`, (req, res) => {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.status(200).json({});
-        });
+        res.header('Access-Control-Allow-Origin', '*');
+        res.status(200).json({});
     }
     
     public patchQuote(req: Request, res: Response, next: NextFunction) {
-        this.router.patch(`/${this.quotesRoute}`, (req, res) => {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.status(200).json({});
-        });
+        res.header('Access-Control-Allow-Origin', '*');
+        res.status(200).json({});
     }
     
     public deleteQuote(req: Request, res: Response, next: NextFunction) {
-        this.router.delete(`/${this.quotesRoute}`, (req, res) => {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.status(200).json({});
-        });
+        res.header('Access-Control-Allow-Origin', '*');
+        res.status(200).json({});
     }
 
     init() {
         this.router.get("/", this.getTest);
-        this.router.get("/quotes", this.getAllQuotes);
-        this.router.get("/quotes/:id", this.getAllQuotes);
+        this.router.get(`/${this.quotesRoute}`, this.getAllQuotes);
+        this.router.post(`/${this.quotesRoute}`, this.postNewQuote);            
+        this.router.post(`/${this.quotesRoute}/voting`, this.postNewVote);            
+        this.router.patch(`/${this.quotesRoute}`, this.patchQuote);
+        this.router.delete(`/${this.quotesRoute}`, this.deleteQuote);
     }
 
 }
