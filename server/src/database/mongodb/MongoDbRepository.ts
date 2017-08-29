@@ -1,10 +1,11 @@
 import config from "../../config/config";
 import ModelService from "../ModelServiceInterface";
 
-export default class ModelRepository extends ModelService {
+export default class ModelRepository {//extends ModelService {
+    private db;
 
     constructor() {
-        super();
+        //super(null);
         
         var Promise = require('bluebird');
         var MongoClient = Promise.promisifyAll(require('mongodb').MongoClient);
@@ -119,7 +120,7 @@ export default class ModelRepository extends ModelService {
      *   err	Error
      *    Error object; see Error object.
      */
-    destroyById(id, callback) {
+    destroyById(id, callback, model, where) {
         let database = null;
         this.db.open()
         .then((db) => {
