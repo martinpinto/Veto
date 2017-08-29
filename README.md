@@ -1,4 +1,6 @@
-# Project description
+# Veto [![Build Status](https://travis-ci.org/martinpinto/Veto.svg?branch=master)]
+
+## Project description
 Veto is an online political plattform to provide transparency in the political sphere in Germany.
 This repository uses node.js, espress.js and mongodb as its stack.
 
@@ -33,4 +35,8 @@ Open the browser and navigate to **localhost:3000** and you are all set!
 [node.js](http://nodejs.org/)
 
 [express.js](http://expressjs.com)
+
+[typescript](https://www.typescriptlang.org/)
+
+[vue.js](https://vuejs.org/)
 
