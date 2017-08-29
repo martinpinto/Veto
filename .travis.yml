@@ -3,10 +3,10 @@ node_js:
   - "stable"
 
 before_script:
-  - /server/npm i
-  - /server/npm i -g gulp
-  - /client/npm i
+  - (cd server && npm i)
+  - (cd server && npm i -g gulp)
+  - (cd client && npm i)
 
 script:
-  - /server/npm start
-  - /client/npm start
+  - (cd server && npm start)
+  - (cd client && npm start)
