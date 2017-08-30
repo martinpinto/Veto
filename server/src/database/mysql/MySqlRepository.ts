@@ -1,6 +1,7 @@
 import config from "../../config/config";
 import ModelService from "../ModelServiceInterface";
-import mysql from "promise-mysql";
+//import mysql from "promise-mysql";
+var mysql = require('promise-mysql');
 
 export default class ModelRepository {//extends ModelService {
 

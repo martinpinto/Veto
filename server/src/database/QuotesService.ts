@@ -2,7 +2,7 @@ import MongoDbRepository from '../database/mongodb/MongoDbRepository';
 import MySqlRepository from '../database/mysql/MySqlRepository'
 import { Quote } from '../models/Quote';
 
-export default class QuotesService {
+class QuotesService {
     private mongodb: MongoDbRepository;
     private db: MySqlRepository;
 
@@ -48,5 +48,6 @@ export default class QuotesService {
 
         // add quoteId to user favorites array
     }
-
 }
+
+export default new QuotesService();

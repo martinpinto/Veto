@@ -5,6 +5,7 @@
  * This rounter handler manages all routes incoming from the web browser to the API.
  */
 import QuotesService from "../database/QuotesService";
+
 import MongoDbRepository from '../database/mongodb/MongoDbRepository';
 import { Quote } from '../models/Quote';
 
@@ -15,7 +16,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 export class ApiRouter {
     router: Router;
     db: MongoDbRepository;
-    quotesService: QuotesService;
+    //quotesService: QuotesService;
 
     // Config Parameters
     quotesRoute: string;
@@ -25,7 +26,7 @@ export class ApiRouter {
         this.router = Router();
 
         this.db = new MongoDbRepository();
-        this.quotesService = new QuotesService();
+        //this.quotesService = new QuotesService();
         
         // Config Parameters
         this.quotesRoute = config.api.routes[0];
@@ -51,8 +52,9 @@ export class ApiRouter {
      */
     public getAllQuotes(req: Request, res: Response, next: NextFunction) {
         res.header('Access-Control-Allow-Origin', '*');
-        
-        this.quotesService.getQuotes().then(quotes => {
+        // or like this -> let quotes: Quote = <Quote>req.body;
+		// let quotesService: QuotesService = new QuotesService().getQuotes().then(...);
+        QuotesService.getQuotes().then(quotes => {
             console.log(quotes);
             res.status(200).json(quotes);
         });
@@ -64,6 +66,8 @@ export class ApiRouter {
     public postNewQuote(req: Request, res: Response, next: NextFunction) {
         if (typeof req.body !== "undefined") {
             res.header('Access-Control-Allow-Origin', '*');
+            // or like this -> let quote: Quote = <Quote>req.body;
+            // TODO: turn Quote into typescript interface            
             let quote = new Quote(req.body);
     
             this.db.create(quote);

@@ -1,4 +1,5 @@
-# Veto [![Build Status](https://travis-ci.org/martinpinto/Veto.svg?branch=master)]
+# Veto ![Build Status](https://travis-ci.org/martinpinto/Veto.svg?branch=master)
+
 
 ## Project description
 Veto is an online political plattform to provide transparency in the political sphere in Germany.
