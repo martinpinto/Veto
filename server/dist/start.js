@@ -1,20 +1,22 @@
 #!/usr/bin/env node
-var app = require('./app');
-var debug = require('debug')('project_template:server');
-var http = require('http');
-var config = require('./config/config');
-crocksda: stasv = "";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const config = require("./config/config");
+const http = require("http");
+const debug = require("debug");
+const App_1 = require("./App");
+debug("ts-express:server");
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || config.api.port || '3000');
-var ip = process.env.OPENSHIFT_NODEJS_IP || config.api.host || "127.0.0.1";
-app.set('port', port);
-app.set('domain', ip);
+const port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || config.default.api.port || '3000');
+const ip = process.env.OPENSHIFT_NODEJS_IP || config.default.api.host || "127.0.0.1";
+App_1.default.set('port', port);
+App_1.default.set('domain', ip);
 /**
  * Create HTTP server.
  */
-var server = http.createServer(app);
+const server = http.createServer(App_1.default);
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -66,12 +68,33 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    let addr = server.address();
+    const bind = typeof addr === 'string'
+        ? `pipe ${addr}`
+        : `port ${addr.port}`;
+    debug(`Listening on ${bind}`);
 }
 function bootstrap() {
+    let fs = require('fs');
+    let bootstrapFolder = "./src/bootstrap";
+    let files = fs.readdirSync(bootstrapFolder);
+    if (files) {
+        files.forEach(element => {
+            console.log(element);
+            fs.readFile(`${bootstrapFolder}/${element}`, 'utf8', (err, data) => {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log(data);
+                let exec = require('child_process').exec, child;
+                child = exec(`node ${bootstrapFolder}/${element} {{args}}`, function (error, stdout, stderr) {
+                    console.log('stdout: ' + stdout);
+                    console.log('stderr: ' + stderr);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                });
+            });
+        });
+    }
 }
-//# sourceMappingURL=start.js.map
