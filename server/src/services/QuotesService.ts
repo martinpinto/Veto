@@ -1,9 +1,11 @@
 import MongoDbRepository from '../databases/mongodb/MongoDbRepository';
 import MySqlRepository from '../databases/mysql/MySqlRepository'
-import WhereFilter from '../databases/engine/filter/WhereFilter';
+import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 import { Operator } from '../databases/engine/filter/Operator';
 
 import { Quote } from '../models/Quote';
+
+var Promise = require('bluebird');
 
 class QuotesService {
     private mongodb: MongoDbRepository;
@@ -14,14 +16,18 @@ class QuotesService {
         this.mysql = new MySqlRepository();
     }
 
-    getQuotes() {
-        return this.mysql.find(new WhereFilter(Operator.$NONE), new Quote(null)._name).then(rowset => {
-            let quotes = [];
+    getQuotes(): Promise<Quote[]> {
+        return this.mysql.find(new Quote(null)._name).then(rowset => {
+            let quotes: Quote[] = [];
             for (let i = 0; i < rowset.length; i++) {
                 quotes.push(new Quote(rowset[i]));
             }
             return quotes;
         });
+    }
+
+    getFilteredQuotes(where: IWhereFilter): Promise<Quote[]> {
+        return null;
     }
 
     createQuote(title, author, description, source, category, topic, type, hashtags, party) {

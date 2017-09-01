@@ -10,6 +10,9 @@ import App from "./App";
 
 debug("ts-express:server");
 
+import { test } from "./test";
+test();
+
 /**
  * Get port from environment and store in Express.
  */
@@ -105,7 +108,6 @@ function bootstrap(): void {
         let exec = require('child_process').exec, child;
     
         child = exec(`node ${bootstrapFolder}/${element} {{args}}`, (error, stdout, stderr) => {
-            console.log('stderr: ' + stderr);
             if (error !== null) {
               console.log('exec error: ' + error);
             }

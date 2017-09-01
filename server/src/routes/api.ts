@@ -5,9 +5,8 @@
  * This rounter handler manages all routes incoming from the web browser to the API.
  */
 import QuotesService from "../services/QuotesService";
-
-import MongoDbRepository from '../databases/mongodb/MongoDbRepository';
 import { Quote } from '../models/Quote';
+import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 
 import config from '../config/config';
 
@@ -15,8 +14,6 @@ import { Router, Request, Response, NextFunction } from 'express';
 
 export class ApiRouter {
     router: Router;
-    db: MongoDbRepository;
-    //quotesService: QuotesService;
 
     // Config Parameters
     quotesRoute: string;
@@ -24,9 +21,6 @@ export class ApiRouter {
 
     constructor() {
         this.router = Router();
-
-        this.db = new MongoDbRepository();
-        //this.quotesService = new QuotesService();
         
         // Config Parameters
         this.quotesRoute = config.api.routes[0];
@@ -59,6 +53,14 @@ export class ApiRouter {
             res.status(200).json(quotes);
         });
     }
+
+    public getFilteredQuotes(req: Request, res: Response, next: NextFunction) {
+        res.header('Access-Control-Allow-Origin', '*');        
+        if (req.query) {
+            //let filter = new IWhereFilter({ $AND: [ { $EQ: { id: 2 } }, { $NEQ: { name: "Test" } } ]});
+            //QuotesService.getFilteredQuotes(filter);
+        }
+    }
     
     /**
      * Add new quote
@@ -70,7 +72,7 @@ export class ApiRouter {
             // TODO: turn Quote into typescript interface            
             let quote = new Quote(req.body);
     
-            this.db.create(quote);
+            //this.mongodb.create(quote);
     
             res.status(200).json({});
         }
@@ -97,6 +99,7 @@ export class ApiRouter {
     init() {
         this.router.get("/", this.getTest);
         this.router.get(`/${this.quotesRoute}`, this.getAllQuotes);
+        this.router.get(`/${this.quotesRoute}/filter`, this.getFilteredQuotes);
         this.router.post(`/${this.quotesRoute}`, this.postNewQuote);            
         this.router.post(`/${this.quotesRoute}/voting`, this.postNewVote);            
         this.router.patch(`/${this.quotesRoute}`, this.patchQuote);
