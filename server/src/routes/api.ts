@@ -4,9 +4,9 @@
 /**
  * This rounter handler manages all routes incoming from the web browser to the API.
  */
-import QuotesService from "../database/QuotesService";
+import QuotesService from "../services/QuotesService";
 
-import MongoDbRepository from '../database/mongodb/MongoDbRepository';
+import MongoDbRepository from '../databases/mongodb/MongoDbRepository';
 import { Quote } from '../models/Quote';
 
 import config from '../config/config';

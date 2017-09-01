@@ -1,5 +1,6 @@
-import ModelService from '../ModelServiceInterface';
+import IModelRepository from '../engine/IModelRepository';
 import Model from '../../models/Model';
+import WhereFilter from "../engine/filter/WhereFilter";
 
 var DataStore = require('NeDb');
 
@@ -19,7 +20,7 @@ var DataStore = require('NeDb');
  * $exists: checks whether the document posses the property field. value should be true or false
  * $regex: checks whether a string is matched by the regular expression. Contrary to MongoDB, the use of $options with $regex is not supported, because it doesn't give you more power than regex flags. Basic queries are more readable so only use the $regex operator when you need to use another operator with it.
  */
-export default class ModelRepository {
+export default class ModelRepository implements IModelRepository {
     private db;
 
     constructor() {
@@ -28,18 +29,13 @@ export default class ModelRepository {
 
     /**
      * Return the number of records that match the optional "where" filter.
-     * 
-     * @param: [where]	Object	
-     *   Optional where filter, like { key: val, key2: {gt: 'val2'}, ...} 
-     * @param: callback	Function	
-     *   Callback function called with (err, count) arguments. Required.
-     *   Callback returns:
-     *    err	Error	
-     *     Error object; see Error object.
-     *    count	Number	
-     *     Number of instances updated.
+     *
+     * @param: [where] WhereFilter
+     *   Optional where filter, like { key: val, key2: {gt: 'val2'}, ...}
+     * @param: modelName string
+     *   The database table/record to be queried.
      */
-    count(where, callback) {
+    count(where: WhereFilter, modelName: string) {
         let filter;
         if (typeof where !== 'undefined') {
             filter = {}; // count all
@@ -47,7 +43,8 @@ export default class ModelRepository {
             filter = where;
         }
         this.db.count(filter, (err, count) => {
-            callback(err, count);
+            // TODO: turn this into promise
+            //callback(err, count);
         });
     };
     
@@ -56,46 +53,38 @@ export default class ModelRepository {
      * 
      * @param: {Object}|[{Object}]		
      *   data Optional data argument. Can be either a single model instance or an array of instances.
-     * @param: callback	Function	
-     *   Callback function called with cb(err, obj) signature.
-     *   Callback returns:
-     *    err	Error	
-     *     Error object; see Error object.
-     *    newModel	Object	
-     *     Model instance or null.
      */
-    create(model, callback) {
+    create(model) {
         if (typeof model !== 'undefined') {
             this.db.insert(model, (err, newModel) => {
-                callback(err, newModel);
+                // TODO: turn this into promise
+                //callback(err, newModel);
             });
         } else {
             let err = new Error('Please provide a valid model!');
-            callback(err, null);            
+            // TODO: turn this into promise
+            //callback(err, null);            
         }
     };
     
     /**
      * Destroy all model instances that match the optional where specification.
      * 
-     * @param: [where]	Object	
+     * @param: [where]	WhereFilter	
      *   Optional where filter, like: {key: val, key2: {gt: 'val2'}, ...} 
-     * @param: callback	Function	
-     *   Optional callback function called with (err, info) arguments.
-     *   Callback returns:
-     *    err	Error	
-     *     Error object; see Error object.
-     *    info	Number	
-     *     Number of instances (rows, documents) destroyed.
+     * @param: modelName string
+     *   the name of the table/record to be deleted.
      */
-    destroyAll(where, callback) {
+    destroyAll(where: WhereFilter, modelName: string) {
         if (typeof where !== 'undefined' && where !== {}) {
             this.db.remove(where, { multi: true}, (err, numRemoved) => {
-                callback(err, numRemoved);
+                // TODO: turn this into promise
+                //callback(err, numRemoved);
             });
         }
         let err = new Error('Removing all documents not supported!');
-        callback(err, null);
+        // TODO: turn this into promise
+        //callback(err, null);
     };
     
     /**
@@ -103,61 +92,51 @@ export default class ModelRepository {
      * 
      * @param: id		
      *   The ID value of model instance to delete.
-     * @param: callback	Function	
-     *   Callback function called with (err) arguments. Required.
-     *   Callback returns:
-     *   err	Error	
-     *    Error object; see Error object.
+     * @param: [where]	WhereFilter	
+     *   Optional where filter, like: {key: val, key2: {gt: 'val2'}, ...} 
+     * @param: modelName string
+     *   the name of the table/record to be deleted.
      */
-    destroyById(id, callback) {
+    destroyById(id, where: WhereFilter, modelName: string) {
         if (typeof id !== 'undefined') {
             this.db.remove({ _id: id }, {}, (err, numRemoved) => {
-                callback(err, numRemoved);
+                // TODO: turn this into promise
+                //callback(err, numRemoved);
             });
         }
         let err = new Error('Please provide an id!');
-        callback(err, null);
+        // TODO: turn this into promise
+        //callback(err, null);
     };
     
     /**
      * Check whether a model instance exists in database.
      * 
-     * @param: id	id	
+     * @param: id	
      *   Identifier of object (primary key value).
-     * @param: callback	Function	
-     *   Callback function called with (err, exists) arguments. Required.
-     *   Callback returns:
-     *    err	Error	
-     *     Error object; see Error object.
-     *    exists	Boolean	
-     *     True if the instance with the specified ID exists; false otherwise.
+     * @param: modelName string
+     *   the name of the table/record to be deleted.
      */
-    exists(id, callback) {};
+    exists(id, modelName: string) {};
     
     /**
      * Find all model instances that match filter specification.
-     * 
-     * @param: [filter]	Object	
-     *   Optional Filter JSON object; see below.
-     * @param: callback	Function	
-     *   Callback function called with (err, returned-instances) arguments. Required.
-     *   Callback returns:
-     *    err	Error	
-     *     Error object; see Error object.
-     *    models	Array	
+     *
+     * @param: [where] WhereFilter
      *     Model instances matching the filter, or null if none found.
+     * @param: modelName string
+     *   the name of the table/record to be deleted.
      */
-    find(filter, callback) {
-        let where;
-        if (typeof filter == 'undefined' || filter === {}) {
-            where = {}; // find all
-        } else if (filter instanceof Model) {
-            where = { _type: Object.getPrototypeOf(filter) };
+    find(where: WhereFilter, modelName: string) {
+        let filter;
+        if (typeof where == 'undefined' || where === {}) {
+            filter = {}; // find all
         } else {
-            where = filter;
+            filter = where;
         } 
-        this.db.find(where, (err, models) => {
-            callback(err, models);
+        this.db.find(filter, (err, models) => {
+            // TODO: turn this into promise
+            //callback(err, models);
         });
     };
     
@@ -166,33 +145,28 @@ export default class ModelRepository {
      * 
      * @param: id		
      *   Primary key value
-     * @param: [filter]	Object	
-     *   Optional Filter JSON object; see below.
-     * @param: callback	Function	
-     *   Callback function called with (err, instance) arguments. Required.
-     *   Callback returns:
-     *    err	Error	
-     *     Error object; see Error object.
-     *    instance	Object	
-     *     Model instance matching the specified ID or null if no instance matches.
+     * @param: [where]	WhereFilter	
+     *   Optional Filter JSON object
      */
-    findById(id, filter, callback) {
+    findById(id, where: WhereFilter) {
         if (typeof id !== 'undefined') {
             let merge = { _id: id };
-            if (typeof filter !== 'undefined') {
+            if (typeof where !== 'undefined') {
                 // merge the two objects and pass them to db
-                for (var key in filter) {
-                    if (filter.hasOwnProperty(key)) {
-                        merge[key] = filter[key];
+                for (var key in where) {
+                    if (where.hasOwnProperty(key)) {
+                        merge[key] = where[key];
                     }
                 }
             }
             this.db.findOne(merge, (err, model) => {
-                callback(err, model);
+                // TODO: turn this into promise
+                //callback(err, model);
             });
         } else {
             let err = new Error('Please provide an id!');
-            callback(err, null);
+            // TODO: turn this into promise
+            //callback(err, null);
        }
     };
     
@@ -201,35 +175,21 @@ export default class ModelRepository {
      * 
      * @param: id 
      *   Primary key value
-     * @param: [where] Object
+     * @param: [where] WhereFilter
      *   Optional where filter, like {}
-     * @param: callback Function
-     *   Callback function called with (err, info) arguments. Required.
-     *   Callback returns: 
-     *    err	Error	
-     *     Error object; see Error object.
-     *    info	Number	
-     *     Number of instances (rows, documents) updated.
      */
-    updateById(id, where, callback) {};
+    updateById(id, where: WhereFilter) {};
 
     /**
      * Update multiple instances that match the where clause.
      * 
-     * @param: [where]	Object 
+     * @param: [where]	WhereFilter 
      *   Optional where filter, like { key: val, key2: {gt: 'val2'}, ...} 
      *   see Where filter.
      * @param: data	Object	
      *   Object containing data to replace matching instances, if any.
-     * @param: callback	Function	
-     *   Callback function called with (err, info) arguments. Required.
-     *   Callback returns: 
-     *    err	Error	
-     *     Error object; see Error object.
-     *    info	Number	
-     *     Number of instances (rows, documents) updated.
      */
-    updateAll(where, data, callback) {
+    updateAll(where: WhereFilter, data) {
         this.db.update({}, {}, { multi: true }, (err, numReplaced) => {
 
         });

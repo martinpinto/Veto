@@ -1,18 +1,21 @@
-import MongoDbRepository from '../database/mongodb/MongoDbRepository';
-import MySqlRepository from '../database/mysql/MySqlRepository'
+import MongoDbRepository from '../databases/mongodb/MongoDbRepository';
+import MySqlRepository from '../databases/mysql/MySqlRepository'
+import WhereFilter from '../databases/engine/filter/WhereFilter';
+import { Operator } from '../databases/engine/filter/Operator';
+
 import { Quote } from '../models/Quote';
 
 class QuotesService {
     private mongodb: MongoDbRepository;
-    private db: MySqlRepository;
+    private mysql: MySqlRepository;
 
     constructor() {
         this.mongodb = new MongoDbRepository();
-        this.db = new MySqlRepository();
+        this.mysql = new MySqlRepository();
     }
 
     getQuotes() {
-        return this.db.find(new Quote(null), {}).then(rowset => {
+        return this.mysql.find(new WhereFilter(Operator.$NONE), new Quote(null)._name).then(rowset => {
             let quotes = [];
             for (let i = 0; i < rowset.length; i++) {
                 quotes.push(new Quote(rowset[i]));
