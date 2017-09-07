@@ -10,9 +10,6 @@ import App from "./App";
 
 debug("ts-express:server");
 
-import { test } from "./test";
-test();
-
 /**
  * Get port from environment and store in Express.
  */
