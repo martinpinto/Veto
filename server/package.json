@@ -9,9 +9,10 @@
   "scripts": {
     "start": "npm run compile && node ./dist/start",
     "dev": "nodemon --exec ./node_modules/.bin/babel-node src/start.js && gulp",
-    "clean": "rimraf node_modules",
-    "test": "./node_modules/.bin/mocha ./dist/tests --reporter spec",
-    "compile": "gulp"
+    "clean": "rimraf dist",
+    "restart": "rimraf node_modules",
+    "test": "npm run compile && ./node_modules/.bin/mocha ./dist/tests --reporter spec",
+    "compile": "npm run clean && gulp"
   },
   "dependencies": {
     "bluebird": "^3.4.7",

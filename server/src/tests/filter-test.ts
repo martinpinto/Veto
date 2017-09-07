@@ -1,8 +1,8 @@
 import { Operator, OperatorEnum } from "../databases/engine/filter/Operator";
-import { Query } from "../databases/engine/filter/Query";
-import { WhereFilter, IWhereFilter } from "../databases/engine/filter/WhereFilter";
+import { MongoDbWhereFilter } from "../databases/mongodb/MongoDbWhereFilter";
 
-import * as chai from 'chai';
+const util = require('util')
+import { expect } from 'chai';
 
 describe('Where Filter', function() {  
     it('should return a list of operators', () => {
@@ -10,8 +10,8 @@ describe('Where Filter', function() {
         let neq = new Operator("name", "test", OperatorEnum.$NEQ);
         let and1 = new Operator(eq, neq, OperatorEnum.$AND);
         
-        let filter1 = new WhereFilter(and1);
-        console.log(filter1);
-        chai.expect(filter1).to.exist
+        let filter1 = new MongoDbWhereFilter(and1);
+        console.log(util.inspect(filter1, false, null))
+        expect(filter1).to.exist
     });
 });

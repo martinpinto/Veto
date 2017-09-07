@@ -1,7 +1,7 @@
 import config from "../../config/config";
 import IModelRepository from "../engine/IModelRepository";
 import { IWhereFilter } from "../engine/filter/WhereFilter";
-import MongoDbWhereFilter from "./MongoDbWhereFilter";
+import { MongoDbWhereFilter } from "./MongoDbWhereFilter";
 
 export default class MongoDbRepository implements IModelRepository {
     private db;

@@ -1,55 +1,59 @@
 import { IWhereFilter, WhereFilter } from "../engine/filter/WhereFilter";
 import { Operator, OperatorEnum } from "../engine/filter/Operator";
 
-export default class MongoDbWhereFilter extends WhereFilter implements IWhereFilter {
+export class MongoDbWhereFilter extends WhereFilter implements IWhereFilter {
+    public operators: Operator[];
     
     constructor(...operators: Operator[]) {
         super();
+        this.operators = operators;        
     }
-
-    $OR(field: any, value: any): any {
-        throw new Error("Method not implemented.");
-    }
-
-    $AND(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+    
+    $OR(leftOperand: any, rightOperand: any): any {
+        return { $AND: [leftOperand, rightOperand] };
     }
 
     $EQ(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $EQ: { field: value }};
     }
-
+    
     $NEQ(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $NEQ: { field: value }};
     }
-
+    
+    $AND(leftOperand: any, rightOperand: any): any {
+        return { $AND: [leftOperand, rightOperand] };
+    }
+    
     $LT(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $LT: { field: value }};
     }
-
+    
     $LTE(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $LTE: { field: value }};
     }
-
+    
     $GT(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $GT: { field: value }};
     }
 
     $GTE(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $GTE: { field: value }};
     }
+
     $IN(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $IN: { field: value }};
     }
 
     $NIN(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $NIN: { field: value }};
     }
+
     $EXISTS(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $EXISTS: { field: value }};
     }
     
     $REGEX(field: any, value: any): any {
-        throw new Error("Method not implemented.");
+        return { $REGEX: { field: value }};
     }
 }

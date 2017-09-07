@@ -1,5 +1,4 @@
 import { Operator, OperatorEnum } from "./Operator";
-import { Query } from "./Query";
 
 /**
  * The following operators are defined:
@@ -30,7 +29,6 @@ export interface IWhereFilter {
 
 export class WhereFilter implements IWhereFilter {
     public operators: Operator[];
-    whereQuery: Query;
     
     constructor(...operators: Operator[]) {
         this.operators = operators;

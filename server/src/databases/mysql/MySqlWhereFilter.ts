@@ -8,7 +8,7 @@ export default class MySqlWhereFilter implements IWhereFilter {
         this.operators = operator;
     }
 
-    public resolve() {
+    public resolve(): any {
         
     }
 
