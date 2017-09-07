@@ -16,10 +16,6 @@
 
 [  ] Implement Logging
 
-[  ] Implement Bootstrapping
+[ X ] Implement Bootstrapping
 
 [  ] Include favicon
-
-[  ] Parse XML Data (Importer)
-
-[  ] Export to Access (Exporter)
