@@ -12,7 +12,7 @@ import * as compression from "compression";
 import * as morgan from "morgan";
 import * as winston from "winston";
 
-import ApiRouter from "./routes/api";
+import ApiRouter from "./routes/Api";
 
 class App {
     public express: express.Application;

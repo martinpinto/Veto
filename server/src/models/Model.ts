@@ -1,9 +1,4 @@
-export default class Model {
-    public _id: string;
-    public _name: string;
-
-    constructor(obj) {
-        this._id;
-        this._name;
-    }
+export default interface Model {
+    _id: string;
+    _name: string;
 }

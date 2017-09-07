@@ -1,6 +1,9 @@
 import Model from './Model';
 
-export class Quote extends Model {
+export class Quote implements Model {
+    public _id: string;
+    public _name: string;
+
     public title: string;
     public author: string;
     public description: string;
@@ -15,10 +18,10 @@ export class Quote extends Model {
     public party: string;
     
     constructor(quote: Quote) {
-        super(quote);
         this._name = "Quote";
         
         if (quote) {
+            this._id = quote._id;
             this.title = quote.title;
             this.author = quote.author;
             this.description = quote.description;
