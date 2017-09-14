@@ -15,7 +15,7 @@ export default class MongoDbRepository implements IModelRepository {
         this.db = {
             open: () => {
                 // Connection URL
-                let url = config.getFullUrl();
+                let url = this.getFullDbUrl();
                 return new Promise((resolve, reject) => {
                     // Use connect method to connect to the Server
                     MongoClient.connect(url, (err, db) => {
@@ -34,6 +34,17 @@ export default class MongoDbRepository implements IModelRepository {
                 }
             }
         }
+    }
+
+    private getFullDbUrl() {
+        let mongodb = config.database.mongodb;
+        // e.g. mongodb://localhost:27017/myproject';
+        return "mongodb://"
+            + mongodb.baseurl
+            + ":"
+            + mongodb.port
+            + "/"
+            + mongodb.database;
     }
 
     /**
