@@ -3,6 +3,8 @@
  * Configuration
  ***************/
 import * as express from "express";
+import * as session from "express-session";
+import * as grant from "grant-express";
 import * as conf from "./config/config";
 import * as path from "path";
 import * as favicon from "serve-favicon";
@@ -23,6 +25,7 @@ class App {
         this.config = conf.default;
         this.middleware();
         this.routes();
+        this.oauth();
     }
 
     private middleware(): void {
@@ -97,6 +100,16 @@ class App {
         });
         this.express.use('/', router);
         this.express.use(this.config.api.root, ApiRouter);
+    }
+
+    private oauth(): void {
+        this.express.use(session({secret: 'grant', resave: true, saveUninitialized: true}));
+        this.express.use(grant);
+
+        this.express.get('/twitter_callback', (req, res) => {
+            console.log(res);
+            res.end("Authorization Succeded");
+        });
     }
 }    
 
