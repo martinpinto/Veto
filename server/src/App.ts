@@ -23,6 +23,7 @@ class App {
         this.config = conf.default;
         this.middleware();
         this.routes();
+        this.authentication();
     }
 
     private middleware(): void {
@@ -97,6 +98,22 @@ class App {
         });
         this.express.use('/', router);
         this.express.use(this.config.api.root, ApiRouter);
+    }
+
+    private authentication(): void {
+        let session = require('express-session');
+        let Grant = require('grant-express');
+        let grant = new Grant(require("./config.json"));
+
+        this.express.use(session({secret: 'grant',resave: true, saveUninitialized: true}));
+        this.express.use(grant);
+    }
+
+    private twitterAuthentication(): void {
+        this.express.get('/twitter_callback', function(req,res) {
+            console.log(res);
+            res.end("Authorization Succeded");
+          })
     }
 }    
 
