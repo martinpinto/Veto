@@ -3,19 +3,27 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent } from './app.component';
+import { AppComponent, QuotesDialog } from './app.component';
 import { QuotesComponent } from './home/quotes/quotes.component';
 
+import { MatButtonModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuotesComponent
+    QuotesComponent,
+    QuotesDialog
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule, 
+    MatCheckboxModule,
+    MatDialogModule
   ],
+  entryComponents: [QuotesDialog],
   providers: [],
   bootstrap: [AppComponent]
 })
