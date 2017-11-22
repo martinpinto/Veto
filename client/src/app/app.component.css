@@ -1,0 +1,27 @@
+.veto-card-wide {
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+.mdl-card {
+    width: 100%;
+}
+
+.mdl-card__title {
+    height: 70px;
+}
+
+.mdl-card__supporting-text {
+    height: 100px;
+    width: 80%;
+    float: right;
+}
+
+.mdl-card__menu {
+    color: #fff;
+}
+
+.veto-description-controls {
+    width: 20%;
+    float: left;
+}

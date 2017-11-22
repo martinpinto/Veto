@@ -1,6 +1,5 @@
 <!-- src/components/App.vue -->
 <template>
-  <div>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
@@ -25,7 +24,6 @@
         <!-- Navigation -->
         <div>
         <nav class="mdl-navigation">
-          <a id="show-dialog" class="mdl-navigation__link" href="#" v-on:click="openDialog()"><i class="material-icons">forum</i>Zitiere</a>
           <a class="mdl-navigation__link" @click="quote()" id="show-dialog"><i class="material-icons">forum</i>Zitiere</a>
           <a class="mdl-navigation__link" v-if="user.authenticated" v-link="'login'" @click="logout()">Logout</a>
         </nav>
@@ -43,18 +41,20 @@
       <div class="mdl-cell mdl-cell--2-col">Right Column</div>
     </div>
 
-    <dialog class="mdl-dialog">
-      <h4 class="mdl-dialog__title">Allow data collection?</h4>
-      <div class="mdl-dialog__content">
-        <p>
-          Allowing us to collect data will let us get you the information you want faster.
-        </p>
-      </div>
-      <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button">Agree</button>
-        <button type="button" class="mdl-button close">Disagree</button>
-      </div>
-    </dialog>
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent max-width="290">
+      <v-btn color="primary" dark slot="activator">Open Dialog</v-btn>
+      <v-card>
+        <v-card-title class="headline">Use Google's location service?</v-card-title>
+        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click.native="dialog = false">Disagree</v-btn>
+          <v-btn color="green darken-1" flat @click.native="dialog = false">Agree</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout>
   </div>
 </template>
 
