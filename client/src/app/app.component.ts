@@ -25,7 +25,7 @@ export class AppComponent {
 
 @Component({
   selector: 'quote-dialog',
-  templateUrl: './home/quote-dialog.html',
+  templateUrl: './components/home/quote-dialog.html',
 })
 export class QuotesDialog {
 
