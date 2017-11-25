@@ -8,11 +8,11 @@
     <div>
       <div class="veto-description-controls">
         Vote:
-        <a href="#" click="upvote()">
+        <a href="#" (click)="upvote()">
           <i class="material-icons ">thumb_up</i>
         </a>
         {{ quote.votes }}
-        <a href="#" click="downvote()">
+        <a href="#" (click)="downvote()">
           <i class="material-icons">thumb_down</i>
         </a>
       </div>
@@ -33,6 +33,4 @@
       </button>
     </div>
   </div>
-
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" click="getQuotes()">Get Quotes</button>
 </div>

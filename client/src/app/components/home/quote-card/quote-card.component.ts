@@ -5,11 +5,11 @@ import { Quote } from '../../../models/quote.model';
 import { QuotesService } from '../../../services/quotes.service';
 
 @Component({
-  selector: 'quotes',
-  templateUrl: './quotes.component.html',
-  styleUrls: ['./quotes.component.css']
+  selector: 'quote-card',
+  templateUrl: './quote-card.component.html',
+  styleUrls: ['./quote-card.component.css']
 })
-export class QuotesComponent implements OnInit {
+export class QuoteCardComponent implements OnInit {
   quotes: Quote[];
 
   constructor(private quotesService: QuotesService) { }

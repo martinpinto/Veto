@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent, QuotesDialog } from './app.component';
-import { QuotesComponent } from './components/home/quotes/quotes.component';
+import { QuoteCardComponent } from './components/home/quote-card/quote-card.component';
 import { QuotesService } from './services/quotes.service';
 
 import { MatButtonModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
-    QuotesComponent,
+    QuoteCardComponent,
     QuotesDialog
   ],
   imports: [
