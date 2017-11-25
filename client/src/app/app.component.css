@@ -25,3 +25,7 @@
     width: 20%;
     float: left;
 }
+
+.mat-raised-button {
+    color: black;
+}

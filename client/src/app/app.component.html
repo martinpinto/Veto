@@ -24,7 +24,9 @@
       <div>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" (click)="createNewQuote()" id="show-dialog">
-            <i class="material-icons">forum</i>Zitiere</a>
+            <i class="material-icons">forum</i>Zitiere
+          </a>
+          <button mat-raised-button (click)="login()">Pick one</button>
           <!--<a class="mdl-navigation__link" v-if="user.authenticated" v-link="'login'" click="logout()">Logout</a>-->
         </nav>
       </div>

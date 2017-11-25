@@ -4,18 +4,29 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent, QuotesDialog } from './app.component';
+import { AppComponent } from './app.component';
 import { QuoteCardComponent } from './components/home/quote-card/quote-card.component';
+import { QuoteDialog } from './components/home/quote-dialog/quote-dialog.component';
+import { LoginDialog } from './components/login/login-dialog.component';
 import { QuotesService } from './services/quotes.service';
 
-import { MatButtonModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
+import { 
+  MatButtonModule, 
+  MatCheckboxModule, 
+  MatDialogModule, 
+  MatDialogContent, 
+  MatFormFieldModule,
+  MatInputModule
+} from '@angular/material';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuoteCardComponent,
-    QuotesDialog
+    QuoteDialog,
+    LoginDialog
   ],
   imports: [
     BrowserModule,
@@ -24,9 +35,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     MatButtonModule, 
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
-  entryComponents: [QuotesDialog],
+  entryComponents: [QuoteDialog, LoginDialog],
   providers: [QuotesService],
   bootstrap: [AppComponent]
 })
