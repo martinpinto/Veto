@@ -10,12 +10,14 @@ export class QuotesService {
   constructor(private http: HttpClient) { }
   
   getQuote(id: number): Observable<Quote> {
-    return this.http.get(`http://localhost:3001/api/quotes/${id}`)
-      .map((res: Response) => res.json() as Quote);
+    return this.http.get<Quote>(`http://localhost:3001/api/quotes/${id}`);
   }
 
   getQuotes(): Observable<Quote[]> {
     return this.http.get<Quote[]>('http://localhost:3001/api/quotes');
   }
 
+  addQuote(quote: Quote): void {
+    this.http.post<Quote>(`http://localhost:3001/api/quotes`, quote);
+  }
 }

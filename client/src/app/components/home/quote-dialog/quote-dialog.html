@@ -21,6 +21,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button tabindex="2">Add</button>
-  <button mat-button tabindex="-1">No Thanks</button>
+  <button mat-button tabindex="2" (click)="addQuote()">Add</button>
+  <button mat-button tabindex="-1" (click)="onNoClick()">No Thanks</button>
 </div>

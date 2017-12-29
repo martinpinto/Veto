@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Quote } from '../../../models/quote.model';
+import { QuotesService } from '../../../services/quotes.service';
 
 @Component({
     selector: 'quote-dialog',
@@ -25,12 +26,18 @@ import { Quote } from '../../../models/quote.model';
     };
     
     constructor(
+      public quotesService: QuotesService,
       public dialogRef: MatDialogRef<QuoteDialog>,
       @Inject(MAT_DIALOG_DATA) public data: any
     ) {}
   
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    addQuote(): void {
+      this.quotesService.addQuote(this.quote);
+      this.dialogRef.close();      
     }
   
   }
