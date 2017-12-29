@@ -3,6 +3,8 @@
  * Configuration
  ***************/
 import * as express from "express";
+import * as session from "express-session";
+import * as grant from "grant-express";
 import * as conf from "./config/config";
 import * as path from "path";
 import * as favicon from "serve-favicon";
@@ -101,19 +103,14 @@ class App {
     }
 
     private authentication(): void {
-        let session = require('express-session');
-        let Grant = require('grant-express');
-        let grant = new Grant(require("./config.json"));
-
-        this.express.use(session({secret: 'grant',resave: true, saveUninitialized: true}));
+        this.express.use(session({secret: 'grant', resave: true, saveUninitialized: true}));
         this.express.use(grant);
-    }
+        
 
-    private twitterAuthentication(): void {
-        this.express.get('/twitter_callback', function(req,res) {
+        this.express.get('/twitter_callback', (req, res) => {
             console.log(res);
             res.end("Authorization Succeded");
-          })
+        });
     }
 }    
 

@@ -12,6 +12,12 @@ environment = "development" # "development" or "production"
     port =  3001
     routes = ["quotes", "authors", "topics"]
 
+    [oauth]
+        [twitter]
+        key = "consumer_key"
+        secret = "secret_key"
+        callback = "/twitter_callback"
+
     [database]
     # Database configuration
         [database.mongodb]
