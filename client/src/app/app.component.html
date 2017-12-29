@@ -11,7 +11,7 @@
       <!-- Add spacer, to align navigation to the right -->
       <div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-              mdl-textfield--floating-label mdl-textfield--align-right">
+              mdl-textfield--floating-label mdl-textfield--align-right nav-search">
           <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
             <i class="material-icons">search</i>
           </label>
@@ -26,10 +26,12 @@
           <a class="mdl-navigation__link" (click)="createNewQuote()" id="show-dialog">
             <i class="material-icons">forum</i>Zitiere
           </a>
-          <button mat-raised-button (click)="login()">Pick one</button>
           <!--<a class="mdl-navigation__link" v-if="user.authenticated" v-link="'login'" click="logout()">Logout</a>-->
         </nav>
       </div>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone nav-login">
+      <button mat-raised-button (click)="login()">Login</button>
     </div>
   </header>
 </div>

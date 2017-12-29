@@ -3,6 +3,15 @@
     margin-top: 50px;
 }
 
+.nav-login {
+    position: absolute; 
+    left: 90%;
+}
+
+.nav-search {
+    margin-left: 15px;
+}
+
 .mdl-card {
     width: 100%;
 }
