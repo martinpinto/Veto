@@ -1,4 +1,10 @@
 import { IWhereFilter } from "./filter/WhereFilter";
+import Model from "../../models/Model";
+
+export interface IModelAttributes {
+    properties: string[],
+    values: string[]
+}
 
 export default interface IModelRepository {
 
@@ -17,8 +23,10 @@ export default interface IModelRepository {
      * 
      * @param: model Object		
      *   data Optional data argument. Can be either a single model instance or an array of instances.
+     * @param: modelName string
+     *   the name of the table/record to be deleted.
      */
-    create(model);
+    create(model: Model, modelName: string);
     
     /**
      * Destroy all model instances that match the optional where specification.

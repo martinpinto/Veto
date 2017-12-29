@@ -30,9 +30,10 @@ class QuotesService {
         return null;
     }
 
-    createQuote(title, author, description, source, category, topic, type, hashtags, party) {
+    addQuote(quote: Quote) {
         // insert metadata into mysql
-
+        this.mysql.create(quote, quote._name);
+        
         // create new entry for comments into mongodb
     }
 

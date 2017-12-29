@@ -69,9 +69,9 @@ export class ApiRouter {
         if (typeof req.body !== "undefined") {
             res.header('Access-Control-Allow-Origin', '*');
             // or like this -> let quote: Quote = <Quote>req.body;
-            // TODO: turn Quote into typescript interface            
-            let quote = new Quote(req.body);
-    
+            let quote: Quote = new Quote(req.body);
+            QuotesService.addQuote(quote);
+
             //this.mongodb.create(quote);
     
             res.status(200).json({});
