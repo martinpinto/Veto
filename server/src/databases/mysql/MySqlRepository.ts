@@ -48,18 +48,18 @@ export default class MySqlRepository implements IModelRepository {
         this.createConnection().then(connection => {
             let mappedProperties: IModelAttributes = this.getAllAttributes(model);
             let properties: string[] = [];
-            let values = [];
+            let values: string[] = [];
             for (let i = 0; i < mappedProperties.properties.length - 1; i++) {
                 properties[i] = `${mappedProperties.properties[i]}, `;
             }
             // add last property
-            properties[mappedProperties.properties.length - 1] = mappedProperties[mappedProperties.properties.length - 1];
+            properties[mappedProperties.properties.length - 1] = mappedProperties.properties[mappedProperties.properties.length - 1];
             
             for (let i = 0; i < mappedProperties.values.length - 1; i++) {
                 values[i] = `${mappedProperties.values[i]}, `;
             }
             // add last value
-            properties[mappedProperties.values.length - 1] = mappedProperties[mappedProperties.values.length - 1];
+            values[mappedProperties.values.length - 1] = mappedProperties.values[mappedProperties.values.length - 1];
             
             let query: string = `INSERT INTO ${modelName} (${properties.join("")}) VALUES(${values.join("")})`;
             connection.query(query);
