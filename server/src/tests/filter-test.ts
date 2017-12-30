@@ -3,6 +3,7 @@ import { MongoDbWhereFilter } from "../databases/mongodb/MongoDbWhereFilter";
 
 const util = require('util')
 import { expect } from 'chai';
+import { reporters } from 'mocha';
 
 describe('Where Filter', function() {  
     it('should return a list of operators', () => {

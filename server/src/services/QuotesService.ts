@@ -3,7 +3,7 @@ import MySqlRepository from '../databases/mysql/MySqlRepository'
 import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 import { Operator } from '../databases/engine/filter/Operator';
 
-import { Quote } from '../models/Quote';
+import Quote from '../models/Quote';
 
 var Promise = require('bluebird');
 
@@ -30,9 +30,9 @@ class QuotesService {
         return null;
     }
 
-    addQuote(quote: Quote) {
+    addQuote(quote: Quote): Promise<string> {
         // insert metadata into mysql
-        this.mysql.create(quote, quote._name);
+        return this.mysql.create(quote, quote._name);
         
         // create new entry for comments into mongodb
     }

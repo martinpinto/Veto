@@ -1,6 +1,6 @@
 import Model from './Model';
 
-export class Quote implements Model {
+export default class Quote implements Model {
     public _id: string;
     public _name: string;
 
@@ -12,13 +12,13 @@ export class Quote implements Model {
     public topic: string;
     public hashtags: string[];
     public votes: number;
-    public dateCreated: Date;
-    public dateQuote: Date;
+    public dateCreated: string; // should be date YYYY-MM-dd for mysql
+    public dateQuote: string; // should be date YYYY-MM-dd for mysql
     public source: string;
     public party: string;
     
     constructor(quote: Quote) {
-        this._name = "Quote";
+        this._name = "Quotes";
         
         if (quote) {
             this._id = quote._id;
@@ -33,7 +33,7 @@ export class Quote implements Model {
             this.dateCreated = quote.dateCreated;
             this.dateQuote = quote.dateQuote;
             this.source = quote.source;
-            this.party= quote.party;
+            this.party = quote.party;
         }
     }
 }

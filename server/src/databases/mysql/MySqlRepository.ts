@@ -31,7 +31,8 @@ export default class MySqlRepository implements IModelRepository {
     count(modelName: string, where?: IWhereFilter) {
         return this.createConnection().then(connection => {
             return connection.query(`SELECT COUNT * FROM ${modelName}`).then(rows => {
-                return rows;
+                connection.end();
+                return rows[0];
             });
         });
     };
@@ -44,8 +45,8 @@ export default class MySqlRepository implements IModelRepository {
      * @param: modelName string
      *   the name of the table/record to be deleted.
      */
-    create(model: Model, modelName: string) {
-        this.createConnection().then(connection => {
+    create(model: Model, modelName: string): Promise<string> {
+        return this.createConnection().then(connection => {
             let mappedProperties: IModelAttributes = this.getAllAttributes(model);
             let properties: string[] = [];
             let values: string[] = [];
@@ -56,13 +57,25 @@ export default class MySqlRepository implements IModelRepository {
             properties[mappedProperties.properties.length - 1] = mappedProperties.properties[mappedProperties.properties.length - 1];
             
             for (let i = 0; i < mappedProperties.values.length - 1; i++) {
-                values[i] = `${mappedProperties.values[i]}, `;
+                let value = mappedProperties.values[i];
+                if (typeof value !== 'number') {
+                    value = `'${value}'`;
+                }
+                values[i] = `${value}, `;
             }
             // add last value
-            values[mappedProperties.values.length - 1] = mappedProperties.values[mappedProperties.values.length - 1];
+            let lastValue = mappedProperties.values[mappedProperties.values.length - 1];
+            if (typeof lastValue !== 'number') {
+                lastValue = `'${lastValue}'`;
+            }
+            values[mappedProperties.values.length - 1] = lastValue;
             
-            let query: string = `INSERT INTO ${modelName} (${properties.join("")}) VALUES(${values.join("")})`;
-            connection.query(query);
+            let query: string = `INSERT INTO ${modelName} (${properties.join("")}) VALUES (${values.join("")})`;
+
+            return connection.query(query).then(result => {
+                connection.end();   
+                return result;         
+            });
         })
         
     };
@@ -165,10 +178,14 @@ export default class MySqlRepository implements IModelRepository {
             properties: [],
             values: []
         };
-        for (let name in model) {
-            if (model.hasOwnProperty(name) && typeof model[name] !== 'function') {
-                attributes.properties.push(name);
-                attributes.values.push(model[name]);
+        for (let property in model) {
+            if (model.hasOwnProperty(property)
+                && typeof model[property] !== 'function'
+                && property !== '_id'
+                && property !== '_name'
+            ) {
+                attributes.properties.push(property);
+                attributes.values.push(model[property]);
             }
         }
         return attributes;

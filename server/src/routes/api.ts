@@ -5,11 +5,10 @@
  * This rounter handler manages all routes incoming from the web browser to the API.
  */
 import QuotesService from "../services/QuotesService";
-import { Quote } from '../models/Quote';
+import Quote from '../models/Quote';
 import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 
-import config from '../config/config';
-
+import config from '../config/config';{}
 import { Router, Request, Response, NextFunction } from 'express';
 
 export class ApiRouter {
