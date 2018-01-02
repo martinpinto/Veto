@@ -3,6 +3,14 @@
     margin-bottom: 25px;
 }
 
+.mat-icon-button.mat-primary {
+    color: #7A3F99;
+}
+
+.mat-button.mat-primary {
+    color: #7A3F99;
+}
+
 .mdl-card {
     width: 100%;
 }

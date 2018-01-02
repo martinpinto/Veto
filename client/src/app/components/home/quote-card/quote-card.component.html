@@ -1,36 +1,45 @@
-<div>
-  <div *ngFor="let quote of quotes" class="veto-card-wide mdl-card mdl-shadow--2dp">
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">
-        {{ quote.title }}
-      </h2>
+<div *ngFor="let quote of quotes" class="veto-card-wide mdl-card mdl-shadow--2dp">
+  <div>
+    <div>Author</div>
+    <div>Topics</div>
+  </div>
+
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">
+      {{ quote.title }}
+    </h2>
+  </div>
+
+  <div>
+    <div class="veto-description-controls">
+      
     </div>
-    <div>
-      <div class="veto-description-controls">
-        Vote:
-        <a href="#" (click)="upvote()">
-          <i class="material-icons ">thumb_up</i>
-        </a>
-        {{ quote.votes }}
-        <a href="#" (click)="downvote()">
-          <i class="material-icons">thumb_down</i>
-        </a>
-      </div>
-      <div class="mdl-card__supporting-text">
-        {{ quote.description }}
-      </div>
-      <div>Category</div>
+    <div class="mdl-card__supporting-text">
+      {{ quote.description }}
     </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-        Share
-      </a>
-      Save, Comments
-    </div>
-    <div class="mdl-card__menu">
-      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-        <i class="material-icons">share</i>
-      </button>
-    </div>
+  </div>
+
+  <div class="mdl-card__actions mdl-card--border">
+    <button mat-icon-button color="primary" (click)="upvote()">
+        <mat-icon aria-label="Example icon-button with a heart icon">thumb_up</mat-icon>
+    </button>
+    {{ quote.votes }}
+    <button mat-icon-button color="primary" (click)="downvote()">
+        <mat-icon aria-label="Example icon-button with a heart icon">thumb_down</mat-icon>
+    </button>
+    
+    <button mat-icon-button color="primary">
+      <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+    </button>
+    <button mat-icon-button color="primary">
+      <mat-icon aria-label="Example icon-button with a heart icon">share</mat-icon>
+    </button>
+    <button mat-button color="primary">Comments</button>
+  </div>
+
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+      <i class="material-icons">share</i>
+    </button>
   </div>
 </div>
