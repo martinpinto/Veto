@@ -26,7 +26,9 @@ import {
   MatDialogModule, 
   MatDialogContent, 
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatToolbarModule,
+  MatIconModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -49,7 +51,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCheckboxModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatToolbarModule,
+    MatIconModule,
   ],
   entryComponents: [QuoteDialog, LoginDialog],
   providers: [

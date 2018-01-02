@@ -1,33 +1,22 @@
-.veto-card-wide {
-    border-radius: 5px;
-    margin-top: 50px;
+.nav-header {
+    background: linear-gradient(135deg,rgb(88, 42, 114) 30%, #7A3F99 65%);
+    position: fixed;
+    z-index: 3;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+	        box-shadow: 0 8px 6px -6px black;
 }
 
-.nav-login {
-    position: absolute; 
-    left: 90%;
+.nav-header a {
+    color: #FFF;
+}
+
+.nav-spacer {
+    flex: 1 1 auto;
 }
 
 .nav-search {
     margin-left: 15px;
-}
-
-.mdl-card {
-    width: 100%;
-}
-
-.mdl-card__title {
-    height: 70px;
-}
-
-.mdl-card__supporting-text {
-    height: 100px;
-    width: 80%;
-    float: right;
-}
-
-.mdl-card__menu {
-    color: #fff;
 }
 
 .veto-description-controls {

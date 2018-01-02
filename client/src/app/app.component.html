@@ -1,14 +1,5 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <div>
-        <!-- Title -->
-        <a class="mdl-layout-title" href="/">
-          <img id="veto-logo" src="../assets/images/veto-logo.png" />
-        </a>
-      </div>
-      <!-- Add spacer, to align navigation to the right -->
+<mat-toolbar color="primary" class="nav-header">
+    <mat-toolbar-row>
       <div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
               mdl-textfield--floating-label mdl-textfield--align-right nav-search">
@@ -20,21 +11,22 @@
           </div>
         </div>
       </div>
-      <!-- Navigation -->
       <div>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" (click)="createNewQuote()" id="show-dialog">
-            <i class="material-icons">forum</i>Zitiere
-          </a>
-          <!--<a class="mdl-navigation__link" v-if="user.authenticated" v-link="'login'" click="logout()">Logout</a>-->
-        </nav>
+        <!-- Title -->
+        <a class="mdl-layout-title" href="/">
+          <img id="veto-logo" src="../assets/images/veto-logo.png" />
+        </a>
       </div>
-    </div>
-    <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone nav-login">
-      <button mat-raised-button (click)="login()">Login</button>
-    </div>
-  </header>
-</div>
+      <span class="nav-spacer"></span>
+      <div>
+        <a  (click)="createNewQuote()" id="show-dialog">
+          <i class="material-icons">forum</i>Zitiere
+        </a>
+        <button mat-raised-button (click)="login()">Login</button>
+      </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--2-col">Left Column</div>
 
