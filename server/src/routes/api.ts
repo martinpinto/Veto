@@ -8,6 +8,8 @@ import QuotesService from "../services/QuotesService";
 import Quote from '../models/Quote';
 import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 
+import * as jwt from "express-jwt";
+
 import config from '../config/config';{}
 import { Router, Request, Response, NextFunction } from 'express';
 
@@ -38,6 +40,16 @@ export class ApiRouter {
         res.status(200).json({ "started": "Api is up and running..." });
     }
     
+    public getUsers(req: Request, res: Response, next: NextFunction) {
+        let users = [
+            { id: 1, name: 'Todd Motto', image: 'image-1.jpg' },
+            { id: 2, name: 'Brad Green', image: 'image-2.jpg' },
+            { id: 3, name: 'Igor Minar', image: 'image-3.jpg' }
+        ];
+
+        res.json(users);
+    }
+
     ///////////////////////////////// QUOTES /////////////////////////////////
     
     /**
@@ -96,7 +108,18 @@ export class ApiRouter {
     }
 
     init() {
+        // Authentication middleware provided by express-jwt.
+        // This middleware will check incoming requests for a valid
+        // JWT on any routes that it is applied to.
+        let authCheck = jwt({
+            secret: new Buffer(config.oauth.secret, 'base64'),
+            audience: config.oauth.client
+        });
+
         this.router.get("/", this.getTest);
+
+        this.router.get("/users", authCheck, this.getUsers);
+
         this.router.get(`/${this.quotesRoute}`, this.getAllQuotes);
         this.router.get(`/${this.quotesRoute}/filter`, this.getFilteredQuotes);
         this.router.post(`/${this.quotesRoute}`, this.postNewQuote);            

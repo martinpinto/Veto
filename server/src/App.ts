@@ -4,6 +4,7 @@
  ***************/
 import * as express from "express";
 import * as session from "express-session";
+import * as cors from "cors";
 import * as grant from "grant-express";
 import * as conf from "./config/config";
 import * as path from "path";
@@ -73,12 +74,7 @@ class App {
         });
         
         // activate CORS for server
-        this.express.use(function (req, res, next) {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.header('Access-Control-Allow-Headers',
-                       'Origin, X-Requested-With, Content-Type, Accept');
-            next();
-        });
+        this.express.use(cors());
         
         // error handlers
         this.express.set('env', this.config.app.environment);
@@ -102,11 +98,10 @@ class App {
         this.express.use(this.config.api.root, ApiRouter);
     }
 
-    private authentication(): void {
+    private authentication(): void {        
         this.express.use(session({secret: 'grant', resave: true, saveUninitialized: true}));
         this.express.use(grant);
         
-
         this.express.get('/twitter_callback', (req, res) => {
             console.log(res);
             res.end("Authorization Succeded");

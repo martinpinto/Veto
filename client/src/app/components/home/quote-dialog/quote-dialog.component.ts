@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Quote } from '../../../models/quote.model';
-import { QuotesService } from '../../../services/quotes.service';
+import { QuotesService } from '../../../services/quotes/quotes.service';
 
 @Component({
     selector: 'quote-dialog',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Quote } from '../models/quote.model';
+import { Quote } from '../../models/quote.model';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';

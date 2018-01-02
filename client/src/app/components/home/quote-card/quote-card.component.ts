@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Quote } from '../../../models/quote.model';
-import { QuotesService } from '../../../services/quotes.service';
+import { QuotesService } from '../../../services/quotes/quotes.service';
 
 @Component({
   selector: 'quote-card',

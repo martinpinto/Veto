@@ -9,7 +9,16 @@ import { AppComponent } from './app.component';
 import { QuoteCardComponent } from './components/home/quote-card/quote-card.component';
 import { QuoteDialog } from './components/home/quote-dialog/quote-dialog.component';
 import { LoginDialog } from './components/login/login-dialog.component';
-import { QuotesService } from './services/quotes.service';
+import { QuotesService } from './services/quotes/quotes.service';
+import { AuthService } from './services/authentication/auth.service';
+import { Http, RequestOptions, HttpModule } from '@angular/http';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('access_token'))
+  }), http, options);
+}
 
 import { 
   MatButtonModule, 
@@ -33,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule, 
@@ -42,7 +52,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule
   ],
   entryComponents: [QuoteDialog, LoginDialog],
-  providers: [QuotesService],
+  providers: [
+    QuotesService, 
+    AuthService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

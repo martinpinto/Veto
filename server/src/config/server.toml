@@ -1,7 +1,6 @@
 # General configuration for the application
 [app]
 name = "veto-server"
-version = "0.0.2"
 environment = "development" # "development" or "production"
 
 [server]
@@ -12,10 +11,14 @@ environment = "development" # "development" or "production"
     port =  3001
     routes = ["quotes", "authors", "topics"]
 
-    [oauth]
+    [authorization]
+        [oauth]
+        # client = ""
+        # secret = ""    
+
         [twitter]
         key = "consumer_key"
-        secret = "secret_key"
+        # secret = "secret_key"
         callback = "/twitter_callback"
 
     [database]
@@ -34,3 +37,4 @@ environment = "development" # "development" or "production"
         port = "3306"
         database = "Veto"
         user = "root"
+        # password = "secret_password"
