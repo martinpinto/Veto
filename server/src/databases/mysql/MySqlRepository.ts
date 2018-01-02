@@ -130,7 +130,7 @@ export default class MySqlRepository implements IModelRepository {
      */
     find(modelName: string, where?: IWhereFilter) {
         return this.createConnection().then(connection => {
-            return connection.query('SELECT * FROM ' + modelName + 's AS QUOTES').then(rows => {
+            return connection.query('SELECT * FROM ' + modelName + ' AS QUOTES').then(rows => {
                 return rows;
             });
         });
