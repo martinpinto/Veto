@@ -4,13 +4,16 @@
 /**
  * This rounter handler manages all routes incoming from the web browser to the API.
  */
-import QuotesService from "../services/QuotesService";
+import QuotesService from '../services/QuotesService';
 import Quote from '../models/Quote';
-import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 
-import * as jwt from "express-jwt";
+import TopicsService from '../services/TopicsService';
+import Topic from '../models/Topic';
+
+import * as jwt from 'express-jwt';
 
 import config from '../config/config';{}
+import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 import { Router, Request, Response, NextFunction } from 'express';
 
 export class ApiRouter {
@@ -60,7 +63,6 @@ export class ApiRouter {
         // or like this -> let quotes: Quote = <Quote>req.body;
 		// let quotesService: QuotesService = new QuotesService().getQuotes().then(...);
         QuotesService.getQuotes().then(quotes => {
-            console.log(quotes);
             res.status(200).json(quotes);
         });
     }
@@ -107,6 +109,16 @@ export class ApiRouter {
         res.status(200).json({});
     }
 
+    ///////////////////////////////// TOPICS /////////////////////////////////
+
+    public getTopics(req: Request, res: Response, next: NextFunction) {
+        res.header('Access-Control-Allow-Origin', '*');
+        
+        TopicsService.getTopics().then(topics => {
+            res.status(200).json(topics);
+        });
+    }
+
     init() {
         // Authentication middleware provided by express-jwt.
         // This middleware will check incoming requests for a valid
@@ -126,6 +138,8 @@ export class ApiRouter {
         this.router.post(`/${this.quotesRoute}/voting`, this.postNewVote);            
         this.router.patch(`/${this.quotesRoute}`, this.patchQuote);
         this.router.delete(`/${this.quotesRoute}`, this.deleteQuote);
+
+        this.router.get(`/topics`, this.getTopics);
     }
 
 }

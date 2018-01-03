@@ -1,7 +1,8 @@
 import Model from './Model';
+import Topic from './Topic';
 
 export default class Quote implements Model {
-    public _id: string;
+    public id: number;
     public _name: string;
 
     public title: string;
@@ -9,7 +10,8 @@ export default class Quote implements Model {
     public description: string;
     public type: string;
     public status: string;
-    public topic: string;
+    public topicId: number;
+    public topic?: Topic;
     public hashtags: string[];
     public votes: number;
     public dateCreated: string; // should be date YYYY-MM-dd for mysql
@@ -17,17 +19,16 @@ export default class Quote implements Model {
     public source: string;
     public party: string;
     
-    constructor(quote: Quote) {
+    constructor(quote?: Quote) {
         this._name = "Quotes";
-        
         if (quote) {
-            this._id = quote._id;
+            this.id = quote.id;
             this.title = quote.title;
             this.author = quote.author;
             this.description = quote.description;
             this.type = quote.type;
             this.status = quote.status;
-            this.topic = quote.topic;
+            this.topicId = quote.topicId;
             this.hashtags = quote.hashtags;
             this.votes = quote.votes;
             this.dateCreated = quote.dateCreated;

@@ -4,6 +4,7 @@ import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 import { Operator } from '../databases/engine/filter/Operator';
 
 import Quote from '../models/Quote';
+import TopicsService from '../services/TopicsService';
 
 var Promise = require('bluebird');
 
@@ -17,11 +18,20 @@ class QuotesService {
     }
 
     getQuotes(): Promise<Quote[]> {
-        return this.mysql.find(new Quote(null)._name).then(rowset => {
+        //return this.mysql.find(new Quote()._name, null, " LEFT JOIN Topics as Topics on Quotes.topicId = Topics.id").then(rowset => {
+        return this.mysql.find(new Quote()._name).then(rowset => {
             let quotes: Quote[] = [];
             for (let i = 0; i < rowset.length; i++) {
-                quotes.push(new Quote(rowset[i]));
+                let quote = new Quote(rowset[i]);
+                /*
+                TopicsService.getTopicById(quote.topicId).then(topic => {
+                    quote.topic = topic;
+                    quotes.push(quote);
+                });
+                */
+                quotes.push(quote);                
             }
+            console.log(quotes);
             return quotes;
         });
     }

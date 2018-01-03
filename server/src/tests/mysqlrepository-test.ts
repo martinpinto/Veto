@@ -1,8 +1,16 @@
 import MySqlRepository from '../databases/mysql/MySqlRepository';
 import Quote from '../models/Quote';
+import Topic from '../models/Topic';
 
 import { expect } from 'chai';
 import { reporters } from 'mocha';
+
+var topic: Topic = {
+    _id: '-1',
+    _name: 'Topics',
+    dateCreated: '2017-12-10',
+    title: 'peace'
+}
 
 var quote : Quote = {
     _id: '-1',
@@ -12,7 +20,8 @@ var quote : Quote = {
     description: "Sample description",
     type: "Sample type",
     status: "Sample status",
-    topic: "Sample topic",
+    topicId: 1,
+    topic: topic,
     hashtags: ["Sample hashtag"],
     votes: 1,
     dateCreated: '2017-12-31',

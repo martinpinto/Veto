@@ -159,8 +159,12 @@ export default class MongoDbRepository implements IModelRepository {
      *   the name of the table/record to be deleted.
      * @param: [where] WhereFilter
      *     Model instances matching the filter, or null if none found.
+     * @param: [join] string
+     *   joins the table/record with another table/record.
+     * @param: [sort] string
+     *   sorts the table/table according to a specific criteria.
      */
-    find(modelName: string, where?: IWhereFilter) {
+    find(modelName: string, where?: IWhereFilter, join?: string, sort?: string) {
         let database = null;
 
         return this.db.open()
@@ -191,12 +195,14 @@ export default class MongoDbRepository implements IModelRepository {
     /**
      * Find object by ID with an optional filter for include/fields.
      * 
+     * @param: modelName string
+     *   the name of the table/record to be fetched.
      * @param: id		
      *   Primary key value
      * @param: [where] WhereFilter	
      *   Optional Filter JSON object
      */
-    findById(id, where?: IWhereFilter) {
+    findById(modelName: string, id, where?: IWhereFilter) {
 
     };
 

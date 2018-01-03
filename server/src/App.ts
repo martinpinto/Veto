@@ -5,7 +5,6 @@
 import * as express from "express";
 import * as session from "express-session";
 import * as cors from "cors";
-import * as grant from "grant-express";
 import * as conf from "./config/config";
 import * as path from "path";
 import * as favicon from "serve-favicon";
@@ -99,9 +98,6 @@ class App {
     }
 
     private authentication(): void {        
-        this.express.use(session({secret: 'grant', resave: true, saveUninitialized: true}));
-        this.express.use(grant);
-        
         this.express.get('/twitter_callback', (req, res) => {
             console.log(res);
             res.end("Authorization Succeded");

@@ -67,18 +67,24 @@ export default interface IModelRepository {
      *   the name of the table/record to be deleted.
      * @param: [where] IWhereFilter
      *     Model instances matching the filter, or null if none found.
+     * @param: [join] string
+     *   joins the table/record with another table/record.
+     * @param: [sort] string
+     *   sorts the table/table according to a specific criteria.
      */
-    find(modelName: string, where?: IWhereFilter);
+    find(modelName: string, where?: IWhereFilter, join?: string, sort?: string);
     
     /**
      * Find object by ID with an optional filter for include/fields.
      * 
+     * @param: modelName string
+     *   the name of the table/record to be fetched.
      * @param: id		
      *   Primary key value
      * @param: [where] IWhereFilter	
      *   Optional Filter JSON object
      */
-    findById(id, where?: IWhereFilter);
+    findById(modelName: string, id, where?: IWhereFilter);
     
     /**
      * Update single model instance that match the where clause.

@@ -124,13 +124,21 @@ export default class MySqlRepository implements IModelRepository {
      * Find all model instances that match filter specification.
      *
      * @param: modelName string
-     *   the name of the table/record to be deleted.
+     *   the name of the table/record to be fetched.
      * @param: [where] IWhereFilter
      *     Model instances matching the filter, or null if none found.
+     * @param: [join] string
+     *   joins the table/record with another table/record.
+     * @param: [sort] string
+     *   sorts the table/table according to a specific criteria.
      */
-    find(modelName: string, where?: IWhereFilter) {
+    find(modelName: string, where?: IWhereFilter, join?: string, sort?: string) {
         return this.createConnection().then(connection => {
-            return connection.query('SELECT * FROM ' + modelName + ' AS QUOTES').then(rows => {
+            let whereFilter = where ? ` WHERE ${where}` : "";
+            let joinFilter = join ? join : "";
+            let sortFilter = sort ? sort : "";
+            return connection.query(`SELECT * FROM ${modelName} AS ${modelName}${whereFilter}${joinFilter}${sortFilter}`).then(rows => {
+                connection.end();
                 return rows;
             });
         });
@@ -139,13 +147,21 @@ export default class MySqlRepository implements IModelRepository {
     /**
      * Find object by ID with an optional filter for include/fields.
      * 
+     * @param: modelName string
+     *   the name of the table/record to be fetched.
      * @param: id		
      *   Primary key value
      * @param: [where] IWhereFilter	
      *   Optional Filter JSON object
      */
-    findById(id, where?: IWhereFilter) {
-
+    findById(modelName: string, id, where?: IWhereFilter) {
+        return this.createConnection().then(connection => {
+            let whereFilter = where ? ` AND ${where}` : "";
+            return connection.query(`SELECT * FROM ${modelName} AS ${modelName} WHERE id = ${id}${whereFilter}`).then(row => {
+                connection.end();
+                return row;
+            });
+        });
     };
 
     /**
