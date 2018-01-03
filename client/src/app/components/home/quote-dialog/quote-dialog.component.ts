@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Topic } from '../../../models/topic.model';
 import { Quote } from '../../../models/quote.model';
 import { QuotesService } from '../../../services/quotes/quotes.service';
 
@@ -9,14 +10,19 @@ import { QuotesService } from '../../../services/quotes/quotes.service';
     styleUrls: ['./quote-dialog.css']
   })
   export class QuoteDialog {
+    topic: Topic = {
+      id: 1,
+      dateCreated: "",
+      title: ""
+    };
     quote: Quote = {
-      _id: 1,
+      id: 1,
       title: "Test",
       author: "",
       description: "",
       type: "",
       status: "",
-      topic: "",
+      topic: this.topic,
       hashtags: [],
       votes: 0,
       dateCreated: new Date(),

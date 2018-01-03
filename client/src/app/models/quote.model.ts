@@ -1,11 +1,13 @@
+import { Topic } from './topic.model'
+
 export interface Quote {
-    _id: number;
+    id: number;
     title: string;
     author: string;
     description: string;
     type: string;
     status: string;
-    topic: string;
+    topic: Topic;
     hashtags: string[];
     votes: number;
     dateCreated: Date;

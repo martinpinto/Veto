@@ -11,6 +11,9 @@ import { QuoteDialog } from './components/home/quote-dialog/quote-dialog.compone
 import { LoginDialog } from './components/login/login-dialog.component';
 import { QuotesService } from './services/quotes/quotes.service';
 import { AuthService } from './services/authentication/auth.service';
+import { TopicShowcaseComponent } from './components/home/topic-showcase/topic-showcase.component';
+import { TopicsService } from './services/topics/topics.service';
+
 import { Http, RequestOptions, HttpModule } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
@@ -28,7 +31,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatToolbarModule,
-  MatIconModule
+  MatIconModule,
+  MatProgressBarModule,
+  MatChipsModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,7 +43,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     QuoteCardComponent,
     QuoteDialog,
-    LoginDialog
+    LoginDialog,
+    TopicShowcaseComponent
   ],
   imports: [
     BrowserModule,
@@ -54,10 +60,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
+    MatProgressBarModule,
+    MatChipsModule
   ],
   entryComponents: [QuoteDialog, LoginDialog],
   providers: [
-    QuotesService, 
+    QuotesService,
+    TopicsService,
     AuthService,
     {
       provide: AuthHttp,
