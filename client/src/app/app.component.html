@@ -19,7 +19,7 @@
       </div>
       <span class="nav-spacer"></span>
       <div>
-        <button mat-raised-button (click)="login()">Login</button>
+        <button mat-button color="primary" (click)="login()">Login</button>          
         <a (click)="createNewQuote()" id="show-dialog">
           <i class="material-icons">forum</i>Zitiere
         </a>
@@ -27,7 +27,7 @@
     </mat-toolbar-row>
 </mat-toolbar>
 
-<div class="mdl-grid">
+<content class="mdl-grid">
   <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
       <div class="mdl-tabs__tab-bar">
           <a href="#starks-panel" class="mdl-tabs__tab is-active">Today</a>
@@ -35,13 +35,16 @@
           <a href="#targaryens-panel" class="mdl-tabs__tab">Trending</a>
       </div>
   </div>
-  <div class="mdl-cell mdl-cell--2-col">Hashtags: Trending | Popular</div>
+  <div class="mdl-cell mdl-cell--2-col">
+    <h5>Hashtags:</h5>
+    Trending | Popular
+    <h5>Topics</h5>
+  </div>
 
   <main class="mdl-layout__content mdl-cell mdl-cell--4-col">
     <quote-card></quote-card>
   </main>
-
-  <div class="mdl-cell mdl-cell--2-col">Topics</div>
-</div>
+  <div class="spacer" style="margin-right: 10%"></div>
+</content>
 
 <router-outlet></router-outlet>
