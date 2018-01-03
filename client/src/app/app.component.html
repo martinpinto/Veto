@@ -28,13 +28,20 @@
 </mat-toolbar>
 
 <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--2-col">Left Column</div>
+  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+      <div class="mdl-tabs__tab-bar">
+          <a href="#starks-panel" class="mdl-tabs__tab is-active">Today</a>
+          <a href="#lannisters-panel" class="mdl-tabs__tab">Week</a>
+          <a href="#targaryens-panel" class="mdl-tabs__tab">Trending</a>
+      </div>
+  </div>
+  <div class="mdl-cell mdl-cell--2-col">Hashtags: Trending | Popular</div>
 
   <main class="mdl-layout__content mdl-cell mdl-cell--4-col">
     <quote-card></quote-card>
   </main>
 
-  <div class="mdl-cell mdl-cell--2-col">Right Column</div>
+  <div class="mdl-cell mdl-cell--2-col">Topics</div>
 </div>
 
 <router-outlet></router-outlet>

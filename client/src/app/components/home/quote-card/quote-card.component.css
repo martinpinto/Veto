@@ -1,6 +1,36 @@
-.veto-card-wide {
+.card-wide {
     border-radius: 5px;
     margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.card-header {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 5px;
+}
+
+.card-spacer {
+    flex: 2 2 auto;
+}
+
+.card-title-sub {
+    color: rgba(0,0,0,.54);
+    font-size: 80%;
+    margin-bottom: 15px;
+}
+
+.card-image-placeholder {
+    float: left;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.card-image {
+    width: 100px;
+    height: 100px;
 }
 
 .mat-icon-button.mat-primary {
@@ -23,13 +53,10 @@
     height: 100px;
     width: 80%;
     float: right;
+    overflow: auto;
+    color: #555;
 }
 
 .mdl-card__menu {
     color: #fff;
-}
-
-.veto-description-controls {
-    width: 20%;
-    float: left;
 }
