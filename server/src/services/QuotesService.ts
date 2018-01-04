@@ -32,15 +32,14 @@ class QuotesService {
             return TopicsService.getTopicsById(topicIds).then(topics => {
                 for (let i = 0; i < quotes.length; i++) {
                     let quote = quotes[i];
-                    for (let j = 0; j < topics.length; j++) {
-                        let topic = topics[j];
-                        if (topic.id == quote.topicId) {
-                            quote.topic = topic;
-                        }
-                    }
-                    console.log(quotes);
-                    return quotes;
+                    let topic = topics.find(t => {
+                        return t.id == quote.topicId;
+                    });
+                    quote.topic = topic;
+                    
                 }
+                console.log(quotes);
+                return quotes;
             });
         });
     }
