@@ -19,20 +19,29 @@ class QuotesService {
 
     getQuotes(): Promise<Quote[]> {
         //return this.mysql.find(new Quote()._name, null, " LEFT JOIN Topics as Topics on Quotes.topicId = Topics.id").then(rowset => {
+        let topicIds: number[] = [];
         return this.mysql.find(new Quote()._name).then(rowset => {
             let quotes: Quote[] = [];
             for (let i = 0; i < rowset.length; i++) {
                 let quote = new Quote(rowset[i]);
-                /*
-                TopicsService.getTopicById(quote.topicId).then(topic => {
-                    quote.topic = topic;
-                    quotes.push(quote);
-                });
-                */
-                quotes.push(quote);                
+                topicIds.push(quote.topicId);
+                quotes.push(quote);
             }
-            console.log(quotes);
             return quotes;
+        }).then((quotes: Quote[]) => {
+            return TopicsService.getTopicsById(topicIds).then(topics => {
+                for (let i = 0; i < quotes.length; i++) {
+                    let quote = quotes[i];
+                    for (let j = 0; j < topics.length; j++) {
+                        let topic = topics[j];
+                        if (topic.id == quote.topicId) {
+                            quote.topic = topic;
+                        }
+                    }
+                    console.log(quotes);
+                    return quotes;
+                }
+            });
         });
     }
 

@@ -125,14 +125,14 @@ export default class MySqlRepository implements IModelRepository {
      *
      * @param: modelName string
      *   the name of the table/record to be fetched.
-     * @param: [where] IWhereFilter
+     * @param: [where] IWhereFilter | string
      *     Model instances matching the filter, or null if none found.
      * @param: [join] string
      *   joins the table/record with another table/record.
      * @param: [sort] string
      *   sorts the table/table according to a specific criteria.
      */
-    find(modelName: string, where?: IWhereFilter, join?: string, sort?: string) {
+    find(modelName: string, where?: IWhereFilter | string, join?: string, sort?: string) {
         return this.createConnection().then(connection => {
             let whereFilter = where ? ` WHERE ${where}` : "";
             let joinFilter = join ? join : "";
