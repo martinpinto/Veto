@@ -37,6 +37,7 @@ import {
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     QuoteCardComponent,
     QuoteDialog,
     LoginDialog,
-    TopicShowcaseComponent
+    TopicShowcaseComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
