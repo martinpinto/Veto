@@ -21,7 +21,7 @@ class TopicsService {
         }
         filter.push(`ID = ${ids[ids.length - 1]}`);
 
-        return this.mysql.find(new Topic()._name, filter.join("")).then(rowset => {
+        return this.mysql.find(new Topic()._type, filter.join("")).then(rowset => {
             let topics: Topic[] = [];
             for (let i = 0; i < rowset.length; i++) {
                 let topic = new Topic(rowset[i]);
@@ -32,7 +32,7 @@ class TopicsService {
     }
 
     getTopicById(id: number): Promise<Topic> {
-        return this.mysql.findById(new Topic()._name, id).then(rowset => {
+        return this.mysql.findById(new Topic()._type, id).then(rowset => {
             let topic: Topic = new Topic(rowset);
             console.log(topic);
             return topic;
@@ -40,7 +40,7 @@ class TopicsService {
     }
 
     getTopics(): Promise<Topic[]> {
-        return this.mysql.find(new Topic()._name).then(rowset => {
+        return this.mysql.find(new Topic()._type).then(rowset => {
             let topics: Topic[] = [];
             for (let i = 0; i < rowset.length; i++) {
                 let topic = new Topic(rowset[i]);

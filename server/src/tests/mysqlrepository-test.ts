@@ -6,15 +6,15 @@ import { expect } from 'chai';
 import { reporters } from 'mocha';
 
 var topic: Topic = {
-    _id: '-1',
-    _name: 'Topics',
+    id: -1,
+    _type: 'Topics',
     dateCreated: '2017-12-10',
     title: 'peace'
 }
 
 var quote : Quote = {
-    _id: '-1',
-    _name: "Quotes",
+    id: -1,
+    _type: "Quotes",
     title: "Sample title",
     author: "Sample author",
     description: "Sample description",
@@ -33,7 +33,7 @@ var quote : Quote = {
 describe('INSERT statement', () => {
     it('should insert a new quote', () => {
         let repository : MySqlRepository = new MySqlRepository();
-        repository.create(quote, quote._name);
+        repository.create(quote, quote._type);
     });
 });
 

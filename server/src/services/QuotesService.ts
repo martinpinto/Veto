@@ -17,10 +17,10 @@ class QuotesService {
         this.mysql = new MySqlRepository();
     }
 
-    getQuotes(): Promise<Quote[]> {
+    getQuotes(filter?: string): Promise<Quote[]> {
         //return this.mysql.find(new Quote()._name, null, " LEFT JOIN Topics as Topics on Quotes.topicId = Topics.id").then(rowset => {
         let topicIds: number[] = [];
-        return this.mysql.find(new Quote()._name).then(rowset => {
+        return this.mysql.find(new Quote()._type, filter ? filter : null).then(rowset => {
             let quotes: Quote[] = [];
             for (let i = 0; i < rowset.length; i++) {
                 let quote = new Quote(rowset[i]);
@@ -44,13 +44,28 @@ class QuotesService {
         });
     }
 
-    getFilteredQuotes(where: IWhereFilter): Promise<Quote[]> {
-        return null;
+    getQuote(id: number) {
+        return this.mysql.findById(new Quote()._type, id).then(rowdata => {
+            let quote: Quote = new Quote(rowdata[0])
+            console.log(quote);
+            return quote;
+        });
+    }
+
+    getTrendingQuotes() {
+        let filter: string = "Quotes.dateCreated = CURDATE()";
+        return this.getQuotes(filter);
+    }
+
+    getWeeklyQuotes() {
+        let filter: string = "Quotes.dateCreated >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY " +
+            "AND Quotes.dateCreated < curdate() - INTERVAL DAYOFWEEK(curdate())-1 DAY";
+        return this.getQuotes(filter);
     }
 
     addQuote(quote: Quote): Promise<string> {
         // insert metadata into mysql
-        return this.mysql.create(quote, quote._name);
+        return this.mysql.create(quote, quote._type);
         
         // create new entry for comments into mongodb
     }
@@ -65,10 +80,6 @@ class QuotesService {
         // increase or decrease votes
 
         // return current votes for quoteId (?)
-    }
-
-    archiveQuote(quoteId) {
-        // mark quote as archived
     }
 
     addQuoteToFavorites(quoteId, userId) {

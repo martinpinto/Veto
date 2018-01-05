@@ -3,7 +3,7 @@ import Topic from './Topic';
 
 export default class Quote implements Model {
     public id: number;
-    public _name: string;
+    public _type: string;
 
     public title: string;
     public author: string;
@@ -20,7 +20,7 @@ export default class Quote implements Model {
     public party: string;
     
     constructor(quote?: Quote) {
-        this._name = "Quotes";
+        this._type = "Quotes";
         if (quote) {
             this.id = quote.id;
             this.title = quote.title;

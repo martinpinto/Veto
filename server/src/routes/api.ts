@@ -4,17 +4,15 @@
 /**
  * This rounter handler manages all routes incoming from the web browser to the API.
  */
-import QuotesService from '../services/QuotesService';
+import QuotesService from "../services/QuotesService";
 import Quote from '../models/Quote';
+import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 
-import TopicsService from '../services/TopicsService';
-import Topic from '../models/Topic';
-
-import * as jwt from 'express-jwt';
+import * as jwt from "express-jwt";
 
 import config from '../config/config';{}
-import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 import { Router, Request, Response, NextFunction } from 'express';
+import TopicsService from "../services/TopicsService";
 
 export class ApiRouter {
     router: Router;
@@ -44,6 +42,8 @@ export class ApiRouter {
     }
     
     public getUsers(req: Request, res: Response, next: NextFunction) {
+        res.header('Access-Control-Allow-Origin', '*');
+        
         let users = [
             { id: 1, name: 'Todd Motto', image: 'image-1.jpg' },
             { id: 2, name: 'Brad Green', image: 'image-2.jpg' },
@@ -55,14 +55,29 @@ export class ApiRouter {
 
     ///////////////////////////////// QUOTES /////////////////////////////////
     
-    /**
-     * Get all quotes
-     */
+    /** Get all quotes */
     public getAllQuotes(req: Request, res: Response, next: NextFunction) {
         res.header('Access-Control-Allow-Origin', '*');
         // or like this -> let quotes: Quote = <Quote>req.body;
-		// let quotesService: QuotesService = new QuotesService().getQuotes().then(...);
         QuotesService.getQuotes().then(quotes => {
+            console.log(quotes);
+            res.status(200).json(quotes);
+        });
+    }
+
+    public getWeeklyQuotes(req: Request, res: Response, next: NextFunction) {
+        res.header('Access-Control-Allow-Origin', '*');
+        QuotesService.getWeeklyQuotes().then(quotes => {
+            console.log(quotes);
+            res.status(200).json(quotes);
+        });
+    }
+
+    public getTrendingQuotes(req: Request, res: Response, next: NextFunction) {
+        res.header('Access-Control-Allow-Origin', '*');
+
+        QuotesService.getTrendingQuotes().then(quotes => {
+            console.log(quotes);
             res.status(200).json(quotes);
         });
     }
@@ -74,10 +89,18 @@ export class ApiRouter {
             //QuotesService.getFilteredQuotes(filter);
         }
     }
+
+    public getQuote(req: Request, res: Response, next: NextFunction) {
+        res.header('Access-Control-Allow-Origin', '*');        
+        let id: number = req.params.id;
+        if (id) {
+            QuotesService.getQuote(id).then(quote => {
+                res.status(200).json(quote);
+            });
+        }
+    }
     
-    /**
-     * Add new quote
-     */
+    /** Add new quote */
     public postNewQuote(req: Request, res: Response, next: NextFunction) {
         if (typeof req.body !== "undefined") {
             res.header('Access-Control-Allow-Origin', '*');
@@ -91,9 +114,7 @@ export class ApiRouter {
         }
     }
     
-    /**
-     * Vote for a quote
-     */
+    /** Vote for a quote */
     public postNewVote(req: Request, res: Response, next: NextFunction) {
         res.header('Access-Control-Allow-Origin', '*');
         res.status(200).json({});
@@ -133,6 +154,7 @@ export class ApiRouter {
         this.router.get("/users", authCheck, this.getUsers);
 
         this.router.get(`/${this.quotesRoute}`, this.getAllQuotes);
+        this.router.get(`/${this.quotesRoute}/:id`, this.getQuote);
         this.router.get(`/${this.quotesRoute}/filter`, this.getFilteredQuotes);
         this.router.post(`/${this.quotesRoute}`, this.postNewQuote);            
         this.router.post(`/${this.quotesRoute}/voting`, this.postNewVote);            
