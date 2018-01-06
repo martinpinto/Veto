@@ -60,6 +60,7 @@ class App {
             })
           ]
         });
+        logger.level = 'debug';
         this.express.set('logger', logger);
         
         // proper development error handling
@@ -78,7 +79,7 @@ class App {
         // error handlers
         this.express.set('env', this.config.app.environment);
         
-        console.log('Web server listening at: %s', this.config.api.host + ':' + this.config.api.port);
+        logger.debug('Web server listening at: %s', this.config.api.host + ':' + this.config.api.port);
         // to start app in debug mode use: DEBUG=es_template:* ./bin/www OR nodemon --debug ./bin/www
     }
 
@@ -95,6 +96,12 @@ class App {
         });
         this.express.use('/', router);
         this.express.use(this.config.api.root, ApiRouter);
+
+        let swaggerUi = require('swagger-ui-express'),
+        swaggerDocument = require('../swagger.json');
+        
+        this.express.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+        this.express.use('/api/v1', router);
     }
 
     private authentication(): void {        

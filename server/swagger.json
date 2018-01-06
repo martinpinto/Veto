@@ -1,0 +1,72 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.2.0",
+        "title": "Veto",
+        "description": "A political quoting system."
+    },
+    "schemes": [
+        "https"
+    ],
+    "host": "localhost:3001",
+    "basePath": "/",
+    "paths": {
+        "/quotes": {
+            "get": {
+                "summary": "Gets some quotes",
+                "description": "Returns a list containing all quotes.",
+                "responses": {
+                    "200": {
+                        "description": "A list of quotes",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "author": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "topicId": {
+                                        "type": "number"
+                                    },
+                                    "topic": {
+                                        "type": "Topic"
+                                    },
+                                    "hashtags": {
+                                        "type": "string[]"
+                                    },
+                                    "votes": {
+                                        "type": "number"
+                                    },
+                                    "dateCreated": {
+                                        "type": "date"
+                                    },
+                                    "dateQuote": {
+                                        "type": "date"
+                                    },
+                                    "source": {
+                                        "type": "string"
+                                    },
+                                    "party": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
