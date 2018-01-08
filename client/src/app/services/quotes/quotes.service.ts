@@ -20,4 +20,12 @@ export class QuotesService {
   addQuote(quote: Quote): void {
     this.http.post<Quote>(`http://localhost:3001/api/quotes`, quote);
   }
+
+  upvote(id: number) {
+    this.http.get<Quote>(`http://localhost:3001/api/quotes/${id}/upvote`);
+  }
+
+  downvote(id: number) {
+    this.http.get<Quote>(`http://localhost:3001/api/quotes/${id}/downvote`);
+  }
 }

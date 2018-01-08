@@ -29,11 +29,11 @@
   </div>
 
   <div class="mdl-card--border">
-    <button mat-icon-button color="primary" (click)="upvote()">
+    <button mat-icon-button color="primary" [disabled]="canClick(quote.id)" (click)="upvote(quote.id)">
         <mat-icon aria-label="Upvote">thumb_up</mat-icon>
     </button>
     {{ quote.votes }}
-    <button mat-icon-button color="primary" (click)="downvote()">
+    <button mat-icon-button color="primary" [disabled]="canClick(quote.id)" (click)="downvote(quote.id)">
         <mat-icon aria-label="Downvote">thumb_down</mat-icon>
     </button>
     
