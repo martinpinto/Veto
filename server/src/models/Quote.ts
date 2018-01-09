@@ -1,40 +1,42 @@
 import Model from './Model';
 import Topic from './Topic';
+import User from './User';
+import Politician from './Politician';
+import Party from './Party';
 
 export default class Quote implements Model {
     public id: number;
     public _type: string;
 
     public title: string;
-    public author: string;
     public description: string;
-    public type: string;
     public status: string;
-    public topicId: number;
-    public topic?: Topic;
-    public hashtags: string[];
     public votes: number;
     public dateCreated: string; // should be date YYYY-MM-dd for mysql
     public dateQuote: string; // should be date YYYY-MM-dd for mysql
     public source: string;
-    public party: string;
+    public party: Party;
+    public partyId: number;
+    public userId: number;
+    public user?: User;
+    public politicianId: number;
+    public politician: Politician;
     
     constructor(quote?: Quote) {
         this._type = "Quotes";
+
         if (quote) {
             this.id = quote.id;
             this.title = quote.title;
-            this.author = quote.author;
             this.description = quote.description;
-            this.type = quote.type;
             this.status = quote.status;
-            this.topicId = quote.topicId;
-            this.hashtags = quote.hashtags;
             this.votes = quote.votes;
             this.dateCreated = quote.dateCreated;
             this.dateQuote = quote.dateQuote;
             this.source = quote.source;
-            this.party = quote.party;
+            this.partyId = quote.partyId;
+            this.userId = quote.userId;
+            this.politicianId = quote.politicianId;
         }
     }
 }

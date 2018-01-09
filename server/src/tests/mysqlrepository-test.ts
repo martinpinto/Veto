@@ -1,33 +1,66 @@
 import MySqlRepository from '../databases/mysql/MySqlRepository';
 import Quote from '../models/Quote';
 import Topic from '../models/Topic';
+import Party from '../models/Party';
+import Politician from '../models/Politician';
 
 import { expect } from 'chai';
 import { reporters } from 'mocha';
+import User from '../models/User';
 
-var topic: Topic = {
+var topics: Topic[] = [{
     id: -1,
     _type: 'Topics',
     dateCreated: '2017-12-10',
     title: 'peace'
+}];
+
+var politician: Politician = {
+    id: -1,
+    _type: 'Politicians',
+    firstname: 'First',
+    lastname: 'Name',
+    role: 'Role',
+    avatar: 'Test',
+    votes: 1,
+    party: party,
+    partyId: -1
+};
+
+var party: Party = {
+    id: -1,
+    _type: "Parties",
+    name: 'Test',
+    logo: 'test',
+    link: 'test'
+};
+
+var user: User = {
+    id: -1,
+    _type: "Users",
+    firstname: "First",
+    lastname: "Name",
+    username: "@username", // @ symbol
+    password: "secure",
+    email: "secure@mail.com"
 }
 
-var quote : Quote = {
+var quote: Quote = {
     id: -1,
     _type: "Quotes",
     title: "Sample title",
-    author: "Sample author",
     description: "Sample description",
-    type: "Sample type",
     status: "Sample status",
-    topicId: 1,
-    topic: topic,
-    hashtags: ["Sample hashtag"],
     votes: 1,
     dateCreated: '2017-12-31',
     dateQuote: '2017-12-10',
     source: "Sample source",
-    party: "Sample party",
+    partyId: 1,
+    party: party,
+    userId: 1,
+    user: user,
+    politicianId: 1,
+    politician: politician
 };
 
 describe('INSERT statement', () => {
