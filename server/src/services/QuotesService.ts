@@ -17,29 +17,36 @@ class QuotesService {
         this.mysql = new MySqlRepository();
     }
 
-    getQuotes(filter?: string): Promise<Quote[]> {
+    getQuotes(filter?): Promise<Quote[]> {
         //return this.mysql.find(new Quote()._name, null, " LEFT JOIN Topics as Topics on Quotes.topicId = Topics.id").then(rowset => {
         let topicIds: number[] = [];
-        return this.mysql.find(new Quote()._type, filter ? filter : null).then(rowset => {
+        let fields: string = `
+            Quotes.id AS \`quotes.id\`,
+            Quotes.title AS \`quotes.title\`,
+            Quotes.description AS \`quotes.description\`,
+            Quotes.status AS \`quotes.status\`,
+            Quotes.votes AS \`quotes.votes\`,
+            Quotes.dateCreated AS \`quotes.dateCreated\`,
+            Quotes.dateQuote AS \`quotes.dateQuote\`,
+            Quotes.source AS \`quotes.source\`,
+            Quotes.partyId AS \`quotes.partyId\`,
+            Quotes.userId AS \`quotes.userId\`,
+            Quotes.politicianId AS \`quotes.politicianId\`,
+            
+            Parties.id AS \`parties.id\`, 
+            Parties.name AS \`parties.name\` 
+            `;
+        let join: string = " RIGHT JOIN Parties as Parties ON Quotes.partyId = Parties.id";
+        return this.mysql.find(new Quote()._type, null, join ? join : null).then(rowset => {
             let quotes: Quote[] = [];
+            console.log(rowset);
             for (let i = 0; i < rowset.length; i++) {
+                console.log('party.name:', rowset[i]['party.name']);
                 let quote = new Quote(rowset[i]);
                 topicIds.push(quote.userId);
                 quotes.push(quote);
             }
             return quotes;
-        }).then((quotes: Quote[]) => {
-            return TopicsService.getTopicsById(topicIds).then(topics => {
-                for (let i = 0; i < quotes.length; i++) {
-                    let quote = quotes[i];
-                    let topic = topics.find(t => {
-                        return t.id == quote.userId;
-                    });
-                    quote.user = topic;
-                    
-                }
-                return quotes;
-            });
         });
     }
 

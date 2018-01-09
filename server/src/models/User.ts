@@ -1,8 +1,7 @@
 import Model from './Model';
 
-export default class User implements Model {
+export default class User extends Model {
     public id: number;
-    public _type: string;
 
     public firstname: string;
     public lastname: string;
@@ -11,11 +10,12 @@ export default class User implements Model {
     public email: string;
 
     constructor(user?: User) {
+        super();
         this._type = "Users";
 
         if (user) {
             this.firstname = user.firstname;
-           this.lastname = user.lastname;
+            this.lastname = user.lastname;
             this.username = user.username;
             this.password = user.password;
             this.email = user.email;

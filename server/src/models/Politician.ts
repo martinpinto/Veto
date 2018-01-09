@@ -1,9 +1,8 @@
 import Model from './Model';
 import Party from './Party';
 
-export default class Politician implements Model {
+export default class Politician extends Model {
     public id: number;
-    public _type: string;
 
     public firstname: string;
     public lastname: string;
@@ -14,6 +13,7 @@ export default class Politician implements Model {
     public partyId: number;
 
     constructor(politician?: Politician) {
+        super();
         this._type = "Politicians";
 
         if (politician) {

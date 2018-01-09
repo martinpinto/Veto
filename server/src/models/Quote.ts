@@ -4,9 +4,8 @@ import User from './User';
 import Politician from './Politician';
 import Party from './Party';
 
-export default class Quote implements Model {
+export default class Quote extends Model {
     public id: number;
-    public _type: string;
 
     public title: string;
     public description: string;
@@ -15,14 +14,15 @@ export default class Quote implements Model {
     public dateCreated: string; // should be date YYYY-MM-dd for mysql
     public dateQuote: string; // should be date YYYY-MM-dd for mysql
     public source: string;
-    public party: Party;
     public partyId: number;
+    public party?: Party;
     public userId: number;
     public user?: User;
     public politicianId: number;
-    public politician: Politician;
+    public politician?: Politician;
     
     constructor(quote?: Quote) {
+        super();
         this._type = "Quotes";
 
         if (quote) {
@@ -37,31 +37,15 @@ export default class Quote implements Model {
             this.partyId = quote.partyId;
             this.userId = quote.userId;
             this.politicianId = quote.politicianId;
+
+            super.parseDynamicValues(quote);
         }
     }
 }
 
 /* Sample JSON:
-    "message": {},
-    "author": {
-      "id": {},
-      "role": {},
-      "party_id": {}
-    },
-    "type": {},
-    "status": {},
-    "topic": {},
-    "hashtags": {},
     "votes": {
       "up_vote_count": {},
       "down_vote_count": {}
-    },
-    "date_created": {},
-    "date_quote": {},
-    "source": {}
-  },
-  "party": {
-    "id": {},
-    "logo_url": {}
-  }
+    }
 */
