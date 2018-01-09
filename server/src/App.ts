@@ -12,9 +12,8 @@ import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
 import * as compression from "compression";
 import * as morgan from "morgan";
-import * as winston from "winston";
-
 import ApiRouter from "./routes/Api";
+import { logger } from "./services/LoggerService";
 
 class App {
     public express: express.Application;
@@ -50,17 +49,7 @@ class App {
         this.express.use(cookieParser());
         
         this.express.use(morgan('dev')); // log every request to the console
-        const tsFormat = () => (new Date()).toLocaleTimeString();
-        const logger = new (winston.Logger)({
-          transports: [
-            // colorize the output to the console
-            new (winston.transports.Console)({
-              timestamp: tsFormat,
-              colorize: true,
-            })
-          ]
-        });
-        logger.level = 'debug';
+        
         this.express.set('logger', logger);
         
         // proper development error handling
@@ -106,7 +95,7 @@ class App {
 
     private authentication(): void {        
         this.express.get('/twitter_callback', (req, res) => {
-            console.log(res);
+            this.express.get("logger").debug(res);
             res.end("Authorization Succeded");
         });
     }

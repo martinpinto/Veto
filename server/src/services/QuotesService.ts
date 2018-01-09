@@ -24,7 +24,7 @@ class QuotesService {
             let quotes: Quote[] = [];
             for (let i = 0; i < rowset.length; i++) {
                 let quote = new Quote(rowset[i]);
-                topicIds.push(quote.topicId);
+                topicIds.push(quote.userId);
                 quotes.push(quote);
             }
             return quotes;
@@ -33,12 +33,11 @@ class QuotesService {
                 for (let i = 0; i < quotes.length; i++) {
                     let quote = quotes[i];
                     let topic = topics.find(t => {
-                        return t.id == quote.topicId;
+                        return t.id == quote.userId;
                     });
-                    quote.topic = topic;
+                    quote.user = topic;
                     
                 }
-                console.log(quotes);
                 return quotes;
             });
         });
@@ -47,7 +46,6 @@ class QuotesService {
     getQuote(id: number) {
         return this.mysql.findById(new Quote()._type, id).then(rowdata => {
             let quote: Quote = new Quote(rowdata[0])
-            console.log(quote);
             return quote;
         });
     }

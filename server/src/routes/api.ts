@@ -8,11 +8,14 @@ import QuotesService from "../services/QuotesService";
 import Quote from '../models/Quote';
 import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 
-import * as jwt from "express-jwt";
+import * as jwt from 'express-jwt';
+import * as winston from "winston";
 
 import config from '../config/config';{}
 import { Router, Request, Response, NextFunction } from 'express';
 import TopicsService from "../services/TopicsService";
+
+import { logger } from '../services/LoggerService';
 
 export class ApiRouter {
     router: Router;
@@ -28,7 +31,7 @@ export class ApiRouter {
         this.quotesRoute = config.api.routes[0];
         this.usersRoute = config.api.routes[1];
 
-        this.init();
+        this.initRoutes();
     }
     
     /**
@@ -60,7 +63,7 @@ export class ApiRouter {
         res.header('Access-Control-Allow-Origin', '*');
         // or like this -> let quotes: Quote = <Quote>req.body;
         QuotesService.getQuotes().then(quotes => {
-            console.log(quotes);
+            logger.debug(quotes);
             res.status(200).json(quotes);
         });
     }
@@ -68,7 +71,7 @@ export class ApiRouter {
     public getWeeklyQuotes(req: Request, res: Response, next: NextFunction) {
         res.header('Access-Control-Allow-Origin', '*');
         QuotesService.getWeeklyQuotes().then(quotes => {
-            console.log(quotes);
+            logger.debug(quotes);
             res.status(200).json(quotes);
         });
     }
@@ -77,7 +80,7 @@ export class ApiRouter {
         res.header('Access-Control-Allow-Origin', '*');
 
         QuotesService.getTrendingQuotes().then(quotes => {
-            console.log(quotes);
+            logger.debug(quotes);
             res.status(200).json(quotes);
         });
     }
@@ -91,19 +94,21 @@ export class ApiRouter {
     }
 
     public getQuote(req: Request, res: Response, next: NextFunction) {
-        res.header('Access-Control-Allow-Origin', '*');        
-        let id: number = req.params.id;
-        if (id) {
-            QuotesService.getQuote(id).then(quote => {
-                res.status(200).json(quote);
-            });
-        }
+        res.header('Access-Control-Allow-Origin', '*');
+        if (req.params) {
+            let id: number = req.params.id;
+            if (id) {
+                QuotesService.getQuote(id).then(quote => {
+                    res.status(200).json(quote);
+                });
+            }
+        }     
     }
     
     /** Add new quote */
     public postNewQuote(req: Request, res: Response, next: NextFunction) {
-        if (typeof req.body !== "undefined") {
-            res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Origin', '*');
+        if (req.body) {
             // or like this -> let quote: Quote = <Quote>req.body;
             let quote: Quote = new Quote(req.body);
             QuotesService.addQuote(quote);
@@ -111,6 +116,16 @@ export class ApiRouter {
             //this.mongodb.create(quote);
     
             res.status(200).json({});
+        }
+    }
+
+    public postUpvoteQuote(req: Request, res: Response, next: NextFunction) {
+        res.header('Access-Control-Allow-Origin', '*');                
+        if (req.params) {
+            let id: number = req.params.id;
+            if (id) {
+
+            }
         }
     }
     
@@ -140,7 +155,7 @@ export class ApiRouter {
         });
     }
 
-    init() {
+    initRoutes() {
         // Authentication middleware provided by express-jwt.
         // This middleware will check incoming requests for a valid
         // JWT on any routes that it is applied to.
@@ -171,6 +186,6 @@ export class ApiRouter {
 ///////////////////////////////// TOPICS /////////////////////////////////
 
 const apiRouter = new ApiRouter();
-apiRouter.init();
+apiRouter.initRoutes();
 
 export default apiRouter.router;
