@@ -18,10 +18,7 @@ class QuotesService {
     }
 
     getQuotes(filter?): Promise<Quote[]> {
-        //return this.mysql.find(new Quote()._name, null, " LEFT JOIN Topics as Topics on Quotes.topicId = Topics.id").then(rowset => {
-        let topicIds: number[] = [];
-        let fields: string = `
-            Quotes.id AS \`quotes.id\`,
+        let fields: string = `Quotes.id AS \`quotes.id\`,
             Quotes.title AS \`quotes.title\`,
             Quotes.description AS \`quotes.description\`,
             Quotes.status AS \`quotes.status\`,
@@ -32,18 +29,33 @@ class QuotesService {
             Quotes.partyId AS \`quotes.partyId\`,
             Quotes.userId AS \`quotes.userId\`,
             Quotes.politicianId AS \`quotes.politicianId\`,
-            
             Parties.id AS \`parties.id\`, 
-            Parties.name AS \`parties.name\` 
-            `;
-        let join: string = " RIGHT JOIN Parties as Parties ON Quotes.partyId = Parties.id";
+            Parties.name AS \`parties.name\`,
+            Parties.logo AS \`parties.logo\`,
+            Parties.link AS \`parties.link\`,
+            Users.id AS \`Users.id\`,
+            Users.firstname AS \`Users.firstname\`,
+            Users.lastname AS \`Users.lastname\`,
+            Users.username AS \`Users.username\`,
+            Users.password AS \`Users.password\`,
+            Users.email AS \`Users.email\`,
+            Politicians.id AS \`Politicians.id\`,
+            Politicians.firstname AS \`Politicians.firstname\`,
+            Politicians.lastname AS \`Politicians.lastname\`,
+            Politicians.role AS \`Politicians.role\`,
+            Politicians.avatar AS \`Politicians.avatar\`,
+            Politicians.votes AS \`Politicians.votes\`,
+            Politicians.partyId AS \`Politicians.partyId\``;
+        let join: string = ` RIGHT JOIN Parties as Parties ON Quotes.partyId = Parties.id
+        RIGHT JOIN Users as Users ON Quotes.userId = Users.id
+        RIGHT JOIN Politicians as Politicians ON Quotes.politicianId = Politicians.id        
+        `;
         return this.mysql.find(new Quote()._type, null, join ? join : null).then(rowset => {
             let quotes: Quote[] = [];
             console.log(rowset);
             for (let i = 0; i < rowset.length; i++) {
                 console.log('party.name:', rowset[i]['party.name']);
                 let quote = new Quote(rowset[i]);
-                topicIds.push(quote.userId);
                 quotes.push(quote);
             }
             return quotes;
