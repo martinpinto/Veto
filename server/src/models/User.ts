@@ -8,6 +8,7 @@ export default class User extends Model {
     public username: string; // @ symbol
     public password: string;
     public email: string;
+    public avatar: string;
 
     constructor(user?: User) {
         super();
@@ -19,6 +20,7 @@ export default class User extends Model {
             this.username = user.username;
             this.password = user.password;
             this.email = user.email;
+            this.avatar = user.avatar;
         }
     }
 }
