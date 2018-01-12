@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS Users (
     username VARCHAR(500) DEFAULT NULL,
     password VARCHAR(500) DEFAULT NULL,
     email VARCHAR(500) DEFAULT NULL,
+    avatar VARCHAR(500) DEFAULT NULL,
     PRIMARY KEY(id)
 );
 
@@ -119,17 +120,17 @@ VALUES
 INSERT INTO Politicians
     (firstname, lastname, partyId, role, avatar, votes)
 VALUES
-    ('Steve', 'Bannon', 1, 'Advisor', '', 10);
+    ('Steve', 'Bannon', 1, 'Advisor', 'http://static1.businessinsider.com/image/59976266f1a8501d008b61dd/steve-bannon-fired-a-warning-shot-on-his-way-out-of-the-white-house.jpg', 10);
 
 INSERT INTO Politicians
     (firstname, lastname, partyId, role, avatar, votes)
 VALUES
-    ('Alexander', 'Gauland', 2, 'Politician', '', 10);
+    ('Alexander', 'Gauland', 2, 'Politician', 'https://www.welt.de/img/politik/deutschland/mobile168515717/8382509967-ci102l-w1024/AfD-Spitzenkandidat-Alexander-Gauland.jpg', 10);
 
 INSERT INTO Politicians
     (firstname, lastname, partyId, role, avatar, votes)
 VALUES
-    ('Jens', 'Spahn', 3, 'Politician', '', 10);
+    ('Jens', 'Spahn', 3, 'Politician', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Jens_Spahn_MdB.jpg/1200px-Jens_Spahn_MdB.jpg', 10);
 
 INSERT INTO Users
     (firstname, lastname, username, password, email)
