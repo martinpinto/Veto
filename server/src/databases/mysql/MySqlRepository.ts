@@ -3,6 +3,7 @@ import IModelRepository, { IModelAttributes } from "../engine/IModelRepository";
 import Model from "../../models/Model";
 import { IWhereFilter } from "../engine/filter/WhereFilter";
 import MySqlWhereFilter from "./MySqlWhereFilter";
+import { logger } from '../../services/LoggerService';
 
 var mysql = require('promise-mysql');
 
@@ -137,9 +138,9 @@ export default class MySqlRepository implements IModelRepository {
             let whereFilter = where ? ` WHERE ${where}` : "";
             let joinFilter = join ? join : "";
             let sortFilter = sort ? sort : "";
-            let fieldsFilter = fields ? fields : "";
-            let query: string = `SELECT ${fields} FROM ${modelName} AS ${modelName}${whereFilter}${joinFilter}${sortFilter}`;
-            console.log("query: ", query)
+            let fieldsFilter = fields ? fields : "*";
+            let query: string = `SELECT ${fieldsFilter} FROM ${modelName} AS ${modelName}${whereFilter}${joinFilter}${sortFilter}`;
+            logger.debug("query: ", query)
             return connection.query(query).then(rows => {
                 connection.end();
                 return rows;

@@ -4,6 +4,7 @@ import MySqlRepository from '../databases/mysql/MySqlRepository'
 import Topic from '../models/Topic';
 import { OperatorEnum, Operator } from '../databases/engine/filter/Operator';
 import MySqlWhereFilter from '../databases/mysql/MySqlWhereFilter';
+import { logger } from './LoggerService';
 
 class TopicsService {
     private mongodb: MongoDbRepository;
