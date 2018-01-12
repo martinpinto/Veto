@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LoginDialog } from './components/login/login-dialog.component';
-import { QuoteDialog } from './components/home/quote-dialog/quote-dialog.component';
+import { QuoteAddDialog } from './components/home/quote-add-dialog/quote-add-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +14,7 @@ export class AppComponent {
   constructor(public dialog: MatDialog) {}
 
   createNewQuote() {
-    let dialogRef = this.dialog.open(QuoteDialog, {
-      width: '250px',
+    let dialogRef = this.dialog.open(QuoteAddDialog, {
       data: {  }
     });
 
@@ -26,7 +25,6 @@ export class AppComponent {
   
   login(): void {
     let dialogRef = this.dialog.open(LoginDialog, {
-      width: '250px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

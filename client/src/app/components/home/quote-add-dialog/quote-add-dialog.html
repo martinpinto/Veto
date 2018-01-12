@@ -1,0 +1,63 @@
+<h1 mat-dialog-title>Add new Quote</h1>
+<div mat-dialog-content id="dialog-content">
+  <p>What will you quote about?</p>
+
+  <mat-horizontal-stepper [linear]="true">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Enter quote</ng-template>
+        <mat-form-field>
+            <textarea matInput placeholder="Quote" matTextareaAutosize matAutosizeMinRows="5"
+              matAutosizeMaxRows="5" formControlName="firstCtrl" required></textarea>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Enter politician</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Address" formControlName="secondCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+  <!--
+  <mat-form-field>
+    <input matInput tabindex="1" [(ngModel)]="quote.title" placeholder="Name" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput tabindex="2" [(ngModel)]="quote.author" placeholder="Author" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput tabindex="3" [(ngModel)]="quote.description" placeholder="Description" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput tabindex="4" [(ngModel)]="quote.type" placeholder="Type" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput tabindex="5" [(ngModel)]="quote.status" placeholder="Status" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput tabindex="6" [(ngModel)]="quote.topic" placeholder="Topic" />
+  </mat-form-field>
+-->
+</div>
+<div mat-dialog-actions>
+  <button mat-button tabindex="2" (click)="addQuote()">Add</button>
+  <button mat-button tabindex="-1" (click)="onNoClick()">No Thanks</button>
+</div>

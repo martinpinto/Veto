@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 import { Topic } from '../../../models/topic.model';
 import { Quote } from '../../../models/quote.model';
 import { QuotesService } from '../../../services/quotes/quotes.service';
@@ -8,11 +10,11 @@ import { Politician } from '../../../models/politician.model';
 import { User } from '../../../models/user.model';
 
 @Component({
-    selector: 'quote-dialog',
-    templateUrl: './quote-dialog.html',
-    styleUrls: ['./quote-dialog.css']
+    selector: 'quote-add-dialog',
+    templateUrl: './quote-add-dialog.html',
+    styleUrls: ['./quote-add-dialog.css']
   })
-  export class QuoteDialog {
+  export class QuoteAddDialog {
     topic: Topic = {
       id: -1,
       dateCreated: "",
@@ -55,11 +57,24 @@ import { User } from '../../../models/user.model';
       Politician: this.politician
     };
     
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;  
+
     constructor(
       public quotesService: QuotesService,
-      public dialogRef: MatDialogRef<QuoteDialog>,
+      public dialogRef: MatDialogRef<QuoteAddDialog>,
+      private _formBuilder: FormBuilder,
       @Inject(MAT_DIALOG_DATA) public data: any
     ) {}
+
+    ngOnInit() {
+      this.firstFormGroup = this._formBuilder.group({
+        firstCtrl: ['', Validators.required]
+      });
+      this.secondFormGroup = this._formBuilder.group({
+        secondCtrl: ['', Validators.required]
+      });
+    }
   
     onNoClick(): void {
       this.dialogRef.close();

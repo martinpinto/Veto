@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { QuoteCardComponent } from './components/home/quote-card/quote-card.component';
-import { QuoteDialog } from './components/home/quote-dialog/quote-dialog.component';
+import { QuoteAddDialog } from './components/home/quote-add-dialog/quote-add-dialog.component';
 import { LoginDialog } from './components/login/login-dialog.component';
 import { QuotesService } from './services/quotes/quotes.service';
 import { AuthService } from './services/authentication/auth.service';
@@ -33,7 +33,8 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatProgressBarModule,
-  MatChipsModule
+  MatChipsModule,
+  MatStepperModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -43,7 +44,7 @@ import { DetailsComponent } from './components/details/details.component';
   declarations: [
     AppComponent,
     QuoteCardComponent,
-    QuoteDialog,
+    QuoteAddDialog,
     LoginDialog,
     TopicShowcaseComponent,
     DetailsComponent
@@ -55,6 +56,7 @@ import { DetailsComponent } from './components/details/details.component';
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MatButtonModule, 
     MatCheckboxModule,
     MatDialogModule,
@@ -63,9 +65,10 @@ import { DetailsComponent } from './components/details/details.component';
     MatToolbarModule,
     MatIconModule,
     MatProgressBarModule,
-    MatChipsModule
+    MatChipsModule,
+    MatStepperModule
   ],
-  entryComponents: [QuoteDialog, LoginDialog],
+  entryComponents: [QuoteAddDialog, LoginDialog],
   providers: [
     QuotesService,
     TopicsService,
