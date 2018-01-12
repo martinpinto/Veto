@@ -31,6 +31,10 @@ class TopicsService {
         });
     }
 
+    getTopicsQuotes() {
+        //return this.mysql.find(new )
+    }
+
     getTopicById(id: number): Promise<Topic> {
         return this.mysql.findById(new Topic()._type, id).then(rowset => {
             let topic: Topic = new Topic(rowset);

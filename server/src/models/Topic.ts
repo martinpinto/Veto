@@ -1,13 +1,13 @@
 import Model from './Model';
 
-export default class Topic implements Model {
+export default class Topic extends Model {
     public id: number;
-    public _type: string;
     
     public title: string;
     public dateCreated: string;
 
     constructor(topic?: Topic) {
+        super();
         this._type = "Topics";
 
         if (topic) {

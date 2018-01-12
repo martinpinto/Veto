@@ -1,9 +1,8 @@
 import Model from './Model';
 import User from './User';
 
-export default class Comment implements Model {
+export default class Comment extends Model {
     public id: number;
-    public _type: string;
 
     public title: string;
     public content: string;
@@ -12,6 +11,7 @@ export default class Comment implements Model {
     public userId: number;
 
     constructor(comment?: Comment) {
+        super();
         this._type = "Comments";
 
         if (comment) {

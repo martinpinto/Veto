@@ -1,14 +1,14 @@
 import Model from './Model';
 
-export default class Party implements Model {
+export default class Party extends Model {
     public id: number;
-    public _type: string;
 
     public name: string;
     public logo: string;
     public link: string;
 
     constructor(party?: Party) {
+        super();
         this._type = "Parties"
 
         if (party) {

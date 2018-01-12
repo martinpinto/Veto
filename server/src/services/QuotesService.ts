@@ -4,7 +4,8 @@ import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 import { Operator } from '../databases/engine/filter/Operator';
 
 import Quote from '../models/Quote';
-import TopicsService from '../services/TopicsService';
+import TopicsService from './TopicsService';
+import PoliticiansService from './PoliticiansService';
 
 var Promise = require('bluebird');
 
@@ -17,29 +18,48 @@ class QuotesService {
         this.mysql = new MySqlRepository();
     }
 
-    getQuotes(filter?: string): Promise<Quote[]> {
-        //return this.mysql.find(new Quote()._name, null, " LEFT JOIN Topics as Topics on Quotes.topicId = Topics.id").then(rowset => {
-        let topicIds: number[] = [];
-        return this.mysql.find(new Quote()._type, filter ? filter : null).then(rowset => {
+    getQuotes(filter?): Promise<Quote[]> {
+        let fields: string = `Quotes.id AS \`id\`,
+            Quotes.title AS \`title\`,
+            Quotes.description AS \`description\`,
+            Quotes.status AS \`status\`,
+            Quotes.votes AS \`votes\`,
+            Quotes.dateCreated AS \`dateCreated\`,
+            Quotes.dateQuote AS \`dateQuote\`,
+            Quotes.source AS \`source\`,
+            Quotes.partyId AS \`partyId\`,
+            Quotes.userId AS \`userId\`,
+            Quotes.politicianId AS \`politicianId\`,
+            Parties.id AS \`Party.id\`, 
+            Parties.name AS \`Party.name\`,
+            Parties.logo AS \`Party.logo\`,
+            Parties.link AS \`Party.link\`,
+            Users.id AS \`User.id\`,
+            Users.firstname AS \`User.firstname\`,
+            Users.lastname AS \`User.lastname\`,
+            Users.username AS \`User.username\`,
+            Users.password AS \`User.password\`,
+            Users.email AS \`User.email\`,
+            Politicians.id AS \`Politician.id\`,
+            Politicians.firstname AS \`Politician.firstname\`,
+            Politicians.lastname AS \`Politician.lastname\`,
+            Politicians.role AS \`Politician.role\`,
+            Politicians.avatar AS \`Politician.avatar\`,
+            Politicians.votes AS \`Politician.votes\`,
+            Politicians.partyId AS \`Politician.partyId\``;
+        let join: string = ` RIGHT JOIN Parties as Parties ON Quotes.partyId = Parties.id
+        RIGHT JOIN Users as Users ON Quotes.userId = Users.id
+        RIGHT JOIN Politicians as Politicians ON Quotes.politicianId = Politicians.id        
+        `;
+        return this.mysql.find(new Quote()._type, fields, null, join).then(rowset => {
             let quotes: Quote[] = [];
+            console.log(rowset);
             for (let i = 0; i < rowset.length; i++) {
+                console.log('party.name:', rowset[i]['party.name']);
                 let quote = new Quote(rowset[i]);
-                topicIds.push(quote.userId);
                 quotes.push(quote);
             }
             return quotes;
-        }).then((quotes: Quote[]) => {
-            return TopicsService.getTopicsById(topicIds).then(topics => {
-                for (let i = 0; i < quotes.length; i++) {
-                    let quote = quotes[i];
-                    let topic = topics.find(t => {
-                        return t.id == quote.userId;
-                    });
-                    quote.user = topic;
-                    
-                }
-                return quotes;
-            });
         });
     }
 
