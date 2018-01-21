@@ -18,9 +18,8 @@
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Enter politician</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Address" formControlName="secondCtrl" required>
-        </mat-form-field>
+          <user-select></user-select>
+          <!--<input matInput placeholder="Address" formControlName="secondCtrl" required>-->
         <div>
           <button mat-raised-button color="primary" matStepperPrevious>Back</button>
           <button mat-raised-button color="primary" matStepperNext>Next</button>
