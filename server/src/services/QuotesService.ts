@@ -50,9 +50,9 @@ class QuotesService {
             Politicians.partyId AS \`Politician.partyId\``;
         let join: string = ` RIGHT JOIN Parties as Parties ON Quotes.partyId = Parties.id
         RIGHT JOIN Users as Users ON Quotes.userId = Users.id
-        RIGHT JOIN Politicians as Politicians ON Quotes.politicianId = Politicians.id        
+        RIGHT JOIN Politicians as Politicians ON Quotes.politicianId = Politicians.id
         `;
-        return this.mysql.find(new Quote()._type, fields, null, join).then(rowset => {
+        return this.mysql.find(new Quote()._type + " AS Quotes", fields, null, join).then(rowset => {
             let quotes: Quote[] = [];
             logger.debug(rowset);
             for (let i = 0; i < rowset.length; i++) {
@@ -61,6 +61,8 @@ class QuotesService {
                 quotes.push(quote);
             }
             return quotes;
+        }).then(quotes => {
+            return TopicsService.getTopicsForQuotes(quotes);
         });
     }
 

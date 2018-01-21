@@ -133,20 +133,31 @@ export default class MySqlRepository implements IModelRepository {
      * @param: [sort] string
      *   sorts the table/table according to a specific criteria.
      */
-    find(modelName: string, fields?: string, where?: IWhereFilter | string, join?: string, sort?: string) {
+    find(modelName: string | string[], fields?: string, where?: IWhereFilter | string, join?: string, sort?: string) {
         return this.createConnection().then(connection => {
             let whereFilter = where ? ` WHERE ${where}` : "";
             let joinFilter = join ? join : "";
             let sortFilter = sort ? sort : "";
             let fieldsFilter = fields ? fields : "*";
-            let query: string = `SELECT ${fieldsFilter} FROM ${modelName} AS ${modelName}${whereFilter}${joinFilter}${sortFilter}`;
-            logger.debug("query: ", query)
+            let modelFilter = modelName instanceof Array ? modelName.join(", ") : modelName;
+            let query: string = `SELECT ${fieldsFilter} FROM ${modelName} ${whereFilter}${joinFilter}${sortFilter}`;
+            logger.debug("query:", query)
             return connection.query(query).then(rows => {
                 connection.end();
                 return rows;
             });
         });
     };
+
+    query(query: string) {
+        return this.createConnection().then(connection => {
+            logger.debug("query:", query)            
+            return connection.query(query).then(rows => {
+                connection.end();
+                return rows;
+            });
+        });
+    }
 
     /**
      * Find object by ID with an optional filter for include/fields.

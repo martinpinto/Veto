@@ -20,6 +20,7 @@ export default class Quote extends Model {
     public user?: User;
     public politicianId: number;
     public politician?: Politician;
+    public topic?: Topic;
     
     constructor(quote?: Quote) {
         super();
