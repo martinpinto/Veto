@@ -54,9 +54,7 @@ class QuotesService {
         `;
         return this.mysql.find(new Quote()._type + " AS Quotes", fields, null, join).then(rowset => {
             let quotes: Quote[] = [];
-            logger.debug(rowset);
             for (let i = 0; i < rowset.length; i++) {
-                logger.debug('party.name:', rowset[i]['party.name']);
                 let quote = new Quote(rowset[i]);
                 quotes.push(quote);
             }

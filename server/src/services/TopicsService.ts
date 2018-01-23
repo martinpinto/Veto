@@ -42,15 +42,16 @@ class TopicsService {
         
         let filter = `WHERE ${quotesIds.join("")}`;
         let join = "JOIN Quotes on QuotesTopics.quoteId JOIN Topics on QuotesTopics.topicId";
-        return this.mysql.query(`SELECT topics.id AS \`Topic.id\`, topics.title AS \`Topic.title\`, topics.dateCreated AS \`Topic.dateCreated\` from QuotesTopics ${join} ${filter} GROUP BY topics.id`).then(rowset => {
+        return this.mysql.query(`SELECT quoteId, topics.id AS \`id\`, topics.title AS \`title\`, topics.dateCreated AS \`dateCreated\` from QuotesTopics ${join} ${filter}`).then(rowset => {
             let topics: Topic[] = [];
             for (let row of rowset) {
                 topics.push(new Topic(row));
                 logger.debug(row);
             }
-
+            logger.debug(JSON.stringify(topics, null, 2));
             for (let quote of quotes) {
                 let topic = topics.find(t => { return t.quoteId == quote.id });
+                logger.debug(topic);
                 quote.topic = topic;
             }            
             return quotes;
