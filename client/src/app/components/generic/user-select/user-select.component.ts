@@ -15,44 +15,39 @@ export class UserSelectComponent implements OnInit {
 
   myControl = new FormControl();
   
-  politicians: Politician[];
-  options;
+  options: Politician[] = [
+    {
+      id: 1,
+      firstname: "Donald",
+      lastname: "Trump",
+      role: "President",
+      avatar: "",
+      votes: 1000,
+      Party: null
+    },
+    {
+      id: 2,
+      firstname: "Barack",
+      lastname: "Obama",
+      role: "President",
+      avatar: "",
+      votes: 2000,
+      Party: null
+    },
+    {
+      id: 3,
+      firstname: "Don",
+      lastname: "Draper",
+      role: "President",
+      avatar: "",
+      votes: 3000,
+      Party: null
+    }
+  ];
 
   filteredOptions: Observable<Politician[]>;
 
   ngOnInit() {
-    this.politicians = [
-      {
-        id: 1,
-        firstname: "Donald",
-        lastname: "Trump",
-        role: "President",
-        avatar: "",
-        votes: 1000,
-        Party: null
-      },
-      {
-        id: 2,
-        firstname: "Barack",
-        lastname: "Obama",
-        role: "President",
-        avatar: "",
-        votes: 2000,
-        Party: null
-      },
-      {
-        id: 3,
-        firstname: "Don",
-        lastname: "Draper",
-        role: "President",
-        avatar: "",
-        votes: 3000,
-        Party: null
-      },
-    ];
-
-    this.options = this.politicians;
-
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith<string | Politician>(''),
