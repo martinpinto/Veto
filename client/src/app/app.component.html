@@ -28,13 +28,6 @@
 </mat-toolbar>
 
 <content class="mdl-grid">
-  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-      <div class="mdl-tabs__tab-bar">
-          <a href="#starks-panel" class="mdl-tabs__tab is-active">Today</a>
-          <a href="#lannisters-panel" class="mdl-tabs__tab">Week</a>
-          <a href="#targaryens-panel" class="mdl-tabs__tab">Trending</a>
-      </div>
-  </div>
   <div class="mdl-cell mdl-cell--2-col">
     <h5>Topics</h5>
     <topic-showcase></topic-showcase>
@@ -42,6 +35,11 @@
 
   <main class="mdl-layout__content mdl-cell mdl-cell--4-col">
     <!--<mat-progress-bar mode="query"></mat-progress-bar>-->
+    <mat-tab-group>
+        <mat-tab label="TODAY">Today</mat-tab>
+        <mat-tab label="WEEK">Week</mat-tab>
+        <mat-tab label="TRENDING">Trending</mat-tab>
+      </mat-tab-group>
     <router-outlet></router-outlet>
   </main>
   <div class="spacer" style="margin-right: 10%"></div>

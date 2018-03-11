@@ -10,6 +10,9 @@
     display: flex;
     flex-wrap: nowrap;
     margin-bottom: 5px;
+    padding: 0;
+    background-color: inherit;
+    border-bottom: 0;
 }
 
 .card-spacer {

@@ -18,7 +18,14 @@ export class QuotesService {
   }
 
   addQuote(quote: Quote): void {
-    this.http.post<Quote>(`http://localhost:3001/api/quotes`, quote);
+    this.http.post<Quote>(`http://localhost:3001/api/quotes`, quote).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log('Error occured');
+      }
+    );
   }
 
   upvote(id: number) {

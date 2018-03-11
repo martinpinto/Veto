@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { QuoteCardComponent } from './components/home/quote-card/quote-card.component';
+import { QuoteCardComponent, QuoteCardDialog } from './components/home/quote-card/quote-card.component';
 import { QuoteAddDialog } from './components/home/quote-add-dialog/quote-add-dialog.component';
 import { LoginDialog } from './components/login/login-dialog.component';
 import { QuotesService } from './services/quotes/quotes.service';
@@ -39,6 +39,7 @@ import {
   MatChipsModule,
   MatSelectModule,
   MatStepperModule,
+  MatTabsModule,
   MatAutocompleteModule
 } from '@angular/material';
 
@@ -49,6 +50,7 @@ import { DetailsComponent } from './components/details/details.component';
   declarations: [
     AppComponent,
     QuoteCardComponent,
+    QuoteCardDialog,
     QuoteAddDialog,
     LoginDialog,
     TopicShowcaseComponent,
@@ -75,9 +77,10 @@ import { DetailsComponent } from './components/details/details.component';
     MatChipsModule,
     MatSelectModule,
     MatStepperModule,
+    MatTabsModule,
     MatAutocompleteModule
   ],
-  entryComponents: [QuoteAddDialog, LoginDialog],
+  entryComponents: [QuoteAddDialog, QuoteCardDialog, LoginDialog],
   providers: [
     QuotesService,
     TopicsService,
