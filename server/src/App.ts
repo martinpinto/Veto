@@ -102,6 +102,8 @@ class App {
         const SECRET = 'server secret';
         const TOKENTIME = 120 * 60; // in seconds
 
+        // https://medium.com/hyphe/token-based-authentication-in-node-6e8731bfd7f2
+        // curl -X POST -H ‘Content-Type: application/json’ -d ‘{ “username”: “devils name”, “password”: “666” }’ localhost:3001/auth
         passport.use(new Strategy(  
             function(username, password, done) {
               // database dummy - find user and verify password
