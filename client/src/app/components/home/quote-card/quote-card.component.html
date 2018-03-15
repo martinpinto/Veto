@@ -26,7 +26,9 @@
       <span>{{ quote.Party?.name }}</span>
     </div>
     <div class="mdl-card__supporting-text">
+      <span routerLink="/quote/{{ quote.id }}">
       {{ quote.description }}
+      </span>
     </div>
   </div>
 

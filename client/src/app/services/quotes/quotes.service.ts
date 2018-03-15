@@ -17,6 +17,14 @@ export class QuotesService {
     return this.http.get<Quote[]>('http://localhost:3001/api/quotes');
   }
 
+  getWeeklyQuotes(): Observable<Quote[]> {
+    return this.http.get<Quote[]>('http://localhost:3001/api/quotes/weekly');
+  }
+
+  getTrendingQuotes(): Observable<Quote[]> {
+    return this.http.get<Quote[]>('http://localhost:3001/api/quotes/trending');
+  }
+
   addQuote(quote: Quote): void {
     this.http.post<Quote>(`http://localhost:3001/api/quotes`, quote).subscribe(
       res => {

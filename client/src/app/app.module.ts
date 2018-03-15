@@ -45,6 +45,7 @@ import {
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsComponent } from './components/details/details.component';
+import { QuoteTabsComponent } from './components/home/quote-tabs/quote-tabs.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { DetailsComponent } from './components/details/details.component';
     LoginDialog,
     TopicShowcaseComponent,
     DetailsComponent,
-    UserSelectComponent
+    UserSelectComponent,
+    QuoteTabsComponent
   ],
   imports: [
     BrowserModule,

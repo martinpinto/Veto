@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -13,17 +13,43 @@ import { QuotesService } from '../../../services/quotes/quotes.service';
 export class QuoteCardComponent implements OnInit {
   quotes: Quote[];
 
+  @Input()
+  quoteType: string;
+
   private voting;
 
   constructor(private quotesService: QuotesService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.getQuotes();
+    if (this.quoteType) {
+      switch (this.quoteType) {
+        case "week":
+          this.getWeeklyQuotes();
+          break;
+        case "trending":
+          this.getTrendingQuotes();
+          break;
+      }
+    } else {
+      this.getQuotes();
+    }
     this.voting = {};
   }
   
   getQuotes(): void {
     this.quotesService.getQuotes().subscribe(quotes => {
+      this.quotes = quotes;
+    });
+  }
+
+  getWeeklyQuotes() {
+    this.quotesService.getWeeklyQuotes().subscribe(quotes => {
+      this.quotes = quotes;
+    });
+  }
+
+  getTrendingQuotes() {
+    this.quotesService.getTrendingQuotes().subscribe(quotes => {
       this.quotes = quotes;
     });
   }

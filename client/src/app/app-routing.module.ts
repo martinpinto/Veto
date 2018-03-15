@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailsComponent } from './components/details/details.component';
-import { QuoteCardComponent } from './components/home/quote-card/quote-card.component';
+import { QuoteTabsComponent } from './components/home/quote-tabs/quote-tabs.component';
 
 const routes: Routes = [
-  { path: '', component: QuoteCardComponent },
+  { path: '', component: QuoteTabsComponent },
   { path: 'quote/:id', component: DetailsComponent }
 ];
 
