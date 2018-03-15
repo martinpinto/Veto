@@ -9,6 +9,7 @@
   "scripts": {
     "start": "npm run compile && node ./dist/start",
     "dev": "nodemon --exec ./node_modules/.bin/babel-node src/start.js && gulp",
+    "debug": "node --inspect dist/start",
     "clean": "rimraf dist",
     "restart": "rimraf node_modules",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
