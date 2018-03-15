@@ -3,6 +3,10 @@
  * Configuration
  ***************/
 import * as express from "express";
+const expressJwt = require('express-jwt');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const Strategy = require('passport-local');
 import * as session from "express-session";
 import * as cors from "cors";
 import * as conf from "./config/config";
@@ -93,7 +97,93 @@ class App {
         this.express.use('/api/v1', router);
     }
 
-    private authentication(): void {        
+    private authentication(): void {    
+        const PORT = 1337; // i know, its old...
+        const SECRET = 'server secret';
+        const TOKENTIME = 120 * 60; // in seconds
+
+        passport.use(new Strategy(  
+            function(username, password, done) {
+              // database dummy - find user and verify password
+              if(username === 'devils name' && password === '666'){
+                done(null, {
+                  id: 666,
+                  firstname: 'devils',
+                  lastname: 'name',
+                  email: 'devil@he.ll',
+                  verified: true
+                });
+              }
+              else {
+                done(null, false);
+              }
+            }
+          ));
+
+        const db = {
+            updateOrCreate: function(user, cb) {
+              // db dummy, we just cb the user
+              cb(null, user);
+            },
+            authenticate: function(username, password, cb) {
+              // database dummy - find user and verify password
+              if (username === 'devils name' && password === '666') {
+                cb(null, {
+                  id: 666,
+                  firstname: 'devils',
+                  lastname: 'name',
+                  email: 'devil@he.ll',
+                  verified: true
+                });
+              } else {
+                cb(null, false);
+              }
+            }
+          };
+
+        function serialize(req, res, next) {
+            db.updateOrCreate(req.user, function(err, user) {
+              if (err) {
+                return next(err);
+              }
+              // we store information needed in token in req.user again
+              req.user = {
+                id: user.id
+              };
+              next();
+            });
+          }
+          
+          function generateToken(req, res, next) {
+            req.token = jwt.sign({
+              id: req.user.id,
+            }, SECRET, {
+              expiresIn: TOKENTIME
+            });
+            next();
+          }
+          
+          function respond(req, res) {
+            res.status(200).json({
+              user: req.user,
+              token: req.token
+            });
+          }
+        
+        const authenticate = expressJwt({
+            secret: SECRET
+          });
+
+        this.express.use(passport.initialize());  
+        this.express.post('/auth', passport.authenticate(  
+          'local', {
+            session: false
+          }), serialize, generateToken, respond);
+
+          this.express.get('/me', authenticate, function(req, res) {  
+            res.status(200).json(req.user);
+          });
+
         this.express.get('/twitter_callback', (req, res) => {
             this.express.get("logger").debug(res);
             res.end("Authorization Succeded");
