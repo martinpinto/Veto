@@ -15,12 +15,12 @@ export default class User extends Model {
         this._type = "Users";
 
         if (user) {
-            this.firstname = user.firstname;
-            this.lastname = user.lastname;
-            this.username = user.username;
-            this.password = user.password;
-            this.email = user.email;
-            this.avatar = user.avatar;
+            this.firstname = user.firstname || "";
+            this.lastname = user.lastname || "";
+            this.username = user.username || "";
+            this.password = user.password || "";
+            this.email = user.email || "";
+            this.avatar = user.avatar || "";
         }
     }
 }

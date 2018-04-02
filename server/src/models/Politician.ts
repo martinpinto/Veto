@@ -17,12 +17,12 @@ export default class Politician extends Model {
         this._type = "Politicians";
 
         if (politician) {
-            this.firstname = politician.firstname;
-            this.lastname = politician.lastname;
-            this.role = politician.role;
-            this.avatar = politician.avatar;
-            this.votes = politician.votes;
-            this.partyId = politician.partyId;
+            this.firstname = politician.firstname || "";
+            this.lastname = politician.lastname || "";
+            this.role = politician.role || "";
+            this.avatar = politician.avatar || "";
+            this.votes = politician.votes || 0;
+            this.partyId = politician.partyId || 0;
         }
     }
 }

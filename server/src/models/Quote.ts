@@ -27,17 +27,17 @@ export default class Quote extends Model {
         this._type = "Quotes";
 
         if (quote) {
-            this.id = quote.id;
-            this.title = quote.title;
-            this.description = quote.description;
-            this.status = quote.status;
-            this.votes = quote.votes;
-            this.dateCreated = quote.dateCreated;
-            this.dateQuote = quote.dateQuote;
-            this.source = quote.source;
-            this.partyId = quote.partyId;
-            this.userId = quote.userId;
-            this.politicianId = quote.politicianId;
+            this.id = quote.id  || -1;
+            this.title = quote.title || "";
+            this.description = quote.description || "";
+            this.status = quote.status || "";
+            this.votes = quote.votes || 0;
+            this.dateCreated = quote.dateCreated || "";
+            this.dateQuote = quote.dateQuote || "";
+            this.source = quote.source || "";
+            this.partyId = quote.partyId || -1;
+            this.userId = quote.userId || -1;
+            this.politicianId = quote.politicianId || -1;
 
             super.parseDynamicValues(quote);
         }

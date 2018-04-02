@@ -15,10 +15,11 @@ export default class Comment extends Model {
         this._type = "Comments";
 
         if (comment) {
-            this.title = comment.title;
-            this.content = comment.content;
-            this.dateCreated = comment.dateCreated;
-            this.userId = comment.userId;
+            this.id = comment.id || -1;
+            this.title = comment.title || "";
+            this.content = comment.content || "";
+            this.dateCreated = comment.dateCreated || "";
+            this.userId = comment.userId || -1;
         }
     }
 }

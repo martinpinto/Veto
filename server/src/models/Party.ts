@@ -12,9 +12,10 @@ export default class Party extends Model {
         this._type = "Parties"
 
         if (party) {
-            this.name = party.name;
-            this.logo = party.logo;
-            this.link = party.link;
+            this.id = party.id || -1;
+            this.name = party.name || "";
+            this.logo = party.logo || "";
+            this.link = party.link || "";
         }
     }
 }
