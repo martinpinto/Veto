@@ -3,6 +3,7 @@ import Topic from './Topic';
 import User from './User';
 import Politician from './Politician';
 import Party from './Party';
+import QuoteEntity from './QuoteEntity';
 
 export default class Quote extends Model {
     public id: number;
@@ -22,11 +23,11 @@ export default class Quote extends Model {
     public politician?: Politician;
     public topic?: Topic;
     
-    constructor(quote?: Quote) {
+    constructor(quote?: Quote | QuoteEntity) {
         super();
         this._type = "Quotes";
 
-        if (quote) {
+        if (quote && quote instanceof Quote) {
             this.id = quote.id  || -1;
             this.title = quote.title || "";
             this.description = quote.description || "";
