@@ -84,7 +84,11 @@ class QuotesService {
 
     addQuote(quote: Quote): Promise<string> {
         // insert metadata into mysql
-        return this.mysql.create(quote, quote._type);
+        return this.mysql.query(`
+            INSERT INTO Quotes 
+                (description, dateCreated, politicianId) 
+            VALUES 
+                ('${quote.description}', '${new Date()}', ${quote.politicianId})`);
         
         // create new entry for comments into mongodb
     }

@@ -30,7 +30,7 @@ export default class Quote extends Model {
         if (quote && quote instanceof Quote) {
             this.id = quote.id  || -1;
             this.title = quote.title || "";
-            this.description = quote.description || "";
+            this.description = quogit te.description || "";
             this.status = quote.status || "";
             this.votes = quote.votes || 0;
             this.dateCreated = quote.dateCreated || "";

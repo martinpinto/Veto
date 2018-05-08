@@ -48,6 +48,8 @@ export default class MySqlRepository implements IModelRepository {
      */
     create(model: Model, modelName: string): Promise<string> {
         return this.createConnection().then(connection => {
+            delete model._type;
+
             let mappedProperties: IModelAttributes = this.getAllAttributes(model);
             let properties: string[] = [];
             let values: string[] = [];
@@ -59,10 +61,14 @@ export default class MySqlRepository implements IModelRepository {
             
             for (let i = 0; i < mappedProperties.values.length - 1; i++) {
                 let value = mappedProperties.values[i];
-                if (typeof value !== 'number') {
-                    value = `'${value}'`;
-                }
-                values[i] = `${value}, `;
+                // if (!value || typeof value === 'object') {
+                //     properties.splice(i); // remove element from properties
+                // } else {
+                    if (typeof value !== 'number') {
+                        value = `'${value}'`;
+                    }
+                    values[i] = `${value}, `;
+                // }
             }
             // add last value
             let lastValue = mappedProperties.values[mappedProperties.values.length - 1];
@@ -72,7 +78,7 @@ export default class MySqlRepository implements IModelRepository {
             values[mappedProperties.values.length - 1] = lastValue;
             
             let query: string = `INSERT INTO ${modelName} (${properties.join("")}) VALUES (${values.join("")})`;
-
+            logger.debug("query:", query);
             return connection.query(query).then(result => {
                 connection.end();   
                 return result;         
