@@ -12,7 +12,7 @@ export default class User extends Model {
 
     constructor(user?: User) {
         super();
-        this._type = "Users";
+        this._type = "User";
 
         if (user) {
             this.firstname = user.firstname || "";

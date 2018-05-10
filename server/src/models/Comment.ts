@@ -12,7 +12,7 @@ export default class Comment extends Model {
 
     constructor(comment?: Comment) {
         super();
-        this._type = "Comments";
+        this._type = "Comment";
 
         if (comment) {
             this.id = comment.id || -1;
