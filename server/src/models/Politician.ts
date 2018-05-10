@@ -14,7 +14,7 @@ export default class Politician extends Model {
 
     constructor(politician?: Politician) {
         super();
-        this._type = "Politicians";
+        this._type = "Politician";
 
         if (politician) {
             this.firstname = politician.firstname || "";

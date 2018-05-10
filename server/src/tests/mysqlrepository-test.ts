@@ -8,6 +8,7 @@ import { expect } from 'chai';
 import { reporters } from 'mocha';
 import User from '../models/User';
 
+/*
 var topics: Topic[] = [{
     id: -1,
     _type: 'Topics',
@@ -78,3 +79,4 @@ describe('COUNT statement', () => {
         expect(count).to.be.equal(3);
     });
 });
+*/
