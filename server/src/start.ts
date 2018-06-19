@@ -94,22 +94,26 @@ function onListening(): void {
 function bootstrap(): void {
   let fs = require('fs');
   let bootstrapFolder = "./src/bootstrap";
-  let files = fs.readdirSync(bootstrapFolder);
-
-  if (files) {
-    files.forEach(element => {
-      fs.readFile(`${bootstrapFolder}/${element}`, 'utf8', (err, data) => {
-        if (err) {
-          return console.log(err);
-        }
-        let exec = require('child_process').exec, child;
-    
-        child = exec(`node ${bootstrapFolder}/${element} {{args}}`, (error, stdout, stderr) => {
-            if (error !== null) {
-              console.log('exec error: ' + error);
-            }
+  try {
+    let files = fs.readdirSync(bootstrapFolder);
+  
+    if (files) {
+      files.forEach(element => {
+        fs.readFile(`${bootstrapFolder}/${element}`, 'utf8', (err, data) => {
+          if (err) {
+            return console.log(err);
+          }
+          let exec = require('child_process').exec, child;
+      
+          child = exec(`node ${bootstrapFolder}/${element} {{args}}`, (error, stdout, stderr) => {
+              if (error !== null) {
+                console.log('exec error: ' + error);
+              }
+          });
         });
       });
-    });
+    }
+  } catch (e) {
+    console.log(e);
   }
 }
