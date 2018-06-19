@@ -97,7 +97,7 @@ class App {
         this.express.use('/api/v1', router);
     }
 
-    private authentication(): void {    
+    private authentication(): void {
         const PORT = 1337; // i know, its old...
         const SECRET = 'server secret';
         const TOKENTIME = 120 * 60; // in seconds
