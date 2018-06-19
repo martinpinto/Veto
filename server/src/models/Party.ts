@@ -9,7 +9,7 @@ export default class Party extends Model {
 
     constructor(party?: Party) {
         super();
-        this._type = "Parties"
+        this._type = "Party"
 
         if (party) {
             this.id = party.id || -1;

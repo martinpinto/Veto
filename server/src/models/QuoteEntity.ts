@@ -35,17 +35,17 @@ export default class QuoteEntity {
 
     constructor(entity?: any) {
         if (entity) {
-            this.q_id = entity.id  || -1;
-            this.q_title = entity.title || "";
-            this.q_description = entity.description || "";
-            this.q_status = entity.status || "";
-            this.q_votes = entity.votes || 0;
-            this.q_dateCreated = entity.dateCreated || "";
-            this.q_dateQuote = entity.dateQuote || "";
-            this.q_source = entity.source || "";
-            this.q_partyId = entity.partyId || -1;
-            this.q_userId = entity.userId || -1;
-            this.q_politicianId = entity.politicianId || -1;
+            this.q_id = entity.q_id  || -1;
+            this.q_title = entity.q_title || "";
+            this.q_description = entity.q_description || "";
+            this.q_status = entity.q_status || "";
+            this.q_votes = entity.q_votes || 0;
+            this.q_dateCreated = entity.q_dateCreated || "";
+            this.q_dateQuote = entity.q_dateQuote || "";
+            this.q_source = entity.q_source || "";
+            this.q_partyId = entity.q_partyId || -1;
+            this.q_userId = entity.q_userId || -1;
+            this.q_politicianId = entity.q_politicianId || -1;
             
             /* party entity */
             this.py_id = entity.py_id;

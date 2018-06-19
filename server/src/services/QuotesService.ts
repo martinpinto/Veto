@@ -4,6 +4,7 @@ import { IWhereFilter } from '../databases/engine/filter/WhereFilter';
 import { Operator } from '../databases/engine/filter/Operator';
 
 import Quote from '../models/Quote';
+import QuoteEntity from '../models/QuoteEntity';
 import TopicsService from './TopicsService';
 import PoliticiansService from './PoliticiansService';
 import { logger } from './LoggerService';
@@ -20,6 +21,24 @@ class QuotesService {
     }
 
     getQuotes(filter?): Promise<Quote[]> {
+        let query: string = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
+        RIGHT JOIN User ON Quote.q_userId = User.u_id
+        RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id
+        `;
+        return this.mysql.query(query).then(rowset => {
+            let quotes: Quote[] = [];
+            for (let i = 0; i < rowset.length; i++) {
+                console.log(rowset[i]);
+                let quote = new Quote(new QuoteEntity(rowset[i]));
+                quotes.push(quote);
+            }
+            return quotes;
+        })/*.then(quotes => {
+            return TopicsService.getTopicsForQuotes(quotes);
+        });*/
+    }
+
+    /* getQuotes(filter?): Promise<Quote[]> {
         let fields: string = `Quotes.id AS \`id\`,
             Quotes.title AS \`title\`,
             Quotes.description AS \`description\`,
@@ -62,7 +81,7 @@ class QuotesService {
         }).then(quotes => {
             return TopicsService.getTopicsForQuotes(quotes);
         });
-    }
+    } */
 
     getQuote(id: number) {
         return this.mysql.findById(new Quote()._type, id).then(rowdata => {
@@ -84,7 +103,11 @@ class QuotesService {
 
     addQuote(quote: Quote): Promise<string> {
         // insert metadata into mysql
-        return this.mysql.create(quote, quote._type);
+        return this.mysql.query(`
+            INSERT INTO Quotes 
+                (description, dateCreated, politicianId) 
+            VALUES 
+                ('${quote.description}', '${new Date()}', ${quote.politicianId})`);
         
         // create new entry for comments into mongodb
     }

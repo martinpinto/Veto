@@ -105,90 +105,76 @@ class App {
         // https://medium.com/hyphe/token-based-authentication-in-node-6e8731bfd7f2
         // curl -X POST -H ‘Content-Type: application/json’ -d ‘{ “username”: “devils name”, “password”: “666” }’ localhost:3001/auth
         passport.use(new Strategy(  
-            function(username, password, done) {
-              // database dummy - find user and verify password
-              if(username === 'devils name' && password === '666'){
-                done(null, {
-                  id: 666,
-                  firstname: 'devils',
-                  lastname: 'name',
-                  email: 'devil@he.ll',
-                  verified: true
-                });
-              }
-              else {
-                done(null, false);
-              }
+          (username, password, done) => {
+            // database dummy - find user and verify password
+            // find user from db and compare the hash
+            if(username === 'devils name' && password === '666'){
+              done(null, {
+                id: 666,
+                firstname: 'devils',
+                lastname: 'name',
+                email: 'devil@he.ll',
+                verified: true
+              });
             }
-          ));
+            else {
+              done(null, false);
+            }
+          }
+        ));
 
         const db = {
-            updateOrCreate: function(user, cb) {
-              // db dummy, we just cb the user
-              cb(null, user);
-            },
-            authenticate: function(username, password, cb) {
-              // database dummy - find user and verify password
-              if (username === 'devils name' && password === '666') {
-                cb(null, {
-                  id: 666,
-                  firstname: 'devils',
-                  lastname: 'name',
-                  email: 'devil@he.ll',
-                  verified: true
-                });
-              } else {
-                cb(null, false);
-              }
-            }
-          };
+          updateOrCreate: function(user, cb) {
+            // db dummy, we just cb the user
+            cb(null, user);
+          }
+        };
 
         function serialize(req, res, next) {
-            db.updateOrCreate(req.user, function(err, user) {
-              if (err) {
-                return next(err);
-              }
-              // we store information needed in token in req.user again
-              req.user = {
-                id: user.id
-              };
-              next();
-            });
-          }
-          
-          function generateToken(req, res, next) {
-            req.token = jwt.sign({
-              id: req.user.id,
-            }, SECRET, {
-              expiresIn: TOKENTIME
-            });
+          db.updateOrCreate(req.user, function(err, user) {
+            if (err) {
+              return next(err);
+            }
+            // we store information needed in token in req.user again
+            req.user = {
+              id: user.id
+            };
             next();
-          }
+          });
+        }
           
-          function respond(req, res) {
-            res.status(200).json({
-              user: req.user,
-              token: req.token
-            });
-          }
+        function generateToken(req, res, next) {
+          req.token = jwt.sign({
+            id: req.user.id,
+          }, SECRET, {
+            expiresIn: TOKENTIME
+          });
+          next();
+        }
+        
+        function respond(req, res) {
+          res.status(200).json({
+            user: req.user,
+            token: req.token
+          });
+        }
         
         const authenticate = expressJwt({
-            secret: SECRET
-          });
+          secret: SECRET
+        });
 
         this.express.use(passport.initialize());  
         this.express.post('/auth', passport.authenticate(  
           'local', {
             session: false
-          }), serialize, generateToken, respond);
+        }), serialize, generateToken, respond);
 
-          this.express.get('/me', authenticate, function(req, res) {  
-            res.status(200).json(req.user);
-          });
+        this.express.get('/me', authenticate, function(req, res) {  
+          res.status(200).json(req.user);
+        });
 
-        this.express.get('/twitter_callback', (req, res) => {
-            this.express.get("logger").debug(res);
-            res.end("Authorization Succeded");
+        this.express.get('/twitter_callback', authenticate, (req, res) => {
+          res.end("Authorization Succeded");
         });
     }
 }    

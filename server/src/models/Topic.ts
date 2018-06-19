@@ -11,7 +11,7 @@ export default class Topic extends Model {
 
     constructor(topic?: Topic) {
         super();
-        this._type = "Topics";
+        this._type = "Topic";
 
         if (topic) {
             this.id = topic.id || -1;
