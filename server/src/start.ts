@@ -4,9 +4,11 @@
  * Module dependencies.
  */
 import * as config from "./config/config";
-import * as http from "http";
 import * as debug from "debug";
 import App from "./App";
+
+const { createServer } = require('https');
+const { fs } = require('fs');
 
 debug("ts-express:server");
 
@@ -19,10 +21,15 @@ const ip = process.env.OPENSHIFT_NODEJS_IP || config.default.api.host || "127.0.
 App.set('port', port);
 App.set('domain', ip);
 
+const options = {
+  key: fs.readFileSync('./localhost.key'),
+  cert: fs.readFileSync('./localhost.cert')    
+}
+
 /**
  * Create HTTP server.
  */
-const server = http.createServer(App);
+const server = createServer(App, options);
 
 /**
  * Listen on provided port, on all network interfaces.
