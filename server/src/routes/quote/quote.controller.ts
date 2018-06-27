@@ -11,12 +11,10 @@ export const controller = {
     next: express.NextFunction
   ): Promise<Quote[]> {
     res.header('Access-Control-Allow-Origin', '*');
-      // or like this -> let quotes: Quote = <Quote>req.body;
-      return QuotesService.getQuotes().then(quotes => {
-          logger.debug(JSON.stringify(quotes, null, 2));
-          res.status(200).json(quotes);
-          return quotes;
-      });
+      let quotes = await QuotesService.getQuotes();
+      logger.debug(JSON.stringify(quotes, null, 2));
+      res.status(200).json(quotes);
+      return quotes;
   },
   async getOneAction(
     req: express.Request,
@@ -27,10 +25,9 @@ export const controller = {
     if (req.params) {
       let id: number = req.params.id;
       if (id) {
-        return QuotesService.getQuote(id).then(quote => {
-            res.status(200).json(quote);
-            return quote;
-        });
+        let quote = await QuotesService.getQuote(id);
+        res.status(200).json(quote);
+        return quote;
       }
     }     
   },

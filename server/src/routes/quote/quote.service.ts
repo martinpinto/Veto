@@ -18,20 +18,20 @@ class QuotesService {
         this.mysql = new MySqlRepository();
     }
 
-    getQuotes(filter?): Promise<Quote[]> {
+    async getQuotes(filter?): Promise<Quote[]> {
         let query: string = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
         RIGHT JOIN User ON Quote.q_userId = User.u_id
         RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id
         `;
-        return this.mysql.query(query).then(rowset => {
-            let quotes: Quote[] = [];
-            for (let i = 0; i < rowset.length; i++) {
-                console.log(rowset[i]);
-                let quote = new Quote(new QuoteEntity(rowset[i]));
-                quotes.push(quote);
-            }
-            return quotes;
-        })/*.then(quotes => {
+        let rowset = await this.mysql.query(query);
+        let quotes: Quote[] = [];
+        for (let i = 0; i < rowset.length; i++) {
+            console.log(rowset[i]);
+            let quote = new Quote(new QuoteEntity(rowset[i]));
+            quotes.push(quote);
+        }
+        return quotes;
+        /*.then(quotes => {
             return TopicsService.getTopicsForQuotes(quotes);
         });*/
     }

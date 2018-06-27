@@ -14,13 +14,24 @@ export default class MySqlRepository implements IModelRepository {
         this.config = Config();
     }
 
-    private createConnection() {
+    private async createConnection() {
+        console.log(this.config);
         return mysql.createConnection({
             host     : this.config.database.mysql.baseurl,
             user     : this.config.database.mysql.user,
             password : this.config.database.mysql.password,
             database : this.config.database.mysql.database
+        }).catch((e) => {
+            logger.debug(e);
         });
+    }
+    
+    async query(query: string) {
+        let connection = await this.createConnection();
+        logger.debug("query:", query)            
+        let rows = await connection.query(query);
+        connection.end();
+        return rows;
     }
 
     /**
@@ -156,16 +167,6 @@ export default class MySqlRepository implements IModelRepository {
             });
         });
     };
-
-    query(query: string) {
-        return this.createConnection().then(connection => {
-            logger.debug("query:", query)            
-            return connection.query(query).then(rows => {
-                connection.end();
-                return rows;
-            });
-        });
-    }
 
     /**
      * Find object by ID with an optional filter for include/fields.
