@@ -10,11 +10,15 @@ export const controller = {
     res: express.Response,
     next: express.NextFunction
   ): Promise<Quote[]> {
+    console.log("Test");
+    // res.send("Test");
+    // next();
+    // return null;
     res.header('Access-Control-Allow-Origin', '*');
-      let quotes = await QuotesService.getQuotes();
-      logger.debug(JSON.stringify(quotes, null, 2));
-      res.status(200).json(quotes);
-      return quotes;
+    let quotes = await QuotesService.getQuotes();
+    logger.debug(JSON.stringify(quotes, null, 2));
+    res.status(200).json(quotes);
+    return quotes;
   },
   async getOneAction(
     req: express.Request,
@@ -22,14 +26,15 @@ export const controller = {
     next: express.NextFunction
   ): Promise<Quote> {
     res.header('Access-Control-Allow-Origin', '*');
-    if (req.params) {
-      let id: number = req.params.id;
-      if (id) {
-        let quote = await QuotesService.getQuote(id);
-        res.status(200).json(quote);
-        return quote;
-      }
-    }     
+    // if (req.params) {
+    //   let id: number = req.params.id;
+    //   if (id) {
+    //     let quote = await QuotesService.getQuote(id);
+    //     res.status(200).json(quote);
+    //     return quote;
+    //   }
+    // }     
+    return null;
   },
   async createAction(
     req: express.Request,
@@ -37,16 +42,17 @@ export const controller = {
     next: express.NextFunction
   ): Promise<Quote> {
     res.header('Access-Control-Allow-Origin', '*');
-    if (req.body) {
-        // or like this -> let quote: Quote = <Quote>req.body;
-        let quote: Quote = new Quote(req.body);
-        QuotesService.addQuote(quote);
+    // if (req.body) {
+    //     // or like this -> let quote: Quote = <Quote>req.body;
+    //     let quote: Quote = new Quote(req.body);
+    //     QuotesService.addQuote(quote);
 
-        //this.mongodb.create(quote);
+    //     //this.mongodb.create(quote);
 
-        res.status(200).json({});
-        return null;
-    }
+    //     res.status(200).json({});
+    //     return null;
+    // }
+    return null;
   },
   async updateAction(
     req: express.Request,
@@ -75,10 +81,10 @@ export const controller = {
     next: express.NextFunction    
   ): Promise<Quote> {
     res.header('Access-Control-Allow-Origin', '*');
-    QuotesService.getWeeklyQuotes().then(quotes => {
-      logger.debug(quotes);
-      res.status(200).json(quotes);
-    });
+    // QuotesService.getWeeklyQuotes().then(quotes => {
+    //   logger.debug(quotes);
+    //   res.status(200).json(quotes);
+    // });
     return null;
   },
   async trendingQuotesAction(
@@ -88,10 +94,10 @@ export const controller = {
   ): Promise<Quote> {
     res.header('Access-Control-Allow-Origin', '*');
 
-    QuotesService.getTrendingQuotes().then(quotes => {
-      logger.debug(quotes);
-      res.status(200).json(quotes);
-    });
+    // QuotesService.getTrendingQuotes().then(quotes => {
+    //   logger.debug(quotes);
+    //   res.status(200).json(quotes);
+    // });
     return null;
   }
 };

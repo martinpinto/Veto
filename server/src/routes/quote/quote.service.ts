@@ -1,5 +1,5 @@
 import MongoDbRepository from '../../shared/repositories/mongodb/MongoDbRepository';
-import MySqlRepository from '../../shared/repositories/mysql/MySqlRepository'
+import { MySqlRepository } from '../../shared/repositories/mysql/MySqlRepository'
 import { IWhereFilter } from '../../shared/repositories/engine/filter/WhereFilter';
 import { Operator } from '../../shared/repositories/engine/filter/Operator';
 
@@ -19,17 +19,21 @@ class QuotesService {
     }
 
     async getQuotes(filter?): Promise<Quote[]> {
-        let query: string = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
-        RIGHT JOIN User ON Quote.q_userId = User.u_id
-        RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id
-        `;
-        let rowset = await this.mysql.query(query);
+        // let query: string = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
+        // RIGHT JOIN User ON Quote.q_userId = User.u_id
+        // RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id
+        // `;
+        let query = "SELECT 1";
+        console.log(query);
+        let rows: any[] = await this.mysql.query(query, null);
+        console.log(rows);
         let quotes: Quote[] = [];
-        for (let i = 0; i < rowset.length; i++) {
-            console.log(rowset[i]);
-            let quote = new Quote(new QuoteEntity(rowset[i]));
+        for (let i = 0; i < rows.length; i++) {
+            console.log(rows[i]);
+            let quote = new Quote(new QuoteEntity(rows[i]));
             quotes.push(quote);
         }
+        await this.mysql.close();
         return quotes;
         /*.then(quotes => {
             return TopicsService.getTopicsForQuotes(quotes);
@@ -81,52 +85,52 @@ class QuotesService {
         });
     } */
 
-    getQuote(id: number) {
-        return this.mysql.findById(new Quote()._type, id).then(rowdata => {
-            let quote: Quote = new Quote(rowdata[0])
-            return quote;
-        });
-    }
+    // getQuote(id: number) {
+    //     return this.mysql.findById(new Quote()._type, id).then(rowdata => {
+    //         let quote: Quote = new Quote(rowdata[0])
+    //         return quote;
+    //     });
+    // }
 
-    getTrendingQuotes() {
-        let filter: string = "Quotes.dateCreated = CURDATE()";
-        return this.getQuotes(filter);
-    }
+    // getTrendingQuotes() {
+    //     let filter: string = "Quotes.dateCreated = CURDATE()";
+    //     return this.getQuotes(filter);
+    // }
 
-    getWeeklyQuotes() {
-        let filter: string = "Quotes.dateCreated >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY " +
-            "AND Quotes.dateCreated < curdate() - INTERVAL DAYOFWEEK(curdate())-1 DAY";
-        return this.getQuotes(filter);
-    }
+    // getWeeklyQuotes() {
+    //     let filter: string = "Quotes.dateCreated >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY " +
+    //         "AND Quotes.dateCreated < curdate() - INTERVAL DAYOFWEEK(curdate())-1 DAY";
+    //     return this.getQuotes(filter);
+    // }
 
-    addQuote(quote: Quote): Promise<string> {
-        // insert metadata into mysql
-        return this.mysql.query(`
-            INSERT INTO Quotes 
-                (description, dateCreated, politicianId) 
-            VALUES 
-                ('${quote.description}', '${new Date()}', ${quote.politicianId})`);
+    // addQuote(quote: Quote): Promise<string> {
+    //     // insert metadata into mysql
+    //     return this.mysql.query(`
+    //         INSERT INTO Quotes 
+    //             (description, dateCreated, politicianId) 
+    //         VALUES 
+    //             ('${quote.description}', '${new Date()}', ${quote.politicianId})`);
         
-        // create new entry for comments into mongodb
-    }
+    //     // create new entry for comments into mongodb
+    // }
 
-    addCommentToQuote(quoteId) {
-        // add comments for quoteId into mongodb
-    }
+    // addCommentToQuote(quoteId) {
+    //     // add comments for quoteId into mongodb
+    // }
 
-    addVoteToQuote(quoteId, voteType) {
-        // query mysql to fetch votes for quoteId
+    // addVoteToQuote(quoteId, voteType) {
+    //     // query mysql to fetch votes for quoteId
 
-        // increase or decrease votes
+    //     // increase or decrease votes
 
-        // return current votes for quoteId (?)
-    }
+    //     // return current votes for quoteId (?)
+    // }
 
-    addQuoteToFavorites(quoteId, userId) {
-        // fetch user
+    // addQuoteToFavorites(quoteId, userId) {
+    //     // fetch user
 
-        // add quoteId to user favorites array
-    }
+    //     // add quoteId to user favorites array
+    // }
 }
 
 export default new QuotesService();

@@ -19,6 +19,7 @@
     "compile": "npm run clean"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "body-parser": "1.10.2",
     "compression": "1.4.3",
     "concat-stream": "1.5.1",
@@ -33,10 +34,10 @@
     "jsonwebtoken": "8.2.0",
     "mongo": "0.1.0",
     "morgan": "1.8.1",
+    "mysql": "^2.15.0",
     "passport": "0.4.0",
     "passport-local": "1.0.0",
     "process": "0.11.8",
-    "promise-mysql": "3.0.1",
     "serve-favicon": "2.2.0",
     "spdy": "3.4.7",
     "swagger-ui-express": "2.0.13",
