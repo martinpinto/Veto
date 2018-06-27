@@ -1,4 +1,4 @@
-import Quote from "../models/Quote";
+import Quote from "../routes/quotes/Quote";
 
 const util = require('util')
 import { expect } from 'chai';

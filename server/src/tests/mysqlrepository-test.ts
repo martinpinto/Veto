@@ -1,12 +1,12 @@
 import MySqlRepository from '../databases/mysql/MySqlRepository';
-import Quote from '../models/Quote';
-import Topic from '../models/Topic';
-import Party from '../models/Party';
-import Politician from '../models/Politician';
+import Quote from '../routes/quotes/Quote';
+import Topic from '../routes/topic/topic.model';
+import Party from '../routes/party/party.model';
+import Politician from '../routes/politician/politician.model';
 
 import { expect } from 'chai';
 import { reporters } from 'mocha';
-import User from '../models/User';
+import User from '../routes/user/user.model';
 
 /*
 var topics: Topic[] = [{
