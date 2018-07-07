@@ -21,7 +21,7 @@ export default class Quote extends Model {
     public user?: User;
     public politicianId: number;
     public politician?: Politician;
-    public topic?: Topic;
+    public topics?: Topic[];
     
     constructor(quote?: Quote | QuoteEntity) {
         super();
@@ -78,7 +78,10 @@ export default class Quote extends Model {
                 this.politician.votes = quote.p_votes || -1
                 this.politician.avatar = quote.p_avatar || "";
 
-                this.topic = new Topic();
+                this.topics = [];
+                if (quote.topics) {
+                    this.topics = quote.topics;
+                }
             }
         }
     }

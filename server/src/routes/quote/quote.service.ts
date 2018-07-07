@@ -17,22 +17,20 @@ class QuotesService {
 
     async getQuotes(filter?): Promise<Quote[]> {
         let query: string = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
-        RIGHT JOIN User ON Quote.q_userId = User.u_id
-        RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id
+        RIGHT OUTER JOIN User ON Quote.q_userId = User.u_id
+        RIGHT OUTER JOIN Politician ON Quote.q_politicianId = Politician.p_id 
         `;
         logger.debug(query);
         let rows: any[] = await this.mysql.query(query, null);
-        logger.debug(rows);
+        logger.debug(JSON.stringify(rows, null, 2));
         let quotes: Quote[] = [];
         for (let i = 0; i < rows.length; i++) {
             let quote = new Quote(new QuoteEntity(rows[i]));
             quotes.push(quote);
         }
+        await TopicsService.getTopicsForQuotes(quotes);
         await this.mysql.close();
         return quotes;
-        /*.then(quotes => {
-            return TopicsService.getTopicsForQuotes(quotes);
-        });*/
     }
 
     async getQuote(id: number) {
@@ -41,6 +39,7 @@ class QuotesService {
         RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id WHERE Quote.q_id = ${id}`;
         let rowdata = await this.mysql.query(query, null);
         let quote: Quote = new Quote(new QuoteEntity(rowdata[0]));
+        await this.mysql.close();
         return quote;
     }
 
@@ -49,7 +48,11 @@ class QuotesService {
             INSERT INTO Quote 
                 (q_title, q_description, q_dateCreated, q_politicianId) 
             VALUES 
-                ('${quote.title}', '${quote.description}', '${this.mysql.convertDateToYMD(new Date())}', ${quote.politicianId})`, null);
+                ('${quote.title}', 
+                '${quote.description}', 
+                '${this.mysql.convertDateToYMD(new Date())}', 
+                ${quote.politicianId})`, null);
+        await this.mysql.close();
         return result;
         // create new entry for comments into mongodb
     }

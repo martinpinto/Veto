@@ -33,6 +33,8 @@ export default class QuoteEntity {
     public p_votes: number;
     public p_partyId: number;
 
+    public topics: any[];
+    
     constructor(entity?: any) {
         if (entity) {
             this.q_id = entity.q_id  || -1;

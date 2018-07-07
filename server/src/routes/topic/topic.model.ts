@@ -23,6 +23,7 @@ export default class Topic extends Model {
             this.id = topic.t_id || -1;
             this.title = topic.t_title || "";
             this.dateCreated = topic.t_dateCreated || "";
+            this.quoteId = topic.qt_quoteId || -1;
         }
     }
 
