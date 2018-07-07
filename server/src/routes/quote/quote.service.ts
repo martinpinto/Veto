@@ -17,8 +17,8 @@ class QuotesService {
 
     async getQuotes(filter?): Promise<Quote[]> {
         let query: string = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
-        RIGHT OUTER JOIN User ON Quote.q_userId = User.u_id
-        RIGHT OUTER JOIN Politician ON Quote.q_politicianId = Politician.p_id 
+            RIGHT OUTER JOIN User ON Quote.q_userId = User.u_id
+            RIGHT OUTER JOIN Politician ON Quote.q_politicianId = Politician.p_id 
         `;
         logger.debug(query);
         let rows: any[] = await this.mysql.query(query, null);
@@ -35,8 +35,8 @@ class QuotesService {
 
     async getQuote(id: number) {
         let query = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id 
-        RIGHT JOIN User ON Quote.q_userId = User.u_id 
-        RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id WHERE Quote.q_id = ${id}`;
+            RIGHT JOIN User ON Quote.q_userId = User.u_id 
+            RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id WHERE Quote.q_id = ${id}`;
         let rowdata = await this.mysql.query(query, null);
         let quote: Quote = new Quote(new QuoteEntity(rowdata[0]));
         await this.mysql.close();

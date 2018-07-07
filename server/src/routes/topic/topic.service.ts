@@ -20,7 +20,16 @@ class TopicsService {
             let topic = new Topic(new TopicEntity(rowset[i]));
             topics.push(topic);
         }
+        await this.mysql.close();
         return topics;
+    }
+
+    async getTopic(id: number): Promise<Topic> {
+        let query: string = `SELECT * FROM Topic WHERE t_id = ${id}`;
+        let rowset = await this.mysql.query(query, null);
+        let topic: Topic = new Topic(new TopicEntity(rowset[0]));
+        await this.mysql.close();
+        return topic;
     }
 
     async getTopicsForQuotes(quotes: Quote[]): Promise<Quote[]>{
@@ -70,13 +79,6 @@ class TopicsService {
     //             topics.push(topic);
     //         }
     //         return topics;
-    //     });
-    // }
-
-    // getTopicById(id: number): Promise<Topic> {
-    //     return this.mysql.findById(new Topic()._type, id).then(rowset => {
-    //         let topic: Topic = new Topic(rowset);
-    //         return topic;
     //     });
     // }
 }
