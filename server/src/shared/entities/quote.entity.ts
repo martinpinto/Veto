@@ -1,5 +1,5 @@
 export default class QuoteEntity {
-    /* quote entity */
+
     public q_id: number;
     public q_title: string;
     public q_description: string;

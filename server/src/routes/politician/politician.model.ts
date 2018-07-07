@@ -1,4 +1,4 @@
-import Model from '../../shared/entities/Model';
+import Model from '../../shared/entities/model.entity';
 import Party from '../party/party.model';
 
 export default class Politician extends Model {

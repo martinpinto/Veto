@@ -1,9 +1,9 @@
-import Model from '../../shared/entities/Model';
+import Model from '../../shared/entities/model.entity';
 import Topic from '../topic/topic.model';
 import User from '../user/user.model';
 import Politician from '../politician/politician.model';
 import Party from '../party/party.model';
-import QuoteEntity from '../../shared/entities/QuoteEntity';
+import QuoteEntity from '../../shared/entities/quote.entity';
 
 export default class Quote extends Model {
     public id: number;

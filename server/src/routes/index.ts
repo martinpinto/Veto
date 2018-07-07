@@ -6,8 +6,8 @@ const express = require('express');
 const Router = express.Router;
 const router = Router();
 
-router.get('/quote', quoteRouter);
-router.get('/topic', topicRouter);
-router.get('/user', userRouter);
+router.use('/quote', quoteRouter);
+router.use('/topic', topicRouter);
+router.use('/user', userRouter);
 
 export { router };

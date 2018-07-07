@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { jwtHelper } from '../../shared/services/jwt-helper';
+import { jwtHelper } from '../../shared/services/jwt.helper';
 import { controller } from './user.controller';
 import * as jwt from 'express-jwt';
 

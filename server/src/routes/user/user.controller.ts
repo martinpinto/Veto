@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { logger } from '../../shared/services/LoggerService';
+import { logger } from '../../shared/services/logger.service';
 
 import User from './user.model';
 import TopicsService from './user.service';
