@@ -1,6 +1,6 @@
 import IModelRepository from "../engine/IModelRepository";
 import { IWhereFilter } from "../engine/filter/WhereFilter";
-import { MongoDbWhereFilter } from "./MongoDbWhereFilter";
+import { MongoDbWhereFilter } from "./mongodb.wherefilter";
 const { Config } = require('../../../config/index');
 
 export default class MongoDbRepository implements IModelRepository {

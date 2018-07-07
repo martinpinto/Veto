@@ -1,7 +1,5 @@
-import MongoDbRepository from '../../shared/repositories/mongodb/MongoDbRepository';
-import MySqlRepository from '../../shared/repositories/mysql/MySqlRepository'
-import { IWhereFilter } from '../../shared/repositories/engine/filter/WhereFilter';
-import { Operator } from '../../shared/repositories/engine/filter/Operator';
+import MongoDbRepository from '../../shared/repositories/mongodb/mongodb.repository';
+import { MySqlRepository } from '../../shared/repositories/mysql/mysql.repository'
 
 import Politician from './politician.model';
 
@@ -21,7 +19,8 @@ class PoliticiansService {
     }
     filter.push(`ID = ${ids[ids.length - 1]}`);
 
-    return this.mysql.find(new Politician()._type, filter.join("")).then(rowset => {
+    let query: string = "SELECT * FROM Politician WHERE p_id = ${}"
+    return this.mysql.query(query, null).then(rowset => {
         let politicians: Politician[] = [];
         for (let i = 0; i < rowset.length; i++) {
             let politician = new Politician(rowset[i]);

@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { logger } from '../../shared/services/LoggerService';
+import { logger } from '../../shared/services/logger.service';
 
 import Quote from './quote.model';
 import QuotesService from './quote.service';
@@ -26,32 +26,33 @@ export const controller = {
     next: express.NextFunction
   ): Promise<Quote> {
     res.header('Access-Control-Allow-Origin', '*');
-    // if (req.params) {
-    //   let id: number = req.params.id;
-    //   if (id) {
-    //     let quote = await QuotesService.getQuote(id);
-    //     res.status(200).json(quote);
-    //     return quote;
-    //   }
-    // }     
+    if (req.params) {
+      let id: number = req.params.id;
+      if (id) {
+        let quote = await QuotesService.getQuote(id);
+        res.status(200).json(quote);
+        return quote;
+      }
+    }     
     return null;
   },
   async createAction(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ): Promise<Quote> {
+  ): Promise<any> {
     res.header('Access-Control-Allow-Origin', '*');
-    // if (req.body) {
-    //     // or like this -> let quote: Quote = <Quote>req.body;
-    //     let quote: Quote = new Quote(req.body);
-    //     QuotesService.addQuote(quote);
+    if (req.body) {
+        // or like this -> let quote: Quote = <Quote>req.body;
+        let quote: Quote = <Quote>req.body;
+        // let quote: Quote = new Quote(req.body); doesn't work
+        let result = await QuotesService.addQuote(quote);
 
-    //     //this.mongodb.create(quote);
+        //this.mongodb.create(quote);
 
-    //     res.status(200).json({});
-    //     return null;
-    // }
+        res.status(200).json(result);
+        return null;
+    }
     return null;
   },
   async updateAction(

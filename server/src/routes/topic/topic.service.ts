@@ -1,19 +1,25 @@
-import MongoDbRepository from '../../shared/repositories/mongodb/MongoDbRepository';
-import { MySqlRepository } from '../../shared/repositories/mysql/MySqlRepository'
-import { OperatorEnum, Operator } from '../../shared/repositories/engine/filter/Operator';
-import MySqlWhereFilter from '../../shared/repositories/mysql/MySqlWhereFilter';
+import { MySqlRepository } from '../../shared/repositories/mysql/mysql.repository'
 
 import Topic from '../topic/topic.model';
-import { logger } from '../../shared/services/LoggerService';
-import Quote from '../quote/quote.model';
+import TopicEntity  from '../../shared/entities/topic.entity';
+import { logger } from '../../shared/services/logger.service';
 
 class TopicsService {
-    private mongodb: MongoDbRepository;
     private mysql: MySqlRepository;
 
     constructor() {
-        this.mongodb = new MongoDbRepository();
         this.mysql = new MySqlRepository();
+    }
+
+    async getTopics(): Promise<Topic[]> {
+        let query: string = `SELECT * FROM Topic`;
+        let rowset = await this.mysql.query(query, null);
+        let topics: Topic[] = [];
+        for (let i = 0; i < rowset.length; i++) {
+            let topic = new Topic(new TopicEntity(rowset[i]));
+            topics.push(topic);
+        }
+        return topics;
     }
 
     // getTopicsById(ids: number[]): Promise<Topic[]> {
@@ -62,17 +68,6 @@ class TopicsService {
     //     return this.mysql.findById(new Topic()._type, id).then(rowset => {
     //         let topic: Topic = new Topic(rowset);
     //         return topic;
-    //     });
-    // }
-
-    // getTopics(): Promise<Topic[]> {
-    //     return this.mysql.find(new Topic()._type).then(rowset => {
-    //         let topics: Topic[] = [];
-    //         for (let i = 0; i < rowset.length; i++) {
-    //             let topic = new Topic(rowset[i]);
-    //             topics.push(topic);
-    //         }
-    //         return topics;
     //     });
     // }
 }

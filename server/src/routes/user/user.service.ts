@@ -1,5 +1,5 @@
-import MongoDbRepository from '../../shared/repositories/mongodb/MongoDbRepository';
-import { MySqlRepository } from '../../shared/repositories/mysql/MySqlRepository'
+import MongoDbRepository from '../../shared/repositories/mongodb/mongodb.repository';
+import { MySqlRepository } from '../../shared/repositories/mysql/mysql.repository'
 import { IWhereFilter } from '../../shared/repositories/engine/filter/WhereFilter';
 import { Operator } from '../../shared/repositories/engine/filter/Operator';
 

@@ -12,7 +12,7 @@ import * as cors from "cors";
 import { router as apiRouter } from "./routes";
 
 const { Config } = require('./config/index');
-const { logger } = require('./shared/services/LoggerService');
+const { logger } = require('./shared/services/logger.service');
 const { fs } = require('fs');
 
 debug("ts-express:server");
