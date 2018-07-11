@@ -19,7 +19,7 @@ class UsersService {
     }
 
     async login(username: string, password: string) {
-        let query: string = `SELECT * FROM User WHERE u_username = ${username} AND u_password = ${password}`;
+        let query: string = `SELECT * FROM User WHERE u_username = '${username}' AND u_password = '${password}'`;
         let rowdata = await this.mysql.query(query, null);
         let user: User = new User(new UserEntity(rowdata[0]));
         await this.mysql.close();

@@ -206,9 +206,8 @@ function authentication(): void {
             // database dummy - find user and verify password
             // find user from db and compare the hash
             let user = await UsersService.login(username, password);
-            if (user) {
+            if (user && user.id != -1) {
                 done(null, user);
-
             }
             // if (username === 'devils name' && password === '666') {
             //     done(null, {
@@ -220,7 +219,7 @@ function authentication(): void {
             //     });
             // }
             else {
-                done(null, false);
+                done(null, false); // user not found
             }
         }
     ));
@@ -275,7 +274,4 @@ function authentication(): void {
         res.status(200).json(req.user);
     });
 
-    app.get('/twitter_callback', authenticate, (req, res) => {
-        res.end("Authorization Succeded");
-    });
 }
