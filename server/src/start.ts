@@ -8,6 +8,10 @@ import * as path from "path";
 import * as cookieParser from "cookie-parser";
 import * as morgan from "morgan";
 import * as cors from "cors";
+import * as passport from 'passport';
+import * as Strategy from 'passport-local';
+import * as expressJwt from 'express-jwt';
+import * as jwt from 'jsonwebtoken';
 
 import { router as apiRouter } from "./routes";
 import UsersService from './routes/user/user.service';
@@ -192,11 +196,6 @@ function routes(): void {
 }
 
 function authentication(): void {
-    const { passport } = require('passport');
-    const { Strategy } = require('passport-local');
-    const { expressJwt } = require('express-jwt');
-    const { jwt } = require('jsonwebtoken');
-
     const SECRET = 'server secret';
     const TOKENTIME = 120 * 60; // in seconds
 
