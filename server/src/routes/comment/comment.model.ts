@@ -1,4 +1,4 @@
-import Model from '../../shared/entities/model.entity';
+import Model from '../../shared/repositories/entities/model.entity';
 import User from '../user/user.model';
 
 export default class Comment extends Model {

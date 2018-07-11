@@ -1,4 +1,4 @@
-import Model from '../../shared/entities/model.entity';
+import Model from '../../shared/repositories/entities/model.entity';
 
 export default class Party extends Model {
     public id: number;

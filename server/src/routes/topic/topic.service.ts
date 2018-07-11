@@ -2,7 +2,7 @@ import { MySqlRepository } from '../../shared/repositories/mysql/mysql.repositor
 
 import Topic from '../topic/topic.model';
 import Quote from '../quote/quote.model';
-import TopicEntity  from '../../shared/entities/topic.entity';
+import TopicEntity  from '../../shared/repositories/entities/topic.entity';
 import { logger } from '../../shared/services/logger.service';
 
 class TopicsService {
@@ -27,7 +27,7 @@ class TopicsService {
     async getTopic(id: number): Promise<Topic> {
         let query: string = `SELECT * FROM Topic WHERE t_id = ${id}`;
         let rowset = await this.mysql.query(query, null);
-        let topic: Topic = new Topic(new TopicEntity(rowset[0]));
+        let topic: Topic = new Topic(new TopicEntity(rowset));
         await this.mysql.close();
         return topic;
     }

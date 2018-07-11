@@ -1,63 +1,48 @@
-import MongoDbRepository from '../../shared/repositories/mongodb/mongodb.repository';
 import { MySqlRepository } from '../../shared/repositories/mysql/mysql.repository'
-import { IWhereFilter } from '../../shared/repositories/engine/filter/WhereFilter';
-import { Operator } from '../../shared/repositories/engine/filter/Operator';
-
 import User from './user.model';
+import UserEntity from '../../shared/repositories/entities/user.entity';
 
 class UsersService {
-  private mongodb: MongoDbRepository;
-  private mysql: MySqlRepository;
+    private mysql: MySqlRepository;
 
-  constructor() {
-      this.mongodb = new MongoDbRepository();
-      this.mysql = new MySqlRepository();
-  }
-   
-  // getUsersById(ids: number[]): Promise<User[]> {
-  //   let filter = [];
-  //   for (let i = 0; i < ids.length - 1; i++) {
-  //       filter.push(`ID = ${ids[i]} OR `);
-  //   }
-  //   filter.push(`ID = ${ids[ids.length - 1]}`);
+    constructor() {
+        this.mysql = new MySqlRepository();
+    }
 
-  //   return this.mysql.find(new User()._type, filter.join("")).then(rowset => {
-  //       let users: User[] = [];
-  //       for (let i = 0; i < rowset.length; i++) {
-  //           let user = new User(rowset[i]);
-  //           users.push(user);
-  //       }
-  //       return users;
-  //   });
-  // }
+    async getUser(id: number) {
+        // check if current logged in user id = user id
+        let query: string = `SELECT * FROM User WHERE u_id = ${id}`;
+        let rowdata = await this.mysql.query(query, null);
+        let user: User = new User(new UserEntity(rowdata[0]));
+        await this.mysql.close();
+        return user;
+    }
 
-  // private createSchema() {
-  //     var mongoose = require('mongoose');
-  //     var UserSchema = new mongoose.Schema({
-  //       email: {
-  //         type: String,
-  //         unique: true,
-  //         required: true,
-  //         trim: true
-  //       },
-  //       username: {
-  //         type: String,
-  //         unique: true,
-  //         required: true,
-  //         trim: true
-  //       },
-  //       password: {
-  //         type: String,
-  //         required: true,
-  //       },
-  //       passwordConf: {
-  //         type: String,
-  //         required: true,
-  //       }
-  //     });
-  //     //var User = mongoose.model('User', UserSchema);
-  //     //module.exports = User;
-  // }
+    async login(username: string, password: string) {
+        let query: string = `SELECT * FROM User WHERE u_username = ${username} AND u_password = ${password}`;
+        let rowdata = await this.mysql.query(query, null);
+        let user: User = new User(new UserEntity(rowdata[0]));
+        await this.mysql.close();
+        return user;
+    }
+
+    // getUsersById(ids: number[]): Promise<User[]> {
+    //   let filter = [];
+    //   for (let i = 0; i < ids.length - 1; i++) {
+    //       filter.push(`ID = ${ids[i]} OR `);
+    //   }
+    //   filter.push(`ID = ${ids[ids.length - 1]}`);
+
+    //   return this.mysql.find(new User()._type, filter.join("")).then(rowset => {
+    //       let users: User[] = [];
+    //       for (let i = 0; i < rowset.length; i++) {
+    //           let user = new User(rowset[i]);
+    //           users.push(user);
+    //       }
+    //       return users;
+    //   });
+    // }
+
 }
 
 export default new UsersService();

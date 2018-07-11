@@ -2,7 +2,7 @@ import * as express from 'express';
 import { logger } from '../../shared/services/logger.service';
 
 import User from './user.model';
-import TopicsService from './user.service';
+import UserService from './user.service';
 
 export const controller = {
   async getAllAction(
@@ -11,7 +11,8 @@ export const controller = {
     next: express.NextFunction
   ): Promise<User[]> {
     res.header('Access-Control-Allow-Origin', '*');
-        
+    
+    // check if user equals administrator
     let users = [
         { id: 1, name: 'Todd Motto', image: 'image-1.jpg' },
         { id: 2, name: 'Brad Green', image: 'image-2.jpg' },
@@ -26,8 +27,16 @@ export const controller = {
     res: express.Response,
     next: express.NextFunction
   ): Promise<User> {
-    return null;
-  },
+    res.header('Access-Control-Allow-Origin', '*');
+
+    if (req.params && req.params.id) {
+        let id: number = req.params.id;
+
+        let user = await UserService.getUser(id);
+        res.status(200).json(user);
+        return user;
+    }
+    return null;  },
   async createAction(
     req: express.Request,
     res: express.Response,

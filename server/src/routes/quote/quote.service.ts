@@ -2,7 +2,7 @@ import MongoDbRepository from '../../shared/repositories/mongodb/mongodb.reposit
 import { MySqlRepository } from '../../shared/repositories/mysql/mysql.repository'
 
 import Quote from './quote.model';
-import QuoteEntity from '../../shared/entities/quote.entity';
+import QuoteEntity from '../../shared/repositories/entities/quote.entity';
 import TopicsService from '../topic/topic.service';
 import { logger } from '../../shared/services/logger.service';
 

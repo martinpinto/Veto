@@ -17,7 +17,7 @@ const router = express.Router();
 // });
 
 
-// router.get('/', authCheck, controller.getAllAction);
+router.get('/', controller.getAllAction);
 router.get('/:id', controller.getOneAction);
 router.post('/', controller.createAction);
 router.put('/:id', controller.updateAction);

@@ -1,5 +1,5 @@
 import IModelRepository, { IModelAttributes } from "../engine/IModelRepository";
-import Model from "../../entities/model.entity";
+import Model from "../../repositories/entities/model.entity";
 import { IWhereFilter } from "../engine/filter/WhereFilter";
 import MySqlWhereFilter from "./mysql.wherefilter";
 import { logger } from '../../services/logger.service';

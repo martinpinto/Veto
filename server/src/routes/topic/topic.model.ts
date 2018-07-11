@@ -1,5 +1,5 @@
-import Model from '../../shared/entities/model.entity';
-import TopicEntity from '../../shared/entities/topic.entity';
+import Model from '../../shared/repositories/entities/model.entity';
+import TopicEntity from '../../shared/repositories/entities/topic.entity';
 
 export default class Topic extends Model {
     public id: number;

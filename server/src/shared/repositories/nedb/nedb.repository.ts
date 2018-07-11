@@ -1,5 +1,5 @@
 import IModelRepository from '../engine/IModelRepository';
-import Model from '../../shared/Model';
+import Model from '../entities/model.entity';
 import { IWhereFilter } from "../engine/filter/WhereFilter";
 
 var DataStore = require('NeDb');
@@ -76,12 +76,12 @@ export default class ModelRepository implements IModelRepository {
      *   Optional where filter, like: {key: val, key2: {gt: 'val2'}, ...} 
      */
     destroyAll(modelName: string, where?: IWhereFilter) {
-        if (typeof where !== 'undefined' && where !== {}) {
-            this.db.remove(where, { multi: true}, (err, numRemoved) => {
-                // TODO: turn this into promise
-                //callback(err, numRemoved);
-            });
-        }
+        // if (typeof where !== 'undefined' && where !== {}) {
+        //     this.db.remove(where, { multi: true}, (err, numRemoved) => {
+        //         // TODO: turn this into promise
+        //         //callback(err, numRemoved);
+        //     });
+        // }
         let err = new Error('Removing all documents not supported!');
         // TODO: turn this into promise
         //callback(err, null);
@@ -129,11 +129,11 @@ export default class ModelRepository implements IModelRepository {
      */
     find(modelName: string, where?: IWhereFilter) {
         let filter;
-        if (typeof where == 'undefined' || where === {}) {
-            filter = {}; // find all
-        } else {
-            filter = where;
-        } 
+        // if (typeof where == 'undefined' || where === {}) {
+        //     filter = {}; // find all
+        // } else {
+        //     filter = where;
+        // } 
         this.db.find(filter, (err, models) => {
             // TODO: turn this into promise
             //callback(err, models);
