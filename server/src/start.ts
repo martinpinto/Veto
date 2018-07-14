@@ -12,6 +12,7 @@ import * as passport from 'passport';
 import * as Strategy from 'passport-local';
 import * as expressJwt from 'express-jwt';
 import * as jwt from 'jsonwebtoken';
+import * as helmet from 'helmet';
 
 import { router as apiRouter } from './routes';
 import UsersService from './routes/user/user.service';
@@ -85,7 +86,9 @@ function middleware(): void {
 
     // activate CORS for server
     app.use(cors());
-
+    
+    app.use(helmet());
+    
     // error handlers
     app.set('env', config.app.environment);
 
