@@ -54,6 +54,13 @@ CREATE TABLE IF NOT EXISTS Quote (
     FOREIGN KEY(q_politicianId) REFERENCES Politician(p_id)
 );
 
+CREATE TABLE IF NOT EXISTS UserFavoriteQuote (
+    ufq_userId INT UNSIGNED NOT NULL,
+    ufq_quoteId INT UNSIGNED NOT NULL,
+    FOREIGN KEY(ufq_userId) REFERENCES User(u_id),
+    FOREIGN KEY(ufq_quoteId) REFERENCES Quote(q_id)
+);
+
 CREATE TABLE IF NOT EXISTS Topic (
     t_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     t_title VARCHAR(500) DEFAULT NULL,

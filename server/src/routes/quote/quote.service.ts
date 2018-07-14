@@ -16,10 +16,12 @@ class QuotesService {
     }
 
     async getQuotes(filter?): Promise<Quote[]> {
-        let query: string = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
+        if (filter) {
+            filter = ` WHERE ${filter} `;
+        }
+        let query: string = `SELECT * FROM Quote ${filter}RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
             RIGHT OUTER JOIN User ON Quote.q_userId = User.u_id
-            RIGHT OUTER JOIN Politician ON Quote.q_politicianId = Politician.p_id 
-        `;
+            RIGHT OUTER JOIN Politician ON Quote.q_politicianId = Politician.p_id`;
         logger.debug(query);
         let rows: any[] = await this.mysql.query(query, null);
         logger.debug(JSON.stringify(rows, null, 2));
@@ -51,7 +53,8 @@ class QuotesService {
                 '${quote.title}', 
                 '${quote.description}', 
                 '${this.mysql.convertDateToYMD(new Date())}', 
-                ${quote.politicianId})`, null);
+                ${quote.politicianId}
+            )`, null);
         await this.mysql.close();
         return result;
         // create new entry for comments into mongodb
@@ -73,25 +76,25 @@ class QuotesService {
         return result; // return current votes for quoteId (?)
     }
 
-    // getTrendingQuotes() {
-    //     let filter: string = "Quotes.dateCreated = CURDATE()";
-    //     return this.getQuotes(filter);
-    // }
+    async addQuoteToUserFavorites(quoteId, userId) {
+        // add quoteId to user favorites
+        let result = await this.mysql.query(`
+            INSERT INTO UserFavoriteQuote
+                (ufq_userId, ufq_quoteId)
+            VALUES (
+                ${userId}, ${quoteId}
+            )`, null);
+        return result;
+    }
 
-    // getWeeklyQuotes() {
-    //     let filter: string = "Quotes.dateCreated >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY " +
-    //         "AND Quotes.dateCreated < curdate() - INTERVAL DAYOFWEEK(curdate())-1 DAY";
-    //     return this.getQuotes(filter);
-    // }
+    async getWeeklyQuotes() {
+        let filter: string = `Quote.q_dateCreated >= curdate() - INTERVAL DAYOFWEEK(curdate()) + 6 DAY 
+            AND Quote.q_dateCreated < curdate() - INTERVAL DAYOFWEEK(curdate()) - 1 DAY`;
+        return this.getQuotes(filter);
+    }
 
     // addCommentToQuote(quoteId) {
     //     // add comments for quoteId into mongodb
-    // }
-
-    // addQuoteToFavorites(quoteId, userId) {
-    //     // fetch user
-
-    //     // add quoteId to user favorites array
     // }
 }
 
