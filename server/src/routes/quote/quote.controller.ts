@@ -12,9 +12,14 @@ export const controller = {
     ): Promise<Quote[]> {
         res.header('Access-Control-Allow-Origin', '*');
         let quotes = await QuotesService.getQuotes();
-        logger.debug(JSON.stringify(quotes, null, 2));
-        res.status(200).json(quotes);
-        return quotes;
+        if (quotes) {
+            logger.debug(JSON.stringify(quotes, null, 2));
+            res.status(200).json(quotes);
+            return quotes;
+        }  else {
+            res.status(400);
+        }
+        return null;
     },
     async getOneAction(
         req: express.Request,
@@ -28,6 +33,8 @@ export const controller = {
             let quote = await QuotesService.getQuote(id);
             res.status(200).json(quote);
             return quote;
+        } else {
+            res.status(400);
         }
         return null;
     },
@@ -47,7 +54,8 @@ export const controller = {
 
             res.status(200).json(result);
             return null;
-        }
+        } 
+        res.status(400);
         return null;
     },
     async updateAction(
@@ -94,6 +102,23 @@ export const controller = {
         //   logger.debug(quotes);
         //   res.status(200).json(quotes);
         // });
+        return null;
+    },
+    async upOrDownVoteQuoteAction(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ): Promise<any> {
+        res.header('Access-Control-Allow-Origin', '*');
+        // {
+        //     "vote": "Up" # Down, None
+        // }
+        if (req.body) {
+            let result = await QuotesService.addVoteToQuote(req.params.id, req.body.vote);
+            res.status(200).json(result);
+            return result;
+        }
+        res.status(400);
         return null;
     }
 };

@@ -47,14 +47,30 @@ class QuotesService {
         let result = await this.mysql.query(`
             INSERT INTO Quote 
                 (q_title, q_description, q_dateCreated, q_politicianId) 
-            VALUES 
-                ('${quote.title}', 
+            VALUES (
+                '${quote.title}', 
                 '${quote.description}', 
                 '${this.mysql.convertDateToYMD(new Date())}', 
                 ${quote.politicianId})`, null);
         await this.mysql.close();
         return result;
         // create new entry for comments into mongodb
+    }
+
+    async addVoteToQuote(quoteId: number, voteType: string) {
+        // query mysql to fetch votes for quoteId
+        let upOrDownVote: string;
+        if (voteType === "Up") {
+            upOrDownVote = "+ 1";
+        } else if (voteType === "Down") {
+            upOrDownVote = "- 1";
+        } else {
+            throw Error("Invalid voteType");
+        }
+        // increase or decrease votes
+        let result = await this.mysql.query(`UPDATE Quote 
+            SET q_votes = q_votes ${upOrDownVote} WHERE q_id = ${quoteId}`, null);
+        return result; // return current votes for quoteId (?)
     }
 
     // getTrendingQuotes() {
@@ -70,14 +86,6 @@ class QuotesService {
 
     // addCommentToQuote(quoteId) {
     //     // add comments for quoteId into mongodb
-    // }
-
-    // addVoteToQuote(quoteId, voteType) {
-    //     // query mysql to fetch votes for quoteId
-
-    //     // increase or decrease votes
-
-    //     // return current votes for quoteId (?)
     // }
 
     // addQuoteToFavorites(quoteId, userId) {

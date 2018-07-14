@@ -10,7 +10,7 @@ router.get('/', controller.getAllAction);
 router.get('/:id', controller.getOneAction);
 // router.get('/filter', this.getFilteredAction);
 router.post('/', controller.createAction);
-// router.post('/voting', this.postNewVote);            
+router.put('/:id/vote', controller.upOrDownVoteQuoteAction);            
 router.put('/:id', controller.updateAction);
 router.delete('/:id', controller.deleteAction);
 
