@@ -29,7 +29,7 @@ class QuotesService {
             quotes.push(quote);
         }
         await TopicsService.getTopicsForQuotes(quotes);
-        await this.mysql.close();
+        //await this.mysql.close();
         return quotes;
     }
 

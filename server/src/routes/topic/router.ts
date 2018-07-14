@@ -1,10 +1,10 @@
 import * as express from 'express';
-import { jwtHelper } from '../../shared/services/jwt.helper';
+import { jwtService } from '../../shared/services/jwt.service';
 import { controller } from './topic.controller';
 
 const router = express.Router();
 
-//router.use(jwtHelper);
+router.use(jwtService);
 
 router.get('/', controller.getAllAction);
 router.get('/:id', controller.getOneAction);

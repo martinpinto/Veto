@@ -3,38 +3,34 @@
 name = "veto-server"
 environment = "development" # "development" or "production"
 
-[server]
-    [api]
-    version = 1
-    root =  "/api"
-    host = "localhost"
-    port =  3001
-    routes = ["quotes", "authors", "topics"]
+[api]
+version = 1
+root =  "/api"
+host = "localhost"
+port =  3001
 
-    [authorization]
-        [oauth]
-        # client = ""
-        # secret = ""    
+[oauth]
+secret = "server secret"    
 
-        [twitter]
-        key = "consumer_key"
-        # secret = "secret_key"
-        callback = "/twitter_callback"
+[twitter]
+key = "consumer_key"
+# secret = "secret_key"
+callback = "/twitter_callback"
 
-    [database]
-    # Database configuration
-        [database.mongodb]
-        baseurl = "localhost"
-        protocol = "http://"
-        host = "127.0.0.1"
-        port = "27017"
-        database = "veto"
+[database]
+# Database configuration
+    [database.mongodb]
+    baseurl = "localhost"
+    protocol = "http://"
+    host = "127.0.0.1"
+    port = "27017"
+    database = "veto"
 
-        [database.mysql]
-        baseurl = "localhost"
-        protocol = "http://"
-        host = "127.0.0.1"
-        port = "3306"
-        database = "Veto"
-        user = "root"
-        # password = "secret_password"
+    [database.mysql]
+    baseurl = "localhost"
+    protocol = "http://"
+    host = "127.0.0.1"
+    port = "3306"
+    database = "Veto"
+    # user = ""
+    # password = ""
