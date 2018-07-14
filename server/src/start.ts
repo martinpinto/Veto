@@ -1,20 +1,21 @@
 #!/usr/bin/env node
 import * as express from 'express';
-import * as debug from "debug";
+import * as debug from 'debug';
 import { createServer } from 'http';
-import * as compression from "compression";
-import * as bodyParser from "body-parser";
-import * as path from "path";
-import * as cookieParser from "cookie-parser";
-import * as morgan from "morgan";
-import * as cors from "cors";
+import * as compression from 'compression';
+import * as bodyParser from 'body-parser';
+import * as path from 'path';
+import * as cookieParser from 'cookie-parser';
+import * as morgan from 'morgan';
+import * as cors from 'cors';
 import * as passport from 'passport';
 import * as Strategy from 'passport-local';
 import * as expressJwt from 'express-jwt';
 import * as jwt from 'jsonwebtoken';
 
-import { router as apiRouter } from "./routes";
+import { router as apiRouter } from './routes';
 import UsersService from './routes/user/user.service';
+import User from './routes/user/user.model';
 
 const { Config } = require('./config/index');
 const { logger } = require('./shared/services/logger.service');
@@ -47,6 +48,137 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 bootstrap();
+
+///////////////////////////////////////////////////////////////////////////////////
+
+function middleware(): void {
+    app.set('startTime', new Date());
+
+    app.use(compression()); // compress all requests
+
+    app.use(bodyParser.json()); // parse application/json
+    // parse application/vnd.api+json as json
+    app.use(bodyParser.json({
+        type: 'application/vnd.api+json'
+    }));
+
+    app.set('views', path.join(__dirname, 'views'));
+    app.set('view engine', 'ejs');
+
+    // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(cookieParser());
+
+    app.use(morgan('dev')); // log every request to the console
+
+    app.set('logger', logger);
+
+    // proper development error handling
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err,
+            stacktrace: err.stack
+        });
+    });
+
+    // activate CORS for server
+    app.use(cors());
+
+    // error handlers
+    app.set('env', config.app.environment);
+
+    logger.debug('Web server listening at: %s', config.api.host + ':' + config.api.port);
+}
+
+function routes(): void {
+    // activate database and its routes
+    // set the API routes in express
+    let router = express.Router();
+    // placeholder route handler
+    router.get('/', (req, res, next) => {
+        res.header('Access-Control-Allow-Origin', 'localhost');
+        res.json({
+            "started": app.get('startTime')
+        });
+    });
+    app.use('/', router);
+    app.use('/api', apiRouter);
+
+    let swaggerUi = require('swagger-ui-express'),
+        swaggerDocument = require('../swagger.json');
+
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+}
+
+function authentication(): void {
+    const SECRET = 'server secret';
+    const TOKENTIME = 120 * 60; // in seconds
+
+    // https://medium.com/hyphe/token-based-authentication-in-node-6e8731bfd7f2
+    // curl -X POST -H ‘Content-Type: application/json’ -d ‘{ “username”: “devils name”, “password”: “666” }’ localhost:3001/auth
+    passport.use(new Strategy(
+        async (username, password, done) => {
+            // find user from db and compare the hash
+            let user = await UsersService.login(username, password);
+            console.log(user)
+            if (user && user.id != -1) {
+                delete user.password; // don't need the hashed password anymore
+                done(null, user);
+            } else {
+                done(null, false); // user not found
+            }
+        }
+    ));
+
+    async function register(req, res, next) {
+        try {
+            let userId = await UsersService.register(req.body.user);
+            
+            // we store information needed in token in req.user again
+            req.body.user.id = userId;
+            // console.log(user)
+            next();
+        } catch (err) {
+            return next(err);
+        }
+    }
+
+    function generateToken(req, res, next) {
+        req.token = jwt.sign({
+            id: req.body.user ? req.body.user.id : req.user.id,
+        }, SECRET, {
+            expiresIn: TOKENTIME
+        });
+        next();
+    }
+
+    function respond(req, res) {
+        res.status(200).json({
+            user: req.body.user ? req.body.user : req.user,
+            token: req.token
+        });
+    }
+
+    const authenticate = expressJwt({
+        secret: SECRET
+    });
+
+    app.use(passport.initialize());
+    app.post('/auth', passport.authenticate(
+        'local', {
+            session: false
+        }), 
+        generateToken, respond);
+
+    app.post('/register', register, generateToken, respond);
+
+    app.get('/me', authenticate, (req: any, res) => {
+        res.status(200).json(req.user);
+    });
+
+}
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -132,146 +264,4 @@ function bootstrap(): void {
     } catch (e) {
         console.log(e);
     }
-}
-
-function middleware(): void {
-    app.set('startTime', new Date());
-
-    app.use(compression()); // compress all requests
-
-    app.use(bodyParser.json()); // parse application/json
-    // parse application/vnd.api+json as json
-    app.use(bodyParser.json({
-        type: 'application/vnd.api+json'
-    }));
-
-    app.set('views', path.join(__dirname, 'views'));
-    app.set('view engine', 'ejs');
-
-    // parse application/x-www-form-urlencoded
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(cookieParser());
-
-    app.use(morgan('dev')); // log every request to the console
-
-    app.set('logger', logger);
-
-    // proper development error handling
-    app.use(function (err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err,
-            stacktrace: err.stack
-        });
-    });
-
-    // activate CORS for server
-    app.use(cors());
-
-    // error handlers
-    app.set('env', config.app.environment);
-
-    logger.debug('Web server listening at: %s', config.api.host + ':' + config.api.port);
-}
-
-function routes(): void {
-    // activate database and its routes
-    // set the API routes in express
-    let router = express.Router();
-    // placeholder route handler
-    router.get('/', (req, res, next) => {
-        res.header('Access-Control-Allow-Origin', 'localhost');
-        res.json({
-            "started": app.get('startTime')
-        });
-    });
-    app.use('/', router);
-    app.use('/api', apiRouter);
-
-    let swaggerUi = require('swagger-ui-express'),
-        swaggerDocument = require('../swagger.json');
-
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-}
-
-function authentication(): void {
-    const SECRET = 'server secret';
-    const TOKENTIME = 120 * 60; // in seconds
-
-    // https://medium.com/hyphe/token-based-authentication-in-node-6e8731bfd7f2
-    // curl -X POST -H ‘Content-Type: application/json’ -d ‘{ “username”: “devils name”, “password”: “666” }’ localhost:3001/auth
-    passport.use(new Strategy(
-        async (username, password, done) => {
-            // database dummy - find user and verify password
-            // find user from db and compare the hash
-            let user = await UsersService.login(username, password);
-            if (user && user.id != -1) {
-                done(null, user);
-            }
-            // if (username === 'devils name' && password === '666') {
-            //     done(null, {
-            //         id: 666,
-            //         firstname: 'devils',
-            //         lastname: 'name',
-            //         email: 'devil@he.ll',
-            //         verified: true
-            //     });
-            // }
-            else {
-                done(null, false); // user not found
-            }
-        }
-    ));
-
-    const db = {
-        updateOrCreate: function (user, cb) {
-            // db dummy, we just cb the user
-            cb(null, user);
-        }
-    };
-
-    function serialize(req, res, next) {
-        db.updateOrCreate(req.user, function (err, user) {
-            if (err) {
-                return next(err);
-            }
-            // we store information needed in token in req.user again
-            req.user = {
-                id: user.id
-            };
-            next();
-        });
-    }
-
-    function generateToken(req, res, next) {
-        req.token = jwt.sign({
-            id: req.user.id,
-        }, SECRET, {
-                expiresIn: TOKENTIME
-            });
-        next();
-    }
-
-    function respond(req, res) {
-        res.status(200).json({
-            user: req.user,
-            token: req.token
-        });
-    }
-
-    const authenticate = expressJwt({
-        secret: SECRET
-    });
-
-    app.use(passport.initialize());
-    app.post('/auth', passport.authenticate(
-        'local', {
-            session: false
-        }), serialize, generateToken, respond);
-
-    app.get('/me', authenticate, function (req, res) {
-        res.status(200).json(req.user);
-    });
-
 }

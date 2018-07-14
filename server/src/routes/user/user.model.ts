@@ -7,7 +7,7 @@ export default class User extends Model {
     public firstname: string;
     public lastname: string;
     public username: string; // @ symbol
-    // public password: string;
+    public password: string;
     public email: string;
     public avatar: string;
 
@@ -19,7 +19,7 @@ export default class User extends Model {
             this.firstname = user.firstname || "";
             this.lastname = user.lastname || "";
             this.username = user.username || "";
-            // this.password = user.password || "";
+            this.password = user.password || "";
             this.email = user.email || "";
             this.avatar = user.avatar || "";
         } else if (user instanceof UserEntity) {
@@ -27,7 +27,7 @@ export default class User extends Model {
             this.firstname = user.u_firstname || "";
             this.lastname = user.u_lastname || "";
             this.username = user.u_username || "";
-            // this.password = user.u_password || "";
+            this.password = user.u_password || "";
             this.email = user.u_email || "";
             this.avatar = user.u_avatar || "";
         }
