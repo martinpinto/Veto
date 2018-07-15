@@ -18,6 +18,8 @@ class QuotesService {
     async getQuotes(filter?): Promise<Quote[]> {
         if (filter) {
             filter = ` WHERE ${filter} `;
+        } else {
+            filter = "";
         }
         let query: string = `SELECT * FROM Quote ${filter}RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
             RIGHT OUTER JOIN User ON Quote.q_userId = User.u_id

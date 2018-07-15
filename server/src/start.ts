@@ -70,7 +70,7 @@ function middleware(): void {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
 
-    app.use(morgan('dev')); // log every request to the console
+    app.use(morgan('combined', { stream: logger.stream })); // log every request to the console
 
     app.set('logger', logger);
 
