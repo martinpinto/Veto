@@ -10,23 +10,23 @@ export class QuotesService {
   constructor(private http: HttpClient) { }
   
   getQuote(id: number): Observable<Quote> {
-    return this.http.get<Quote>(`http://localhost:3001/api/quotes/${id}`);
+    return this.http.get<Quote>(`http://localhost:3001/api/quote/${id}`);
   }
 
   getQuotes(): Observable<Quote[]> {
-    return this.http.get<Quote[]>('http://localhost:3001/api/quotes');
+    return this.http.get<Quote[]>('http://localhost:3001/api/quote');
   }
 
   getWeeklyQuotes(): Observable<Quote[]> {
-    return this.http.get<Quote[]>('http://localhost:3001/api/quotes/weekly');
+    return this.http.get<Quote[]>('http://localhost:3001/api/quote/weekly');
   }
 
   getTrendingQuotes(): Observable<Quote[]> {
-    return this.http.get<Quote[]>('http://localhost:3001/api/quotes/trending');
+    return this.http.get<Quote[]>('http://localhost:3001/api/quote/trending');
   }
 
   addQuote(quote: Quote): void {
-    this.http.post<Quote>(`http://localhost:3001/api/quotes`, quote).subscribe(
+    this.http.post<Quote>(`http://localhost:3001/api/quote`, quote).subscribe(
       res => {
         console.log(res);
       },
@@ -36,11 +36,11 @@ export class QuotesService {
     );
   }
 
-  upvote(id: number) {
-    this.http.get<Quote>(`http://localhost:3001/api/quotes/${id}/upvote`);
+  vote(id: number) {
+    //this.http.post<Quote>(`http://localhost:3001/api/quote/${id}/vote`);
   }
 
   downvote(id: number) {
-    this.http.get<Quote>(`http://localhost:3001/api/quotes/${id}/downvote`);
+    this.http.get<Quote>(`http://localhost:3001/api/quote/${id}/downvote`);
   }
 }

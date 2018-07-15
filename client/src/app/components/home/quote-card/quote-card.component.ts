@@ -56,7 +56,7 @@ export class QuoteCardComponent implements OnInit {
 
   upvote(id: number) {
     this.voting[id] = true;
-    this.quotesService.upvote(id);
+    this.quotesService.vote(id);
 
     let quote = this.quotes.find(q => { return q.id == id; });
     if (quote) {

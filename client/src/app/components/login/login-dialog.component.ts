@@ -10,6 +10,9 @@ import { AuthService } from '../../services/authentication/auth.service';
   })
   export class LoginDialog {
   
+    username: string;
+    password: string;
+
     constructor(
       public dialogRef: MatDialogRef<LoginDialog>,
       @Inject(MAT_DIALOG_DATA) public data: any,
@@ -17,7 +20,7 @@ import { AuthService } from '../../services/authentication/auth.service';
     ) {}
   
     login() {
-      this.auth.login();
+      this.auth.login(this.username, this.password);
     }
     logout() {
       this.auth.logout();

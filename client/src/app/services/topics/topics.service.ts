@@ -8,6 +8,6 @@ export class TopicsService {
   constructor(private http: HttpClient) { }
 
   getTopics() {
-    return this.http.get<Topic[]>('http://localhost:3001/api/topics');
+    return this.http.get<Topic[]>('http://localhost:3001/api/topic');
   }
 }

@@ -1,13 +1,13 @@
 <div *ngFor="let quote of quotes" class="card-wide mdl-card mdl-shadow--2dp">
   <div class="card-header">
     <span class="mdl-chip mdl-chip--contact card-chip">
-        <span class="mdl-chip__contact mdl-color--purple mdl-color-text--white">{{ quote.User?.firstname.charAt(0) }}</span>
-        <span class="mdl-chip__text">{{ quote.User?.firstname + ' ' + quote.User?.lastname }}</span>
-        <span class="mdl-chip__text">&nbsp;{{ quote.User?.username }}</span>
+        <span class="mdl-chip__contact mdl-color--purple mdl-color-text--white">{{ quote.user?.firstname.charAt(0) }}</span>
+        <span class="mdl-chip__text">{{ quote.user?.firstname + ' ' + quote.user?.lastname }}</span>
+        <span class="mdl-chip__text">&nbsp;{{ quote.user?.username }}</span>
     </span>
     <span class="card-spacer"></span>    
     <span class="mdl-chip">
-        <span class="mdl-chip__text">{{ quote.topic[0]?.title }}</span>
+        <span class="mdl-chip__text">{{ quote.topic ? quote.topic[0]?.title : "" }}</span>
     </span>
   </div>
 
@@ -23,7 +23,7 @@
   <div>
     <div class="card-image-placeholder">
       <img [src]="quote.Politician?.avatar" class="card-image">
-      <span>{{ quote.Party?.name }}</span>
+      <span>{{ quote.party?.name }}</span>
     </div>
     <div class="mdl-card__supporting-text">
       <span routerLink="/quote/{{ quote.id }}">

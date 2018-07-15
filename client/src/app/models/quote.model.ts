@@ -12,8 +12,8 @@ export interface Quote {
     dateCreated: Date;
     dateQuote: Date;
     source: string;
-    Topic: Topic;
-    Party: Party;
-    User: User;
-    Politician: Politician;
+    topic: Topic;
+    party: Party;
+    user: User;
+    politician: Politician;
 }

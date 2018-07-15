@@ -47,14 +47,14 @@ import { User } from '../../../models/user.model';
       title: "",
       description: "",
       status: "",
-      Topic: this.topic,
+      topic: this.topic,
       votes: 0,
       dateCreated: new Date(),
       dateQuote: null,
       source: "",
-      Party: this.party,
-      User: this.user,
-      Politician: this.politician
+      party: this.party,
+      user: this.user,
+      politician: this.politician
     };
     
     firstFormGroup: FormGroup;

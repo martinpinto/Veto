@@ -1,11 +1,18 @@
 <h1 mat-dialog-title>Login</h1>
 <div mat-dialog-content>
-  <div class="toolbar">
-      <button (click)="auth.login()">Login</button>
-      <button (click)="auth.logout()">Logout</button>
-  </div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Username" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  
+    <mat-form-field>
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button tabindex="2">Ok</button>
-  <button mat-button tabindex="-1">No Thanks</button>
+  <div class="text-center">
+    <button mat-raised-button color="primary" (click)="login()">Login</button>
+  </div>
 </div>
