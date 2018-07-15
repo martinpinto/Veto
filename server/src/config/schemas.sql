@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS UserFavoriteQuote (
 CREATE TABLE IF NOT EXISTS Topic (
     t_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     t_title VARCHAR(500) DEFAULT NULL,
-    t_dateCreated DATETIME DEFAULT NULL,
+    t_dateCreated DATETIME DEFAULT NOW(),
     PRIMARY KEY(t_id)          
 );
 

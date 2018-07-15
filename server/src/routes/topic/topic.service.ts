@@ -65,6 +65,16 @@ class TopicsService {
         return quotes;
     }
 
+    async addTopic(topic: Topic) {
+        let result = await this.mysql.query(`
+        INSERT INTO Topic 
+            (t_title) 
+        VALUES (
+            '${topic.title}'
+        )`, null);
+        return result;
+    }
+
     // getTopicsById(ids: number[]): Promise<Topic[]> {
     //     let filter = [];
     //     for (let i = 0; i < ids.length - 1; i++) {

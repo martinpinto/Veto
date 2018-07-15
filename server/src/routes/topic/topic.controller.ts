@@ -22,6 +22,7 @@ export const controller = {
         next: express.NextFunction
     ): Promise<Topic> {
         res.header('Access-Control-Allow-Origin', '*');
+
         if (req.params && req.params.id) {
             let id = req.params.id;
 
@@ -37,7 +38,17 @@ export const controller = {
         res: express.Response,
         next: express.NextFunction
     ): Promise<Topic> {
-        return null;
+        res.header('Access-Control-Allow-Origin', '*');
+        
+        if (req.body) {
+            let topic: Topic = <Topic>req.body;
+            let result = await TopicsService.addTopic(topic);
+
+            res.status(200).json(result);
+            return null;
+        } 
+        res.status(400);
+        return null;    
     },
     async updateAction(
         req: express.Request,

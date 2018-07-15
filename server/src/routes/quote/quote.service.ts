@@ -43,7 +43,7 @@ class QuotesService {
             RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id WHERE Quote.q_id = ${id}`;
         let rowdata = await this.mysql.query(query, null);
         let quote: Quote = new Quote(new QuoteEntity(rowdata[0]));
-        await this.mysql.close();
+        //await this.mysql.close();
         return quote;
     }
 
@@ -57,7 +57,7 @@ class QuotesService {
                 '${this.mysql.convertDateToYMD(new Date())}', 
                 ${quote.politicianId}
             )`, null);
-        await this.mysql.close();
+        //await this.mysql.close();
         return result;
         // create new entry for comments into mongodb
     }
