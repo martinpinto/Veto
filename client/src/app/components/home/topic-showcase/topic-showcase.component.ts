@@ -10,13 +10,13 @@ import { TopicsService } from '../../../services/topics/topics.service';
 export class TopicShowcaseComponent implements OnInit {
   topics: Topic[];
 
-  constructor(private topicsService: TopicsService) { }
+  constructor(private topicsSvc: TopicsService) { }
 
   ngOnInit() {
     this.getTopics();
   }
 
   getTopics() {
-    this.topicsService.getTopics().subscribe(topics => this.topics = topics);
+    this.topicsSvc.getTopics().subscribe(topics => this.topics = topics);
   }
 }

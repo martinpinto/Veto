@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { User } from '../../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { resetFakeAsyncZone } from '@angular/core/testing';
 
 interface AuthResponse {
     user: User,
@@ -20,17 +21,18 @@ export class AuthService {
     ) {}
 
   isLoggedIn(): boolean {
-    return tokenNotExpired();
+    return tokenNotExpired('id_token', localStorage.getItem('id_token'));
   }
 
   async login(username: string, password: string) {
-    let response: any = this.http.post("http://localhost:3001/auth", {
+    const req: any = this.http.post("http://localhost:3001/auth", {
         username: username,
         password: password
+    }).subscribe((res: AuthResponse) => {
+      // We get the user's JWT
+      localStorage.setItem('id_token', res.token);
+      localStorage.setItem('loggedin_user', JSON.stringify(res.user));
     });
-
-    // We also get the user's JWT
-    localStorage.setItem('id_token', response.token);
   }
 
   logout() {

@@ -61,7 +61,7 @@ import { User } from '../../../models/user.model';
     secondFormGroup: FormGroup;  
 
     constructor(
-      public quotesService: QuotesService,
+      public quotesSvc: QuotesService,
       public dialogRef: MatDialogRef<QuoteAddDialog>,
       private _formBuilder: FormBuilder,
       @Inject(MAT_DIALOG_DATA) public data: any
@@ -81,7 +81,7 @@ import { User } from '../../../models/user.model';
     }
 
     addQuote(): void {
-      this.quotesService.addQuote(this.quote);
+      this.quotesSvc.addQuote(this.quote);
       this.dialogRef.close();      
     }
   

@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Quote } from '../../models/quote.model';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { AuthHttp } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class QuotesService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient, public authHttp: AuthHttp
+  ) { }
   
   getQuote(id: number): Observable<Quote> {
     return this.http.get<Quote>(`http://localhost:3001/api/quote/${id}`);
@@ -19,10 +22,6 @@ export class QuotesService {
 
   getWeeklyQuotes(): Observable<Quote[]> {
     return this.http.get<Quote[]>('http://localhost:3001/api/quote/weekly');
-  }
-
-  getTrendingQuotes(): Observable<Quote[]> {
-    return this.http.get<Quote[]>('http://localhost:3001/api/quote/trending');
   }
 
   addQuote(quote: Quote): void {

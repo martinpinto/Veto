@@ -11,7 +11,7 @@ import { QuotesService } from '../../services/quotes/quotes.service';
 export class DetailsComponent implements OnInit {
   quote: Quote;
 
-  constructor(private route: ActivatedRoute, private quotesService: QuotesService) { }
+  constructor(private route: ActivatedRoute, private quotesSvc: QuotesService) { }
 
   ngOnInit() {
     //this.route.params.subscribe((params) => this.id = params.id);
@@ -20,7 +20,7 @@ export class DetailsComponent implements OnInit {
   }
 
   getQuote(id: number) {
-    this.quotesService.getQuote(id).subscribe(quote => this.quote = quote);
+    this.quotesSvc.getQuote(id).subscribe(quote => this.quote = quote);
   }
 
 }

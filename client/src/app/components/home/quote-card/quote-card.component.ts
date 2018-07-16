@@ -18,16 +18,13 @@ export class QuoteCardComponent implements OnInit {
 
   private voting;
 
-  constructor(private quotesService: QuotesService, public dialog: MatDialog) { }
+  constructor(private quotesSvc: QuotesService, public dialog: MatDialog) { }
 
   ngOnInit() {
     if (this.quoteType) {
       switch (this.quoteType) {
         case "week":
           this.getWeeklyQuotes();
-          break;
-        case "trending":
-          this.getTrendingQuotes();
           break;
       }
     } else {
@@ -37,26 +34,20 @@ export class QuoteCardComponent implements OnInit {
   }
   
   getQuotes(): void {
-    this.quotesService.getQuotes().subscribe(quotes => {
+    this.quotesSvc.getQuotes().subscribe(quotes => {
       this.quotes = quotes;
     });
   }
 
   getWeeklyQuotes() {
-    this.quotesService.getWeeklyQuotes().subscribe(quotes => {
-      this.quotes = quotes;
-    });
-  }
-
-  getTrendingQuotes() {
-    this.quotesService.getTrendingQuotes().subscribe(quotes => {
+    this.quotesSvc.getWeeklyQuotes().subscribe(quotes => {
       this.quotes = quotes;
     });
   }
 
   upvote(id: number) {
     this.voting[id] = true;
-    this.quotesService.vote(id);
+    this.quotesSvc.vote(id);
 
     let quote = this.quotes.find(q => { return q.id == id; });
     if (quote) {
@@ -66,7 +57,7 @@ export class QuoteCardComponent implements OnInit {
 
   downvote(id: number) {
     this.voting[id] = true;
-    this.quotesService.downvote(id);
+    this.quotesSvc.downvote(id);
     
     let quote = this.quotes.find(q => { return q.id == id; });
     if (quote) {

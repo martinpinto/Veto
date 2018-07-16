@@ -21,7 +21,9 @@ import { AuthService } from '../../services/authentication/auth.service';
   
     login() {
       this.auth.login(this.username, this.password);
+      this.dialogRef.close();
     }
+    
     logout() {
       this.auth.logout();
     }
