@@ -1,7 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { AuthService } from '../../services/authentication/auth.service';
+import { AuthService, AuthResponse } from '../../services/authentication/auth.service';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { AlertService } from '../../services/alert/alert.service';
 
 @Component({
     selector: 'login-dialog',
@@ -16,15 +19,16 @@ import { AuthService } from '../../services/authentication/auth.service';
     constructor(
       public dialogRef: MatDialogRef<LoginDialog>,
       @Inject(MAT_DIALOG_DATA) public data: any,
-      private auth: AuthService
+      private authSvc: AuthService,
+      private alertSvc: AlertService
     ) {}
   
     login() {
-      this.auth.login(this.username, this.password);
+      this.authSvc.login(this.username, this.password);
       this.dialogRef.close();
     }
-    
+
     logout() {
-      this.auth.logout();
+      this.authSvc.logout();
     }
   }

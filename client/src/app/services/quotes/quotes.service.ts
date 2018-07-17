@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Quote } from '../../models/quote.model';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-import { AuthHttp } from 'angular2-jwt';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class QuotesService {
 
   constructor(
-    private http: HttpClient, public authHttp: AuthHttp
+    private http: HttpClient
   ) { }
   
-  getQuote(id: number): Observable<Quote> {
+  getQuote(id: number) {
     return this.http.get<Quote>(`http://localhost:3001/api/quote/${id}`);
   }
 
-  getQuotes(): Observable<Quote[]> {
+  getQuotes() {
     return this.http.get<Quote[]>('http://localhost:3001/api/quote');
   }
 
-  getWeeklyQuotes(): Observable<Quote[]> {
+  getWeeklyQuotes() {
     return this.http.get<Quote[]>('http://localhost:3001/api/quote/weekly');
   }
 

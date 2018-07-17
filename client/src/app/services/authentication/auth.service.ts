@@ -1,11 +1,12 @@
 import { Injectable, Output } from '@angular/core';
-import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import { User } from '../../models/user.model';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { resetFakeAsyncZone } from '@angular/core/testing';
+import { AlertService } from '../alert/alert.service';
 
-interface AuthResponse {
+export interface AuthResponse {
     user: User,
     token: string
 }
@@ -16,16 +17,18 @@ export class AuthService {
   users: User[];
 
   constructor(
-      public authHttp: AuthHttp,
-      public http: HttpClient
+      public http: HttpClient,
+      public alertSvc: AlertService
     ) {}
 
   isLoggedIn(): boolean {
-    return tokenNotExpired('id_token', localStorage.getItem('id_token'));
+    // return tokenNotExpired('id_token', localStorage.getItem('id_token'));
+    let token = localStorage.getItem('id_token');
+    return !!token;
   }
 
   async login(username: string, password: string) {
-    const req: any = this.http.post("http://localhost:3001/auth", {
+    this.http.post("http://localhost:3001/auth", {
         username: username,
         password: password
     }).subscribe((res: AuthResponse) => {
@@ -39,14 +42,15 @@ export class AuthService {
     // To log out, we just need to remove
     // the user's token
     localStorage.removeItem('id_token');
+    localStorage.removeItem('loggedin_user');
   }
 
   getUsers() {
-    this.authHttp.get('http://localhost:3001/api/users')
-      .map(res => res.json())
-      .subscribe(
-        users => this.users = users,
-        error => console.log(error)
-      );
+    this.http.get('http://localhost:3001/api/users')
+      // .map(res => res.json())
+      // .subscribe(
+      //   users => this.users = users,
+      //   error => console.log(error)
+      // );
   }
 }

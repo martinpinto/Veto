@@ -18,13 +18,6 @@ import { TopicsService } from './services/topics/topics.service';
 import { UserSelectComponent } from './components/generic/user-select/user-select.component';
 
 import { Http, RequestOptions, HttpModule } from '@angular/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig({
-    tokenGetter: (() => localStorage.getItem('access_token'))
-  }), http, options);
-}
 
 import { 
   MatButtonModule, 
@@ -46,6 +39,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsComponent } from './components/details/details.component';
 import { QuoteTabsComponent } from './components/home/quote-tabs/quote-tabs.component';
+import { AlertService } from './services/alert/alert.service';
 
 @NgModule({
   declarations: [
@@ -87,11 +81,7 @@ import { QuoteTabsComponent } from './components/home/quote-tabs/quote-tabs.comp
     QuotesService,
     TopicsService,
     AuthService,
-    {
-      provide: AuthHttp,
-      useFactory: authHttpServiceFactory,
-      deps: [Http, RequestOptions]
-    }
+    AlertService
   ],
   bootstrap: [AppComponent]
 })
