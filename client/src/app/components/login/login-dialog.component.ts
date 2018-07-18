@@ -23,9 +23,17 @@ import { AlertService } from '../../services/alert/alert.service';
       private alertSvc: AlertService
     ) {}
   
-    login() {
-      this.authSvc.login(this.username, this.password);
-      this.dialogRef.close();
+    async login() {
+      let res = await this.authSvc.login(this.username, this.password);
+      if (res) {
+        res.subscribe(
+          result => {
+            this.dialogRef.close();
+          },
+          err => {
+            console.log(err);
+          });
+      }
     }
 
     logout() {
