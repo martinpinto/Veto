@@ -10,8 +10,6 @@ export const controller = {
     res: express.Response,
     next: express.NextFunction
   ): Promise<User[]> {
-    res.header('Access-Control-Allow-Origin', '*');
-    
     // check if user equals administrator
     let users = [
         { id: 1, name: 'Todd Motto', image: 'image-1.jpg' },
@@ -27,8 +25,6 @@ export const controller = {
     res: express.Response,
     next: express.NextFunction
   ): Promise<User> {
-    res.header('Access-Control-Allow-Origin', '*');
-
     if (req.params && req.params.id) {
         let id: number = req.params.id;
 

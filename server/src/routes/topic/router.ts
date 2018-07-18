@@ -4,12 +4,10 @@ import { controller } from './topic.controller';
 
 const router = express.Router();
 
-router.use(jwtService);
-
 router.get('/', controller.getAllAction);
 router.get('/:id', controller.getOneAction);
-router.post('/', controller.createAction);
-router.put('/:id', controller.updateAction);
-router.delete('/:id', controller.deleteAction);
+router.post('/', jwtService, controller.createAction);
+router.put('/:id', jwtService, controller.updateAction);
+router.delete('/:id', jwtService, controller.deleteAction);
 
 export { router };

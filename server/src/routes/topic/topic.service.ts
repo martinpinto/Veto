@@ -20,7 +20,6 @@ class TopicsService {
             let topic = new Topic(new TopicEntity(rowset[i]));
             topics.push(topic);
         }
-        await this.mysql.close();
         return topics;
     }
 
@@ -28,7 +27,6 @@ class TopicsService {
         let query: string = `SELECT * FROM Topic WHERE t_id = ${id}`;
         let rowset = await this.mysql.query(query, null);
         let topic: Topic = new Topic(new TopicEntity(rowset));
-        await this.mysql.close();
         return topic;
     }
 
