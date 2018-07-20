@@ -27,23 +27,30 @@ export class AuthService {
     return !!token;
   }
 
-  async login(username: string, password: string) {
+  login(username: string, password: string, callback){
     return this.http.post<AuthResponse>("http://localhost:3001/auth", {
         username: username,
         password: password
     })
-    .pipe(
-      map((result: AuthResponse) => {
-        localStorage.setItem('access_token', result.token);
-        localStorage.setItem('loggedin_user', JSON.stringify(result.user));        
-        return result.user;
-      })
+    // .pipe(
+    //   map((result: AuthResponse) => {
+    //     localStorage.setItem('access_token', result.token);
+    //     localStorage.setItem('loggedin_user', JSON.stringify(result.user));        
+    //     return result.user;
+    //   })
+    // )
+    .subscribe(
+      (res: any) => {
+        // We get the user's JWT
+        localStorage.setItem('access_token', res.token);
+        localStorage.setItem('loggedin_user', JSON.stringify(res.user));
+        callback(true)
+      },
+      error => {
+        console.log(error);
+        callback(error);
+      }
     );
-    // .subscribe((res: AuthResponse) => {
-    //   // We get the user's JWT
-    //   localStorage.setItem('id_token', res.token);
-    //   localStorage.setItem('loggedin_user', JSON.stringify(res.user));
-    // });
   }
 
   logout() {

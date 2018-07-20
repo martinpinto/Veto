@@ -1,18 +1,19 @@
-<h1 mat-dialog-title>Login</h1>
-<div mat-dialog-content>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Username" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
-  
-    <mat-form-field>
-        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+<h1 mat-dialog-title>Please login to continue</h1>
+<div mat-dialog-content class="mdl-grid">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
+    <mat-form-field class="mdl-cell mdl-cell--12-col">
+      <input matInput placeholder="Username" formControlName="username" required>
+        <mat-error *ngIf="isFieldInvalid('username')">
+          Please input your user name
+        </mat-error>
       </mat-form-field>
+      <mat-form-field class="mdl-cell mdl-cell--12-col">
+        <input matInput placeholder="Enter your password" formControlName="password" [type]="hide ? 'password' : 'text'" required>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="isFieldInvalid('username')">
+          Please input your password
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary">Login</button>
   </form>
-</div>
-<div mat-dialog-actions>
-  <div class="text-center">
-    <button mat-raised-button color="primary" (click)="login()">Login</button>
-  </div>
 </div>

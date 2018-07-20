@@ -33,7 +33,9 @@ import {
   MatSelectModule,
   MatStepperModule,
   MatTabsModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatSnackBar,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -74,6 +76,7 @@ import { AlertService } from './services/alert/alert.service';
     MatSelectModule,
     MatStepperModule,
     MatTabsModule,
+    MatSnackBarModule,
     MatAutocompleteModule
   ],
   entryComponents: [QuoteAddDialog, QuoteCardDialog, LoginDialog],

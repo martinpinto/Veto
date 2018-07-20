@@ -12,7 +12,6 @@ import { User } from './models/user.model';
 })
 export class AppComponent {
   title = 'app';
-  @Input() loggedInUser: User;
 
   constructor(public dialog: MatDialog, public authSvc: AuthService) {
   }
@@ -33,7 +32,6 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.loggedInUser = JSON.parse(localStorage.getItem('loggedin_user'));
     });
   }
 
@@ -43,5 +41,9 @@ export class AppComponent {
 
   isLoggedIn(): boolean {
     return this.authSvc.isLoggedIn();
+  }
+
+  get loggedInUser(): User {
+    return JSON.parse(localStorage.getItem('loggedin_user'));
   }
 }
