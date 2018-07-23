@@ -33,11 +33,10 @@ export class QuotesService {
     );
   }
 
-  vote(id: number) {
-    //this.http.post<Quote>(`http://localhost:3001/api/quote/${id}/vote`);
+  vote(id: number, voteType: string) {
+    return this.http.put<Quote>(`http://localhost:3001/api/quote/${id}/vote`, {
+      "vote": voteType
+    });
   }
 
-  downvote(id: number) {
-    this.http.get<Quote>(`http://localhost:3001/api/quote/${id}/downvote`);
-  }
 }

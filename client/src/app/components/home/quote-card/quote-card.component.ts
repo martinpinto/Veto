@@ -45,24 +45,20 @@ export class QuoteCardComponent implements OnInit {
     });
   }
 
-  upvote(id: number) {
+  vote(id: number, voteType: string) {
     this.voting[id] = true;
-    this.quotesSvc.vote(id);
-
-    let quote = this.quotes.find(q => { return q.id == id; });
-    if (quote) {
-      quote.votes = quote.votes + 1;
-    }
-  }
-
-  downvote(id: number) {
-    this.voting[id] = true;
-    this.quotesSvc.downvote(id);
-    
-    let quote = this.quotes.find(q => { return q.id == id; });
-    if (quote) {
-      quote.votes = quote.votes - 1;
-    }
+    this.quotesSvc.vote(id, voteType).subscribe(
+      result => {
+        let quote = this.quotes.find(q => { return q.id == id; });
+        if (quote) {
+          if (voteType === 'Up') {
+            quote.votes = quote.votes + 1;
+          } else if (voteType === 'Down') {
+            quote.votes = quote.votes - 1;
+          }
+        }
+      }
+    );
   }
 
   canClick(quoteId: number) {
