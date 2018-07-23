@@ -15,11 +15,11 @@ import { User } from '../../../models/user.model';
     styleUrls: ['./quote-add-dialog.css']
   })
   export class QuoteAddDialog {
-    topic: Topic = {
+    topics: Topic[] = [{
       id: -1,
       dateCreated: "",
       title: ""
-    };
+    }];
     party: Party = {
       id: -1,
       name: "",
@@ -47,7 +47,7 @@ import { User } from '../../../models/user.model';
       title: "",
       description: "",
       status: "",
-      topic: this.topic,
+      topics: this.topics,
       votes: 0,
       dateCreated: new Date(),
       dateQuote: null,

@@ -1,6 +1,7 @@
 .card-wide {
     border-radius: 5px;
-    margin-bottom: 25px;
+    margin-top: 5px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -63,11 +64,12 @@ a {
 }
 
 .mdl-card__supporting-text {
-    height: 100px;
+    height: 100%;
     width: 80%;
     float: right;
-    overflow: auto;
     color: #555;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .mdl-card__menu {

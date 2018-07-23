@@ -28,6 +28,8 @@ export class AppComponent {
   
   login(): void {
     let dialogRef = this.dialog.open(LoginDialog, {
+      minHeight: '400px',
+      minWidth: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

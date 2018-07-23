@@ -18,6 +18,11 @@
 
 .nav-search {
     margin-left: 15px;
+    top: 5px;
+}
+
+.mat-button {
+    margin-right: 10px;    
 }
 
 .mat-button.mat-primary {
@@ -28,3 +33,26 @@
     color: black;
     background-color: white;
 }
+
+/* START fix top toolbar */ 
+.mat-toolbar-multiple-rows {
+    min-height: 48px;
+}
+
+.mat-toolbar-row {
+    height: 45px;
+}
+
+.mdl-textfield--expandable .mdl-button--icon {
+    top: 0;
+}
+
+.mdl-textfield .mdl-button {
+    bottom: 0;
+}
+
+.mdl-textfield {
+    padding: 0
+}
+
+/* END fix top toolbar */ 

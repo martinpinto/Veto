@@ -22,7 +22,7 @@
 
   <div>
     <div class="card-image-placeholder">
-      <img [src]="quote.Politician?.avatar" class="card-image">
+      <img *ngIf="quote.Politician?.avatar" [src]="quote.Politician?.avatar" class="card-image">
       <span>{{ quote.party?.name }}</span>
     </div>
     <div class="mdl-card__supporting-text">

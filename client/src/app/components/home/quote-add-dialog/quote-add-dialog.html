@@ -21,7 +21,7 @@
           <user-select></user-select>
           <!--<input matInput placeholder="Address" formControlName="secondCtrl" required>-->
         <div>
-          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-button color="primary" matStepperPrevious>Back</button>
         </div>
       </form>
     </mat-step>
@@ -49,6 +49,6 @@
 -->
 </div>
 <div mat-dialog-actions>
-  <button mat-button tabindex="2" (click)="addQuote()">Add</button>
-  <button mat-button tabindex="-1" (click)="onNoClick()">No Thanks</button>
+  <button mat-raised-button tabindex="2" (click)="addQuote()">Add</button>
+  <button mat-raised-button tabindex="-1" (click)="onNoClick()">No Thanks</button>
 </div>
