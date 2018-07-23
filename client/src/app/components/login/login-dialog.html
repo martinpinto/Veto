@@ -1,19 +1,54 @@
-<h1 mat-dialog-title>Please login to continue</h1>
-<div mat-dialog-content class="mdl-grid">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
-    <mat-form-field class="mdl-cell mdl-cell--12-col">
-      <input matInput placeholder="Username" formControlName="username" required>
-        <mat-error *ngIf="isFieldInvalid('username')">
-          Please input your user name
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="mdl-cell mdl-cell--12-col">
-        <input matInput placeholder="Enter your password" formControlName="password" [type]="hide ? 'password' : 'text'" required>
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-        <mat-error *ngIf="isFieldInvalid('username')">
-          Please input your password
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="primary">Login</button>
-  </form>
-</div>
+<mat-tab-group>
+  <mat-tab label="Login">
+      <h1 mat-dialog-title>Please login to continue</h1>
+      <div mat-dialog-content class="mdl-grid">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit('login')" class="example-form">
+          <mat-form-field class="mdl-cell mdl-cell--12-col">
+            <input matInput placeholder="Username" formControlName="username" required>
+              <mat-error *ngIf="isLoginFieldInvalid('username')">
+                Please input your user name
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mdl-cell mdl-cell--12-col">
+              <input matInput placeholder="Enter your password" formControlName="password" [type]="hide ? 'password' : 'text'" required>
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              <mat-error *ngIf="isLoginFieldInvalid('username')">
+                Please input your password
+              </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary">Login</button>
+        </form>
+      </div>
+    </mat-tab>
+  <mat-tab label="Register">
+      <h1 mat-dialog-title>Register</h1>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit('register')">
+        <mat-form-field class="mdl-cell mdl-cell--12-col">
+          <input matInput placeholder="First Name" formControlName="firstname" required>
+          <mat-error *ngIf="isRegisterFieldInvalid('firstname')">
+            Please input your first name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mdl-cell mdl-cell--12-col">
+          <input matInput placeholder="Last Name" formControlName="lastname" required>
+          <mat-error *ngIf="isRegisterFieldInvalid('lastname')">
+            Please input your last name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mdl-cell mdl-cell--12-col">
+          <input matInput placeholder="Username" formControlName="username" required>
+          <mat-error *ngIf="isRegisterFieldInvalid('username')">
+            Please input your last name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="mdl-cell mdl-cell--12-col">
+          <input matInput placeholder="Enter your password" formControlName="password" [type]="hide ? 'password' : 'text'" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          <mat-error *ngIf="isRegisterFieldInvalid('username')">
+            Please input your password
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary">Register</button>
+      </form>
+  </mat-tab>
+</mat-tab-group>

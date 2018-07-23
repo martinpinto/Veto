@@ -13,11 +13,15 @@ import { AlertService } from '../../services/alert/alert.service';
     providers: [AuthService]
   })
   export class LoginDialog {
-    form: FormGroup;
+    loginForm: FormGroup;
+    registerForm: FormGroup;
     private formSubmitAttempt: boolean;
 
     username: string;
     password: string;
+    /* register */
+    firstname: string;
+    lastname: string;
 
     constructor(
       public dialogRef: MatDialogRef<LoginDialog>,
@@ -28,33 +32,77 @@ import { AlertService } from '../../services/alert/alert.service';
     ) {}
 
     ngOnInit() {
-      this.form = this.formBuilder.group({
+      this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required]
       });
+      this.registerForm = this.formBuilder.group({
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        firstname: ['', Validators.required],
+        lastname: ['', Validators.required]
+      });
     }
   
-    isFieldInvalid(field: string) {
+    isLoginFieldInvalid(field: string) {
       return (
-        (!this.form.get(field).valid && this.form.get(field).touched) ||
-        (this.form.get(field).untouched && this.formSubmitAttempt)
+        (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
+        (this.loginForm.get(field).untouched && this.formSubmitAttempt)
       );
     }
 
-    onSubmit() {
-      if (this.form.valid && this.form.value) {
-        this.authSvc.login(this.form.value.username, this.form.value.password, (status) => {
-          if (!status.error) {
-            this.dialogRef.close();
-          } else {
-            // alert
-            this.snackBar.open('Login failed!', 'Please check your credentials!', {
-              duration: 2000,
-            });          
-          }
-        })
+    isRegisterFieldInvalid(field: string) {
+      return (
+        (!this.registerForm.get(field).valid && this.registerForm.get(field).touched) ||
+        (this.registerForm.get(field).untouched && this.formSubmitAttempt)
+      );
+    }
+
+    onSubmit(loginType: string) {
+      if (loginType === 'login') {
+        if (this.loginForm.valid && this.loginForm.value) {
+          this.authSvc.login(this.loginForm.value.username, this.loginForm.value.password, (status) => {
+            if (!status.error) {
+              this.dialogRef.close();
+            } else {
+              // alert
+              if (status === 401) {
+                this.snackBar.open('Login failed!', 'Please check your credentials!', {
+                  duration: 2000,
+                });          
+              } else {
+                this.snackBar.open('Login failed!', status.statusText, {
+                  duration: 2000,
+                }); 
+              }
+            }
+          });
+        }
+      } else if (loginType === 'register') {
+        if (this.registerForm.valid && this.registerForm.value) {
+          this.authSvc.register(
+            this.registerForm.value.username, 
+            this.registerForm.value.password,
+            this.registerForm.value.firstname, 
+            this.registerForm.value.lastname, (status) => {
+            if (!status.error) {
+              this.dialogRef.close();
+            } else {
+              // alert
+              if (status === 401) {
+                this.snackBar.open('Login failed!', 'Please check your credentials!', {
+                  duration: 2000,
+                });          
+              } else {
+                this.snackBar.open('Login failed!', status.statusText, {
+                  duration: 2000,
+                });  
+              }        
+            }
+          });        
+        }
+        this.formSubmitAttempt = true;
       }
-      this.formSubmitAttempt = true;
     }
 
     logout() {

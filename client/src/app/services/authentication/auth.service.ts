@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { resetFakeAsyncZone } from '@angular/core/testing';
 import { AlertService } from '../alert/alert.service';
-import { map } from "rxjs/operators";
+import { map, first } from "rxjs/operators";
 
 export interface AuthResponse {
     user: User,
@@ -39,6 +39,29 @@ export class AuthService {
     //     return result.user;
     //   })
     // )
+    .subscribe(
+      (res: any) => {
+        // We get the user's JWT
+        localStorage.setItem('access_token', res.token);
+        localStorage.setItem('loggedin_user', JSON.stringify(res.user));
+        callback(true)
+      },
+      error => {
+        console.log(error);
+        callback(error);
+      }
+    );
+  }
+
+  register(username: string, password: string, firstname: string, lastname: string, callback){
+    return this.http.post<AuthResponse>("http://localhost:3001/register", {
+      "user": {
+        username: username,
+        password: password,
+        firstname: firstname,
+        lastname: lastname
+      }
+    })
     .subscribe(
       (res: any) => {
         // We get the user's JWT

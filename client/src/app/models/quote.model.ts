@@ -12,7 +12,7 @@ export interface Quote {
     dateCreated: Date;
     dateQuote: Date;
     source: string;
-    topic: Topic;
+    topics: Topic[];
     party: Party;
     user: User;
     politician: Politician;

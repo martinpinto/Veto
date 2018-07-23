@@ -17,7 +17,6 @@ class UsersService {
         let query: string = `SELECT * FROM User WHERE u_id = ${id}`;
         let rowdata = await this.mysql.query(query, null);
         let user: User = new User(new UserEntity(rowdata[0]));
-        await this.mysql.close();
         return user;
     }
 
