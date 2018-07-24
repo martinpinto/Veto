@@ -6,6 +6,8 @@ import { resetFakeAsyncZone } from '@angular/core/testing';
 import { AlertService } from '../alert/alert.service';
 import { map, first } from "rxjs/operators";
 
+import * as moment from "moment";
+
 export interface AuthResponse {
     user: User,
     token: string
@@ -23,6 +25,8 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     // return tokenNotExpired('id_token', localStorage.getItem('id_token'));
+    // return moment().isBefore(this.getExpiration());
+
     let token = localStorage.getItem('access_token');
     return !!token;
   }
@@ -42,8 +46,7 @@ export class AuthService {
     .subscribe(
       (res: any) => {
         // We get the user's JWT
-        localStorage.setItem('access_token', res.token);
-        localStorage.setItem('loggedin_user', JSON.stringify(res.user));
+        this.setSession(res);
         callback(true)
       },
       error => {
@@ -65,8 +68,7 @@ export class AuthService {
     .subscribe(
       (res: any) => {
         // We get the user's JWT
-        localStorage.setItem('access_token', res.token);
-        localStorage.setItem('loggedin_user', JSON.stringify(res.user));
+        this.setSession(res);
         callback(true)
       },
       error => {
@@ -76,10 +78,18 @@ export class AuthService {
     );
   }
 
+  private setSession(res) {
+    const expiresAt = moment().add(res.expiresIn,'second');
+    localStorage.setItem('access_token', res.token);
+    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
+    localStorage.setItem('loggedin_user', JSON.stringify(res.user));
+  }
+
   logout() {
     // To log out, we just need to remove
     // the user's token
     localStorage.removeItem('access_token');
+    localStorage.removeItem('expires_at');
     localStorage.removeItem('loggedin_user');
   }
 
@@ -91,4 +101,11 @@ export class AuthService {
       //   error => console.log(error)
       // );
   }
+
+  getExpiration() {
+    const expiration = localStorage.getItem('expires_at');
+    const expiresAt = JSON.parse(expiration);
+    return moment(expiresAt);
+  }
+
 }
