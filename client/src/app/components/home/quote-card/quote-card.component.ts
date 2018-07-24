@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 import { Quote } from '../../../models/quote.model';
 import { QuotesService } from '../../../services/quotes/quotes.service';
@@ -18,7 +19,7 @@ export class QuoteCardComponent implements OnInit {
 
   private voting;
 
-  constructor(private quotesSvc: QuotesService, public dialog: MatDialog) { }
+  constructor(private quotesSvc: QuotesService, public dialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit() {
     if (this.quoteType) {
@@ -56,13 +57,39 @@ export class QuoteCardComponent implements OnInit {
           } else if (voteType === 'Down') {
             quote.votes = quote.votes - 1;
           }
+          let votes = JSON.parse(localStorage.getItem("votes"));
+          if (!votes) {
+            votes = [];
+          }
+          votes.push({ "id": id, "voteType": voteType });
+          localStorage.setItem("votes", JSON.stringify(votes));
         }
       }
     );
   }
 
-  canClick(quoteId: number) {
+  canVote(quoteId: number) {
     return this.voting[quoteId];
+  }
+
+  addFavorite(quoteId: number) {
+    this.quotesSvc.addFavorite(quoteId).subscribe(
+      result => {
+        let favorites = JSON.parse(localStorage.getItem("favorites"));
+        if (!favorites) {
+          favorites = [];
+        }
+        favorites.push({ "id": quoteId });
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+
+        this.toastr.success('Success!', `Your quote with id: '${quoteId}' was favorized!`);
+      }
+    );
+  }
+
+  canFavorize(quoteId: number) {
+    let favorites = JSON.parse(localStorage.getItem("favorites"));
+    return favorites ? favorites.map(f => { return f.id }).includes(quoteId) : false;
   }
 
   openShareDialog(id: number, title: string): void {

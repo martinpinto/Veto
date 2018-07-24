@@ -4,7 +4,6 @@
         <img class="mdl-chip__contact" *ngIf="quote.user && quote.user.avatar" src="{{ quote.user.avatar }}">      
         <span class="mdl-chip__contact mdl-color--purple mdl-color-text--white" *ngIf="quote.user && !quote.user.avatar">{{ quote.user?.firstname.charAt(0) }}</span>
         <span class="mdl-chip__text">{{ quote.user?.firstname + ' ' + quote.user?.lastname }}</span>
-        <span class="mdl-chip__text">&nbsp;{{ quote.user?.username }}</span>
     </span>
     <span class="card-spacer"></span>    
     <span class="mdl-chip">
@@ -34,15 +33,15 @@
   </div>
 
   <div class="mdl-card--border">
-    <button mat-icon-button color="primary" [disabled]="canClick(quote.id)" (click)="vote(quote.id, 'Up')">
+    <button mat-icon-button color="primary" [disabled]="canVote(quote.id)" (click)="vote(quote.id, 'Up')">
         <mat-icon aria-label="Upvote">thumb_up</mat-icon>
     </button>
     {{ quote.votes }}
-    <button mat-icon-button color="primary" [disabled]="canClick(quote.id)" (click)="vote(quote.id, 'Down')">
+    <button mat-icon-button color="primary" [disabled]="canVote(quote.id)" (click)="vote(quote.id, 'Down')">
         <mat-icon aria-label="Downvote">thumb_down</mat-icon>
     </button>
     
-    <button mat-icon-button color="primary">
+    <button mat-icon-button color="primary" [disabled]="canFavorize(quote.id)" (click)="addFavorite(quote.id)">
       <mat-icon aria-label="Save to favorite">favorite</mat-icon>
     </button>
     <button mat-icon-button color="primary" (click)="openShareDialog(quote.id, quote.title)">
