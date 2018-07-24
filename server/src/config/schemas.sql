@@ -141,9 +141,9 @@ VALUES
     ('Jens', 'Spahn', 3, 'Politician', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Jens_Spahn_MdB.jpg/1200px-Jens_Spahn_MdB.jpg', 10);
 
 INSERT INTO User
-    (u_firstname, u_lastname, u_username, u_password, u_email)
+    (u_firstname, u_lastname, u_username, u_password, u_email, p_avatar)
 VALUES
-    ('Martin', 'Pinto', '@martinpinto', 'secure', 'secure@mail.com');
+    ('Martin', 'Pinto', '@martinpinto', 'secure', 'secure@mail.com', 'https://blogcdn1.secureserver.net/wp-content/uploads/2014/06/create-a-gravatar-beard.png');
 
 INSERT INTO Quote 
     (q_title, q_description, q_status, q_votes, q_dateCreated, q_dateQuote, q_source, q_partyId, q_userId, q_politicianId) 
