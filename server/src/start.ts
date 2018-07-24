@@ -13,6 +13,7 @@ import * as Strategy from 'passport-local';
 import * as expressJwt from 'express-jwt';
 import * as jwt from 'jsonwebtoken';
 import * as helmet from 'helmet';
+import * as moment from 'moment';
 
 import { router as apiRouter } from './routes';
 import UsersService from './routes/user/user.service';
@@ -116,8 +117,8 @@ function routes(): void {
 }
 
 function authentication(): void {
-    const SECRET = 'server secret';
-    const TOKENTIME = 120 * 60; // in seconds
+    const SECRET = 'server secret'; // process.env.JWT_SECRET
+    const TOKENTIME = 120 * 60 * 60; // in seconds
 
     // https://medium.com/hyphe/token-based-authentication-in-node-6e8731bfd7f2
     // curl -X POST -H ‘Content-Type: application/json’ -d ‘{ “username”: “devils name”, “password”: “666” }’ localhost:3001/auth
@@ -149,18 +150,21 @@ function authentication(): void {
     }
 
     function generateToken(req, res, next) {
+        let expires = moment().utc().add(TOKENTIME, 'seconds').unix();
         req.token = jwt.sign({
             id: req.body.user ? req.body.user.id : req.user.id,
         }, SECRET, {
-            expiresIn: TOKENTIME
+            expiresIn: expires
         });
+        req.expiresIn = moment.unix(expires).format();
         next();
     }
 
     function respond(req, res) {
         res.status(200).json({
             user: req.body.user ? req.body.user : req.user,
-            token: req.token
+            token: req.token,
+            expiresIn: req.expiresIn
         });
     }
 
