@@ -20,6 +20,7 @@
       <span class="nav-spacer"></span>
       <div>
         <button mat-button color="primary" (click)="login()" *ngIf="!isLoggedIn()">Login</button>
+        <img class="mdl-chip__contact" *ngIf="isLoggedIn() && loggedInUser?.avatar" src="{{ loggedInUser?.avatar }}">
         <span class="mdl-chip__text" *ngIf="isLoggedIn()">{{ loggedInUser?.firstname + ' ' + loggedInUser?.lastname }}</span>
         <button mat-button color="primary" (click)="logout()" *ngIf="isLoggedIn()">Logout</button>
         <button mat-raised-button color="primary" (click)="createNewQuote()" id="show-dialog">
