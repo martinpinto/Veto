@@ -1,7 +1,8 @@
 <div *ngFor="let quote of quotes" class="card-wide mdl-card mdl-shadow--2dp">
   <div class="card-header">
     <span class="mdl-chip mdl-chip--contact card-chip">
-        <span class="mdl-chip__contact mdl-color--purple mdl-color-text--white">{{ quote.user?.firstname.charAt(0) }}</span>
+        <img class="mdl-chip__contact" *ngIf="quote.user && quote.user.avatar" src="{{ quote.user.avatar }}">      
+        <span class="mdl-chip__contact mdl-color--purple mdl-color-text--white" *ngIf="quote.user && !quote.user.avatar">{{ quote.user?.firstname.charAt(0) }}</span>
         <span class="mdl-chip__text">{{ quote.user?.firstname + ' ' + quote.user?.lastname }}</span>
         <span class="mdl-chip__text">&nbsp;{{ quote.user?.username }}</span>
     </span>
