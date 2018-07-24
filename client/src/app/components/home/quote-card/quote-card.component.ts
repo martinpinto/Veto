@@ -65,7 +65,7 @@ export class QuoteCardComponent implements OnInit {
     return this.voting[quoteId];
   }
 
-  openDialog(id: number, title: string): void {
+  openShareDialog(id: number, title: string): void {
     let dialogRef = this.dialog.open(QuoteCardDialog, {
       width: '250px',
       data: { quoteId: id, quoteTitle: title }
@@ -81,21 +81,24 @@ export class QuoteCardComponent implements OnInit {
 @Component({
   selector: 'quote-card-dialog',
   template: `
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <h2>Share to social media</h2>
   <div id="share">
     <!-- facebook -->
-    <a class="facebook" href="https://www.facebook.com/share.php?u=/quote/{{data.quoteId}}&title={{data.quoteTitle}}" target="blank"><i class="fa fa-facebook"></i></a>
+    <a class="facebook" href="https://www.facebook.com/share.php?u=http://localhost:4200/quote/{{data.quoteId}}&title={{data.quoteTitle}}" target="blank"><i class="fa fa-facebook"></i></a>
   
     <!-- twitter -->
-    <a class="twitter" href="https://twitter.com/intent/tweet?status={{data.quoteTitle}}+/quote/{{data.quoteId}}" target="blank"><i class="fa fa-twitter"></i></a>
+    <a class="twitter" href="https://twitter.com/intent/tweet?status={{data.quoteTitle}}+http://localhost:4200/quote/{{data.quoteId}}" target="blank"><i class="fa fa-twitter"></i></a>
   
     <!-- google plus -->
-    <a class="googleplus" href="https://plus.google.com/share?url=/quote/{{data.quoteId}}" target="blank"><i class="fa fa-google-plus"></i></a>
+    <a class="googleplus" href="https://plus.google.com/share?url=http://localhost:4200}/quote/{{data.quoteId}}" target="blank"><i class="fa fa-google-plus"></i></a>
   
     <!-- linkedin -->
-    <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=/quote/{{data.quoteId}}&title={{data.quoteTitle}}&source={{source}}" target="blank"><i class="fa fa-linkedin"></i></a>
+    <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4200/quote/{{data.quoteId}}&title={{data.quoteTitle}}&source={{source}}" target="blank"><i class="fa fa-linkedin"></i></a>
     
     <!-- pinterest -->
-    <a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?media={{media}}&url=/quote/{{data.quoteId}}&is_video=false&description={{data.quoteTitle}}" target="blank"><i class="fa fa-pinterest-p"></i></a>
+    <a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?media={{media}}&url=http://localhost:4200/quote/{{data.quoteId}}&is_video=false&description={{data.quoteTitle}}" target="blank"><i class="fa fa-pinterest-p"></i></a>
     
   </div>`,
   styleUrls: ['./quote-card-dialog.css']
