@@ -39,4 +39,8 @@ export class QuotesService {
     });
   }
 
+  addFavorite(id: any): any {
+    return this.http.post(`http://localhost:3001/api/quote/${id}/favorite`, {});
+  }
+
 }

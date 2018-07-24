@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -78,7 +79,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     MatStepperModule,
     MatTabsModule,
     MatSnackBarModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ToastrModule.forRoot()
   ],
   entryComponents: [QuoteAddDialog, QuoteCardDialog, LoginDialog],
   providers: [
