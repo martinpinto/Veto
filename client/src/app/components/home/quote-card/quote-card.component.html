@@ -6,8 +6,8 @@
         <span class="mdl-chip__text">{{ quote.user?.firstname + ' ' + quote.user?.lastname }}</span>
     </span>
     <span class="card-spacer"></span>    
-    <span class="mdl-chip">
-        <span class="mdl-chip__text">{{ quote.topic ? quote.topic[0]?.title : "" }}</span>
+    <span class="mdl-chip" *ngFor="let topic of quote.topics">
+      <span class="mdl-chip__text">{{ topic ? topic.title : "" }}</span>
     </span>
   </div>
 
