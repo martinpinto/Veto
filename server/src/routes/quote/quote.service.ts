@@ -21,7 +21,7 @@ class QuotesService {
         } else {
             filter = "";
         }
-        let query: string = `SELECT * FROM Quote ${filter}RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
+        const query: string = `SELECT * FROM Quote ${filter}RIGHT JOIN Party ON Quote.q_partyId = Party.py_id
             RIGHT OUTER JOIN User ON Quote.q_userId = User.u_id
             RIGHT OUTER JOIN Politician ON Quote.q_politicianId = Politician.p_id`;
         logger.debug(query);
@@ -33,31 +33,31 @@ class QuotesService {
             quotes.push(quote);
         }
         await TopicsService.getTopicsForQuotes(quotes);
-        //await this.mysql.close();
         return quotes;
     }
 
     async getQuote(id: number) {
-        let query = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id 
+        const query = `SELECT * FROM Quote RIGHT JOIN Party ON Quote.q_partyId = Party.py_id 
             RIGHT JOIN User ON Quote.q_userId = User.u_id 
-            RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id WHERE Quote.q_id = ${id}`;
-        let rowdata = await this.mysql.query(query, null);
+            RIGHT JOIN Politician ON Quote.q_politicianId = Politician.p_id WHERE Quote.q_id = ?`;
+        let rowdata = await this.mysql.query(query, [id]);
         let quote: Quote = new Quote(new QuoteEntity(rowdata[0]));
-        //await this.mysql.close();
         return quote;
     }
 
     async addQuote(quote: Quote) {
+        const values = [
+            quote.title, 
+            quote.description, 
+            this.mysql.convertDateToYMD(new Date()), 
+            quote.politicianId
+        ];
         let result = await this.mysql.query(`
             INSERT INTO Quote 
                 (q_title, q_description, q_dateCreated, q_politicianId) 
             VALUES (
-                '${quote.title}', 
-                '${quote.description}', 
-                '${this.mysql.convertDateToYMD(new Date())}', 
-                ${quote.politicianId}
-            )`, null);
-        //await this.mysql.close();
+                ?, ?, ?, ?
+            )`, values);
         return result;
         // create new entry for comments into mongodb
     }
@@ -74,7 +74,7 @@ class QuotesService {
         }
         // increase or decrease votes
         let result = await this.mysql.query(`UPDATE Quote 
-            SET q_votes = q_votes ${upOrDownVote} WHERE q_id = ${quoteId}`, null);
+            SET q_votes = q_votes ${upOrDownVote} WHERE q_id = ?`, [quoteId]);
         return result; // return current votes for quoteId (?)
     }
 
@@ -84,8 +84,8 @@ class QuotesService {
             INSERT INTO UserFavoriteQuote
                 (ufq_userId, ufq_quoteId)
             VALUES (
-                ${userId}, ${quoteId}
-            )`, null);
+                ?, ?
+            )`, [userId, quoteId]);
         return result;
     }
 

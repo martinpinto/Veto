@@ -12,12 +12,17 @@ export class MySqlRepository {
     connection;
 
     constructor() {
-        this.connection = mysql.createConnection({
+        // this.connection = mysql.createConnection({
+        this.connection = mysql.createPool({            
             host     : config.database.mysql.baseurl,
             user     : config.database.mysql.user,
             password : config.database.mysql.password,
             database : config.database.mysql.database
         });
+    }
+
+    getConnection() {
+        return this.connection;
     }
     
     query(sql, args): Promise<any[]> {

@@ -13,7 +13,7 @@ class TopicsService {
     }
 
     async getTopics(): Promise<Topic[]> {
-        let query: string = `SELECT * FROM Topic`;
+        const query: string = `SELECT * FROM Topic`;
         let rowset = await this.mysql.query(query, null);
         let topics: Topic[] = [];
         for (let i = 0; i < rowset.length; i++) {
@@ -24,8 +24,9 @@ class TopicsService {
     }
 
     async getTopic(id: number): Promise<Topic> {
-        let query: string = `SELECT * FROM Topic WHERE t_id = ${id}`;
-        let rowset = await this.mysql.query(query, null);
+        const query: string = `SELECT * FROM Topic WHERE t_id = ?`;
+        const values = [id];
+        let rowset = await this.mysql.query(query, values);
         let topic: Topic = new Topic(new TopicEntity(rowset));
         return topic;
     }
@@ -49,7 +50,8 @@ class TopicsService {
             FROM QuoteTopic ${join} ${filter}`;
         logger.debug(query);
         let rowset = await this.mysql.query(query, null)
-        logger.debug("Rowset");logger.debug(JSON.stringify(rowset, null, 2));
+        logger.debug("Rowset");
+        logger.debug(JSON.stringify(rowset, null, 2));
         let allTopics: Topic[] = [];
         for (let row of rowset) {
             allTopics.push(new Topic(new TopicEntity(row)));
@@ -68,8 +70,8 @@ class TopicsService {
         INSERT INTO Topic 
             (t_title) 
         VALUES (
-            '${topic.title}'
-        )`, null);
+            ?
+        )`, [topic.title]);
         return result;
     }
 
