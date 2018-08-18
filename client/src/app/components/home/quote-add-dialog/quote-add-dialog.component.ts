@@ -15,64 +15,35 @@ import { User } from '../../../models/user.model';
     styleUrls: ['./quote-add-dialog.css']
   })
   export class QuoteAddDialog {
-    topics: Topic[] = [{
-      id: -1,
-      dateCreated: "",
-      title: ""
-    }];
-    party: Party = {
-      id: -1,
-      name: "",
-      logo: "",
-      link: ""
-    };
-    user: User = {
-      id: -1,
-      firstname: "",
-      lastname: "",
-      username: "",
-      avatar: ""
-    };
-    politician: Politician = {
-      id : -1,
-      firstname: "",
-      lastname: "",
-      role: "",
-      avatar: "",
-      votes: -1,
-      Party: this.party
-    };
-    quote: Quote = {
-      id: 1,
-      title: "",
-      description: "",
-      status: "",
-      topics: this.topics,
-      votes: 0,
-      dateCreated: new Date(),
-      dateQuote: null,
-      source: "",
-      party: this.party,
-      user: this.user,
-      politician: this.politician
-    };
     
     firstFormGroup: FormGroup;
-    secondFormGroup: FormGroup;  
+    secondFormGroup: FormGroup;
+    thirdFormGroup: FormGroup;  
+    fourthFormGroup: FormGroup;  
+    fifthFormGroup: FormGroup;  
 
     constructor(
       public quotesSvc: QuotesService,
       public dialogRef: MatDialogRef<QuoteAddDialog>,
-      private _formBuilder: FormBuilder,
+      private formBuilder: FormBuilder,
       @Inject(MAT_DIALOG_DATA) public data: any
     ) {}
 
     ngOnInit() {
-      this.firstFormGroup = this._formBuilder.group({
+      this.firstFormGroup = this.formBuilder.group({
         firstCtrl: ['', Validators.required]
       });
-      this.secondFormGroup = this._formBuilder.group({
+      this.secondFormGroup = this.formBuilder.group({
         secondCtrl: ['', Validators.required]
+      });
+      this.thirdFormGroup = this.formBuilder.group({
+        thirdCtrl: ['', Validators.required]
+      });
+      this.fourthFormGroup = this.formBuilder.group({
+        fourthCtrl: ['', Validators.required]
+      });
+      this.fifthFormGroup = this.formBuilder.group({
+        fifthCtrl: ['', Validators.required]
       });
     }
   
@@ -81,8 +52,21 @@ import { User } from '../../../models/user.model';
     }
 
     addQuote(): void {
-      this.quotesSvc.addQuote(this.quote);
+      const title = this.firstFormGroup.value.firstCtrl;
+      const description = this.secondFormGroup.value.secondCtrl;
+      const source = this.thirdFormGroup.value.thirdCtrl;
+      const topics = this.fourthFormGroup.value.fourthCtrl;
+      const politician = this.fifthFormGroup.value.fifthCtrl;
+      
+      let quote: Quote = {
+          title: title,
+          description: description,
+          source: source,
+          topics: topics,
+          politician: politician
+      };
+      this.quotesSvc.addQuote(quote);
       this.dialogRef.close();      
     }
-  
+
   }

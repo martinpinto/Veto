@@ -5,10 +5,9 @@
   <mat-horizontal-stepper [linear]="true">
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Enter quote</ng-template>
+        <ng-template matStepLabel>Enter quote title</ng-template>
         <mat-form-field>
-            <textarea matInput placeholder="Quote" matTextareaAutosize matAutosizeMinRows="5"
-              matAutosizeMaxRows="5" formControlName="firstCtrl" required></textarea>
+          <textarea matInput placeholder="Title" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="5" formControlName="firstCtrl" required></textarea>
         </mat-form-field>
         <div>
           <button mat-raised-button color="primary" matStepperNext>Next</button>
@@ -17,37 +16,50 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Enter politician</ng-template>
-          <user-select></user-select>
-          <!--<input matInput placeholder="Address" formControlName="secondCtrl" required>-->
+        <ng-template matStepLabel>Enter quote description</ng-template>
+        <mat-form-field>
+          <textarea matInput placeholder="Description" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="5" formControlName="secondCtrl" required></textarea>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Enter quote source</ng-template>
+        <mat-form-field>
+          <textarea matInput placeholder="Source" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="5" formControlName="thirdCtrl" required></textarea>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="fourthFormGroup">
+      <form [formGroup]="fourthFormGroup">
+        <ng-template matStepLabel>Enter quote topics</ng-template>
+        <mat-form-field>
+          <textarea matInput placeholder="Topics" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="5" formControlName="fourthCtrl" required></textarea>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="fifthFormGroup">
+      <form [formGroup]="fourthFormGroup">
+        <ng-template matStepLabel>Enter quote politician</ng-template>
+        <user-select></user-select>
+        <!--<input matInput placeholder="Address" formControlName="secondCtrl" required>-->
         <div>
           <button mat-button color="primary" matStepperPrevious>Back</button>
         </div>
       </form>
     </mat-step>
   </mat-horizontal-stepper>
-
-  <!--
-  <mat-form-field>
-    <input matInput tabindex="1" [(ngModel)]="quote.title" placeholder="Name" />
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput tabindex="2" [(ngModel)]="quote.author" placeholder="Author" />
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput tabindex="3" [(ngModel)]="quote.description" placeholder="Description" />
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput tabindex="4" [(ngModel)]="quote.type" placeholder="Type" />
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput tabindex="5" [(ngModel)]="quote.status" placeholder="Status" />
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput tabindex="6" [(ngModel)]="quote.topic" placeholder="Topic" />
-  </mat-form-field>
--->
 </div>
+
 <div mat-dialog-actions>
   <button mat-raised-button tabindex="2" (click)="addQuote()">Add</button>
   <button mat-raised-button tabindex="-1" (click)="onNoClick()">No Thanks</button>
